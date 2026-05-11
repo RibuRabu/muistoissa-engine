@@ -1,0 +1,11 @@
+ALTER TABLE nodes ADD COLUMN memorial_name TEXT;
+ALTER TABLE nodes ADD COLUMN birth_date TEXT;
+ALTER TABLE nodes ADD COLUMN death_date TEXT;
+ALTER TABLE nodes ADD COLUMN memorial_type TEXT;
+ALTER TABLE nodes ADD COLUMN short_epitaph TEXT;
+ALTER TABLE nodes ADD COLUMN memory_text TEXT;
+ALTER TABLE nodes ADD COLUMN life_story TEXT;
+ALTER TABLE nodes ADD COLUMN hero_image_url TEXT;
+ALTER TABLE nodes ADD COLUMN gallery_json TEXT;
+ALTER TABLE nodes ADD COLUMN visibility_mode TEXT DEFAULT 'draft';
+ALTER TABLE nodes ADD COLUMN published_at TEXT;
