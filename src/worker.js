@@ -304,7 +304,7 @@ const COLLECTION_SESSION_MAX_AGE_SECONDS = 60 * 60 * 24;
 const ANONYMOUS_REPORT_COOLDOWN_SECONDS = 60;
 const OWNER_PIN_MAX_ATTEMPTS = 5;
 const OWNER_PIN_LOCKOUT_SECONDS = 15 * 60;
-const PUBLIC_APP_BASE_URL = "https://node.liminall.fi";
+const PUBLIC_APP_BASE_URL = "https://muistoissa-engine.rkallio88.workers.dev";
 
 async function servePublicPage(request, env) {
   return fetchInternalHtmlAsset(request, env, "/public.html");
