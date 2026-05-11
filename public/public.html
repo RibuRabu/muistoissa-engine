@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Liminall Node</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/public.css">
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <header class="node-header">
+        <div class="topbar">
+          <div class="brand-wrap">
+            <div class="brand">Liminall Node</div>
+            <div class="node-activation" id="node-activation">Node aktiivinen</div>
+          </div>
+
+          <div class="lang" role="group" aria-label="Language switch">
+            <button type="button" id="lang-fi" class="active">FI</button>
+            <span>|</span>
+            <button type="button" id="lang-en">EN</button>
+          </div>
+        </div>
+
+        <h1 id="node-name">Node</h1>
+        <div class="node-id" id="node-id">ID#</div>
+
+        <div class="node-status-wrap" id="node-status-wrap" style="display:none;">
+          <div class="node-status-badge" id="node-status-badge">ACTIVE</div>
+        </div>
+      </header>
+
+      <section class="node-image" id="node-image-section" style="display:none;">
+        <img id="node-image" src="" alt="">
+      </section>
+
+      <section class="node-message">
+        <p id="node-message">This tag is linked to a persistent digital identity object.</p>
+      </section>
+
+      <section class="node-primary-action" id="node-primary-action-section" style="display:none;">
+        <a id="primary-action" class="action action-disabled" href="javascript:void(0)" aria-disabled="true">
+          <span class="action-left">
+            <span class="action-icon" id="primary-action-icon">✉</span>
+            <span id="primary-action-label">Contact owner</span>
+          </span>
+          <span class="action-arrow">→</span>
+        </a>
+      </section>
+
+      <section class="node-secondary-actions" id="node-secondary-actions-section" style="display:none;">
+        <div class="secondary-actions-title" id="secondary-actions-title">Other contact options</div>
+
+        <div class="node-actions">
+          <a id="action-phone" class="action action-disabled secondary-action" href="javascript:void(0)" aria-disabled="true" style="display:none;">
+            <span class="action-left">
+              <span class="action-icon">📞</span>
+              <span id="action-phone-label">Call</span>
+            </span>
+            <span class="action-arrow">→</span>
+          </a>
+
+          <a id="action-sms" class="action action-disabled secondary-action" href="javascript:void(0)" aria-disabled="true" style="display:none;">
+            <span class="action-left">
+              <span class="action-icon">✉</span>
+              <span id="action-sms-label">SMS</span>
+            </span>
+            <span class="action-arrow">→</span>
+          </a>
+
+          <a id="action-whatsapp" class="action action-disabled secondary-action" href="javascript:void(0)" aria-disabled="true" style="display:none;">
+            <span class="action-left">
+              <span class="action-icon">💬</span>
+              <span id="action-whatsapp-label">WhatsApp</span>
+            </span>
+            <span class="action-arrow">→</span>
+          </a>
+
+          <a id="action-email" class="action action-disabled secondary-action" href="javascript:void(0)" aria-disabled="true" style="display:none;">
+            <span class="action-left">
+              <span class="action-icon">✉</span>
+              <span id="action-email-label">Email</span>
+            </span>
+            <span class="action-arrow">→</span>
+          </a>
+        </div>
+
+        <div id="contact-disclaimer" class="contact-disclaimer" style="display:none;"></div>
+      </section>
+
+      <section class="node-location" id="node-location-section" style="display:none;">
+        <a id="map-link" class="map-link" href="#" target="_blank" rel="noopener noreferrer">Show location on map →</a>
+      </section>
+
+      <section class="report-section" id="report-section" style="display:none;">
+        <h2 id="report-title">Send a message to the owner</h2>
+        <p id="report-subtitle">Use this Node to contact the owner.</p>
+
+        <form id="report-form">
+          <label for="finder-name" id="label-finder-name">Your name</label>
+          <input id="finder-name" type="text" maxlength="120">
+
+          <label for="finder-contact" id="label-finder-contact">Your contact</label>
+          <input id="finder-contact" type="text" maxlength="200">
+
+          <label for="report-message" id="label-report-message">Message</label>
+          <textarea id="report-message" maxlength="2000"></textarea>
+
+          <label for="report-location" id="label-report-location">Location</label>
+          <input id="report-location" type="text" maxlength="200">
+
+          <button type="submit" id="report-submit">Send message</button>
+        </form>
+
+        <div id="report-feedback"></div>
+      </section>
+
+      <footer
+        style="margin-top:40px; text-align:center; font-size:12px; line-height:1.4; color:rgba(17,24,39,0.48);"
+      >
+        Powered by
+        <a
+          href="https://liminall.fi"
+          target="_blank"
+          rel="noreferrer noopener"
+          style="color:inherit; text-decoration:none; border-bottom:1px solid rgba(17,24,39,0.18);"
+        >Liminall</a>
+      </footer>
+    </div>
+  </div>
+
+  <script src="/public.js"></script>
+</body>
+</html>

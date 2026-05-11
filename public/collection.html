@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Liminall Collection</title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/owner.css" />
+</head>
+<body class="collection-page">
+  <div class="page-shell">
+    <div class="page">
+      <div class="hero">
+        <div class="hero-inner">
+          <div class="topbar">
+            <div class="topbar-left">
+              <div class="brand-row">
+                <div class="brand-logo-frame">
+                  <img src="/logo.svg" alt="Liminall" class="brand-logo" />
+                </div>
+
+                <div class="brand-meta">
+                  <div class="brand-name">Liminall</div>
+                  <div class="eyebrow">Collection</div>
+                </div>
+              </div>
+
+              <h1 id="pageTitle">Collection</h1>
+              <div id="pageSubtitle" class="muted">Collection dashboard</div>
+            </div>
+
+            <div class="topbar-right">
+              <button id="logoutButton" class="ghost-button" type="button">Logout</button>
+              <button id="langFi" class="lang-button" type="button">FI</button>
+              <button id="langEn" class="lang-button" type="button">EN</button>
+            </div>
+          </div>
+
+          <div id="actionStatus" class="hero-notice"></div>
+        </div>
+      </div>
+
+      <div class="main-grid">
+        <div class="stack">
+          <div class="card">
+            <div class="card-header">
+              <h2 id="membersCardTitle">Collection members</h2>
+            </div>
+
+            <div id="collectionStatus" class="muted small"></div>
+            <div id="collectionMembers"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/collection.js"></script>
+</body>
+</html>

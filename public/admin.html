@@ -1,0 +1,1203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Liminall Node Admin</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --border: #d7dce3;
+      --text: #1b2430;
+      --muted: #5f6b7a;
+      --accent: #1d4ed8;
+      --danger: #b42318;
+      --success: #067647;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0 0 12px;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .toolbar,
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: minmax(220px, 340px) auto auto;
+      gap: 12px;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(420px, 520px) 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    input,
+    button,
+    textarea {
+      width: 100%;
+      font: inherit;
+    }
+
+    input {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    button {
+      width: auto;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    button.danger {
+      border-color: var(--danger);
+      background: var(--danger);
+      color: #fff;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .status {
+      min-height: 44px;
+      margin-bottom: 16px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--panel);
+      white-space: pre-wrap;
+    }
+
+    .status.is-loading {
+      color: var(--muted);
+    }
+
+    .status.is-success {
+      border-color: #a6f4c5;
+      color: var(--success);
+      background: #ecfdf3;
+    }
+
+    .status.is-error {
+      border-color: #fecdca;
+      color: var(--danger);
+      background: #fef3f2;
+    }
+
+    .table-wrap {
+      overflow: auto;
+      max-height: 70vh;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    tbody tr {
+      cursor: pointer;
+    }
+
+    tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    tbody tr.selected {
+      background: #eff6ff;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .mono {
+      font-family: Consolas, Monaco, monospace;
+    }
+
+    pre {
+      margin: 0;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fbfcfe;
+      overflow: auto;
+      font: 13px/1.5 Consolas, Monaco, monospace;
+    }
+
+    .events {
+      display: grid;
+      gap: 10px;
+    }
+
+    .event {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fbfcfe;
+    }
+
+    .event-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .keyvals {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 8px 12px;
+      margin-bottom: 16px;
+    }
+
+    .keyvals dt {
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .keyvals dd {
+      margin: 0;
+      word-break: break-word;
+    }
+
+    @media (max-width: 980px) {
+      .toolbar,
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .keyvals {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Liminall Node Admin</h1>
+    <p>Internal admin tools for node inspection and recovery.</p>
+
+    <div class="toolbar" style="margin-top: 16px;">
+      <div>
+        <label for="admin-key">Admin key</label>
+        <input id="admin-key" type="password" autocomplete="off" spellcheck="false" placeholder="x-admin-key">
+      </div>
+      <div class="button-row">
+        <button id="toggle-key" type="button">Show key</button>
+        <button id="create-node" type="button">Create node</button>
+        <button id="load-nodes" type="button" class="primary">Load nodes</button>
+      </div>
+      <div class="muted" id="selected-node-label">No node selected.</div>
+    </div>
+
+    <div id="status" class="status"></div>
+
+    <section class="panel" style="margin-bottom: 16px;">
+      <h2>Recently active nodes</h2>
+      <div id="recent-activity-panel" style="margin-top: 12px;">
+        <div class="muted">Load nodes to view recent activity.</div>
+      </div>
+    </section>
+
+    <div class="layout">
+      <section class="panel">
+        <h2>Nodes</h2>
+          <div class="button-row" style="margin-top: 12px; align-items: end;">
+            <div style="min-width: 220px;">
+              <label for="node-search">Search</label>
+              <input id="node-search" type="text" placeholder="Slug, name, or identifier">
+            </div>
+            <div style="min-width: 180px;">
+              <label for="node-status-filter">Status filter</label>
+              <select id="node-status-filter">
+                <option value="active">Active only</option>
+                <option value="disabled">Disabled only</option>
+                <option value="lost">Lost only</option>
+                <option value="all">All</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-wrap" style="margin-top: 12px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Slug</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Identifier</th>
+                <th>Created</th>
+                <th>Updated</th>
+              </tr>
+            </thead>
+            <tbody id="nodes-body">
+              <tr>
+                <td colspan="6" class="muted">Load nodes to view the network list.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="stack">
+        <section class="panel">
+          <h2>System Overview</h2>
+          <dl class="keyvals" style="margin-top: 12px; margin-bottom: 0;">
+            <dt>Nodes / Total</dt>
+            <dd id="overview-nodes-total">—</dd>
+            <dt>Nodes / Active</dt>
+            <dd id="overview-nodes-active">—</dd>
+            <dt>Nodes / Disabled</dt>
+            <dd id="overview-nodes-disabled">—</dd>
+            <dt>Nodes / Lost</dt>
+            <dd id="overview-nodes-lost">—</dd>
+            <dt>Collections / Total</dt>
+            <dd id="overview-collections-total">—</dd>
+            <dt>Collections / Nodes in collections</dt>
+            <dd id="overview-nodes-in-collections">—</dd>
+            <dt>Activity / Events (24h)</dt>
+            <dd id="overview-events-last-24h">—</dd>
+          </dl>
+        </section>
+
+        <section class="panel">
+          <h2>Collections</h2>
+          <div id="collections-panel" style="margin-top: 12px;">
+            <div class="muted">Load nodes to view collections.</div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Collection Members</h2>
+          <div id="collection-members-label" class="muted" style="margin-top: 12px;">No collection selected.</div>
+          <div id="collection-members-panel" style="margin-top: 12px;">
+            <div class="muted">Select a collection to inspect its member nodes.</div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Node Inspector</h2>
+          <div id="inspector-empty" class="muted" style="margin-top: 12px;">Select a node to inspect it.</div>
+          <div id="inspector-content" hidden style="margin-top: 12px;">
+            <dl class="keyvals" id="inspector-fields"></dl>
+            <h3>Raw JSON</h3>
+            <pre id="inspector-json"></pre>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Admin Actions</h2>
+          <div class="button-row" style="margin-top: 12px;">
+            <button id="reissue-owner" type="button" disabled>Replace owner key</button>
+            <button id="reset-pin" type="button" disabled>Reset PIN</button>
+            <button id="disable-node" type="button" class="danger" disabled>Disable node</button>
+          </div>
+          <div class="muted" style="margin-top: 12px;">
+            Replace owner key invalidates the current owner credential immediately. The old owner NFC/link will stop working, and a new owner key must be programmed afterward.
+          </div>
+          <div style="margin-top: 12px;">
+            <pre id="action-result">No action run yet.</pre>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Batch Provisioning</h2>
+          <div class="button-row" style="margin-top: 12px; align-items: end;">
+            <div>
+              <label for="batch-quantity">Quantity</label>
+              <input id="batch-quantity" type="number" min="1" max="100" step="1" value="1" style="width: 120px;">
+            </div>
+            <button id="create-batch" type="button">Create batch</button>
+            <button id="copy-batch-results" type="button" disabled>Copy batch results</button>
+          </div>
+          <div style="margin-top: 12px;">
+            <pre id="batch-results">No batch results yet.</pre>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Events</h2>
+          <div id="events-empty" class="muted" style="margin-top: 12px;">Select a node to load events.</div>
+          <div id="events-list" class="events" style="margin-top: 12px;"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const state = {
+      nodes: [],
+      collections: [],
+      recentActivity: [],
+      selectedSlug: "",
+      selectedNode: null,
+      nodeSearch: "",
+      nodeStatusFilter: "active",
+      selectedCollectionId: "",
+      selectedCollectionName: "",
+      batchResults: [],
+      isCreatingBatch: false,
+      selectedEvents: []
+    };
+
+    const els = {
+      adminKey: document.getElementById("admin-key"),
+      toggleKey: document.getElementById("toggle-key"),
+      createNode: document.getElementById("create-node"),
+      loadNodes: document.getElementById("load-nodes"),
+      batchQuantity: document.getElementById("batch-quantity"),
+      createBatch: document.getElementById("create-batch"),
+      copyBatchResults: document.getElementById("copy-batch-results"),
+      selectedNodeLabel: document.getElementById("selected-node-label"),
+      status: document.getElementById("status"),
+      nodesBody: document.getElementById("nodes-body"),
+      nodeSearch: document.getElementById("node-search"),
+      nodeStatusFilter: document.getElementById("node-status-filter"),
+      recentActivityPanel: document.getElementById("recent-activity-panel"),
+      inspectorEmpty: document.getElementById("inspector-empty"),
+      inspectorContent: document.getElementById("inspector-content"),
+      inspectorFields: document.getElementById("inspector-fields"),
+      inspectorJson: document.getElementById("inspector-json"),
+      reissueOwner: document.getElementById("reissue-owner"),
+      resetPin: document.getElementById("reset-pin"),
+      disableNode: document.getElementById("disable-node"),
+      actionResult: document.getElementById("action-result"),
+      batchResults: document.getElementById("batch-results"),
+      eventsEmpty: document.getElementById("events-empty"),
+      eventsList: document.getElementById("events-list")
+    };
+
+    function getAdminKey() {
+      return els.adminKey.value.trim();
+    }
+
+    function requireAdminKey() {
+      const adminKey = getAdminKey();
+
+      if (!adminKey) {
+        setStatus("Enter the admin key first.", "error");
+        return null;
+      }
+
+      return adminKey;
+    }
+
+    function setStatus(message, type) {
+      els.status.textContent = message || "";
+      els.status.className = "status";
+      if (type) {
+        els.status.classList.add("is-" + type);
+      }
+    }
+
+    function formatJson(value) {
+      return JSON.stringify(value, null, 2);
+    }
+
+    async function readResponse(res) {
+      const text = await res.text();
+      let data = null;
+
+      if (text) {
+        try {
+          data = JSON.parse(text);
+        } catch {
+          data = text;
+        }
+      }
+
+      if (!res.ok) {
+        const detail = typeof data === "string" ? data : (data && (data.error || data.message)) || "";
+        throw new Error("HTTP " + res.status + (detail ? ": " + detail : ""));
+      }
+
+      return data;
+    }
+
+    async function apiFetch(path, options) {
+      const adminKey = requireAdminKey();
+      if (!adminKey) return null;
+
+      const nextOptions = options || {};
+      const headers = new Headers(nextOptions.headers || {});
+      headers.set("x-admin-key", adminKey);
+      headers.set("Accept", "application/json");
+
+      if (nextOptions.body && !headers.has("Content-Type")) {
+        headers.set("Content-Type", "application/json");
+      }
+
+      const res = await fetch(path, {
+        method: nextOptions.method || "GET",
+        headers,
+        body: nextOptions.body,
+        cache: "no-store"
+      });
+
+      return readResponse(res);
+    }
+
+    async function loadAdminOverview() {
+      try {
+        const data = await apiFetch("/api/admin/overview");
+        if (!data) return;
+
+        document.getElementById("overview-nodes-total").textContent = String(data.nodes_total ?? "—");
+        document.getElementById("overview-nodes-active").textContent = String(data.nodes_active ?? "—");
+        document.getElementById("overview-nodes-disabled").textContent = String(data.nodes_disabled ?? "—");
+        document.getElementById("overview-nodes-lost").textContent = String(data.nodes_lost ?? "—");
+        document.getElementById("overview-collections-total").textContent = String(data.collections_total ?? "—");
+        document.getElementById("overview-nodes-in-collections").textContent = String(data.nodes_in_collections ?? "—");
+        document.getElementById("overview-events-last-24h").textContent = String(data.events_last_24h ?? "—");
+      } catch {
+      }
+    }
+
+    function renderRecentActivity(items, errorMessage) {
+      if (errorMessage) {
+        els.recentActivityPanel.innerHTML = "<div class=\"muted\">" + escapeHtml(errorMessage) + "</div>";
+        return;
+      }
+
+      if (!Array.isArray(items) || !items.length) {
+        els.recentActivityPanel.innerHTML = "<div class=\"muted\">No recent node activity found.</div>";
+        return;
+      }
+
+      const rows = items.map((item) => {
+        const slug = item.public_slug || "";
+        const identifier = item.public_identifier || "";
+        const name = item.profile_name || "";
+        const eventType = item.latest_event_type || "";
+        const eventTime = item.latest_event_created_at || "";
+        const displayName = name || "(unnamed)";
+
+        return "<tr>"
+          + "<td>" + escapeHtml(slug) + "</td>"
+          + "<td>" + escapeHtml(displayName) + "</td>"
+          + "<td>" + escapeHtml(identifier) + "</td>"
+          + "<td>" + escapeHtml(eventType) + "</td>"
+          + "<td>" + escapeHtml(eventTime) + "</td>"
+          + "</tr>";
+      }).join("");
+
+      els.recentActivityPanel.innerHTML = ""
+        + "<div class=\"table-wrap\">"
+        + "<table>"
+        + "<thead>"
+        + "<tr>"
+        + "<th>Slug</th>"
+        + "<th>Name</th>"
+        + "<th>Identifier</th>"
+        + "<th>Latest event</th>"
+        + "<th>When</th>"
+        + "</tr>"
+        + "</thead>"
+        + "<tbody>"
+        + rows
+        + "</tbody>"
+        + "</table>"
+        + "</div>";
+    }
+
+    async function loadRecentActivity() {
+      try {
+        const data = await apiFetch("/api/admin/recent-activity");
+        if (!data) return;
+        state.recentActivity = Array.isArray(data) ? data : [];
+        renderRecentActivity(state.recentActivity);
+      } catch (error) {
+        state.recentActivity = [];
+        renderRecentActivity([], error.message || "Failed to load recent activity.");
+      }
+    }
+
+    function renderAdminCollectionMembers(items, errorMessage) {
+      const label = document.getElementById("collection-members-label");
+      const container = document.getElementById("collection-members-panel");
+      const collectionName = state.selectedCollectionName || "(unnamed)";
+
+      if (!state.selectedCollectionId) {
+        label.textContent = "No collection selected.";
+        container.innerHTML = "<div class=\"muted\">Select a collection to inspect its member nodes.</div>";
+        return;
+      }
+
+      label.innerHTML = "Selected collection: " + escapeHtml(collectionName)
+        + "<br>Collection ID: " + escapeHtml(state.selectedCollectionId);
+
+      if (errorMessage) {
+        container.innerHTML = "<div class=\"muted\">" + escapeHtml(errorMessage) + "</div>";
+        return;
+      }
+
+      if (!Array.isArray(items) || !items.length) {
+        container.innerHTML = "<div class=\"muted\">This collection has no member nodes.</div>";
+        return;
+      }
+
+      const rows = items.map((node) => {
+        const name = node.name || "";
+        const identifier = node.identifier || "";
+        const status = node.status || "";
+        const publicSlug = node.public_slug || "";
+
+        return "<tr>"
+          + "<td>" + escapeHtml(name) + "</td>"
+          + "<td>" + escapeHtml(identifier) + "</td>"
+          + "<td>" + escapeHtml(status) + "</td>"
+          + "<td>" + escapeHtml(publicSlug) + "</td>"
+          + "</tr>";
+      }).join("");
+
+      container.innerHTML = ""
+        + "<div class=\"table-wrap\">"
+        + "<table>"
+        + "<thead>"
+        + "<tr>"
+        + "<th>Name</th>"
+        + "<th>Identifier</th>"
+        + "<th>Status</th>"
+        + "<th>Public slug</th>"
+        + "</tr>"
+        + "</thead>"
+        + "<tbody>"
+        + rows
+        + "</tbody>"
+        + "</table>"
+        + "</div>";
+    }
+
+    async function loadAdminCollectionNodes(collectionId, collectionName) {
+      state.selectedCollectionId = collectionId || "";
+      state.selectedCollectionName = collectionName || "(unnamed)";
+      renderAdminCollections(state.collections);
+      renderAdminCollectionMembers();
+
+      try {
+        const data = await apiFetch("/api/admin/collection/" + encodeURIComponent(collectionId) + "/nodes");
+        if (!data) return;
+        renderAdminCollectionMembers(data);
+      } catch (error) {
+        renderAdminCollectionMembers([], error.message || "Failed to load collection members.");
+      }
+    }
+
+    function renderAdminCollections(items, errorMessage) {
+      const container = document.getElementById("collections-panel");
+
+      if (errorMessage) {
+        container.innerHTML = "<div class=\"muted\">" + escapeHtml(errorMessage) + "</div>";
+        return;
+      }
+
+      if (!Array.isArray(items) || !items.length) {
+        container.innerHTML = "<div class=\"muted\">No collections found.</div>";
+        return;
+      }
+
+      const rows = items.map((collection) => {
+        const rawName = typeof collection.name === "string" ? collection.name.trim() : "";
+        const name = rawName || "(unnamed)";
+        const selectedClass = collection.id === state.selectedCollectionId ? " class=\"selected\"" : "";
+        const nodeCount = collection.node_count === null || collection.node_count === undefined ? "" : String(collection.node_count);
+        const status = collection.status || "";
+        const createdAt = collection.created_at || "";
+
+        return "<tr data-collection-id=\"" + escapeHtml(collection.id || "") + "\" data-collection-name=\"" + escapeHtml(name) + "\"" + selectedClass + ">"
+          + "<td>" + escapeHtml(name) + "</td>"
+          + "<td>" + escapeHtml(nodeCount) + "</td>"
+          + "<td>" + escapeHtml(status) + "</td>"
+          + "<td>" + escapeHtml(createdAt) + "</td>"
+          + "</tr>";
+      }).join("");
+
+      container.innerHTML = ""
+        + "<div class=\"table-wrap\">"
+        + "<table>"
+        + "<thead>"
+        + "<tr>"
+        + "<th>Name</th>"
+        + "<th>Nodes</th>"
+        + "<th>Status</th>"
+        + "<th>Created</th>"
+        + "</tr>"
+        + "</thead>"
+        + "<tbody>"
+        + rows
+        + "</tbody>"
+        + "</table>"
+        + "</div>";
+
+      for (const row of container.querySelectorAll("tbody tr[data-collection-id]")) {
+        row.addEventListener("click", () => {
+          loadAdminCollectionNodes(
+            row.getAttribute("data-collection-id") || "",
+            row.getAttribute("data-collection-name") || "(unnamed)"
+          );
+        });
+      }
+    }
+
+    async function loadAdminCollections() {
+      try {
+        const data = await apiFetch("/api/admin/collections");
+        if (!data) return;
+        state.collections = Array.isArray(data) ? data : [];
+        renderAdminCollections(state.collections);
+
+        if (state.selectedCollectionId) {
+          const selectedCollection = state.collections.find((collection) => collection.id === state.selectedCollectionId);
+
+          if (!selectedCollection) {
+            state.selectedCollectionId = "";
+            state.selectedCollectionName = "";
+            renderAdminCollectionMembers();
+          }
+        }
+      } catch (error) {
+        state.collections = [];
+        state.selectedCollectionId = "";
+        state.selectedCollectionName = "";
+        renderAdminCollections([], error.message || "Failed to load collections.");
+        renderAdminCollectionMembers();
+      }
+    }
+
+    function getBatchQuantity() {
+      const value = Number.parseInt(els.batchQuantity.value, 10);
+      if (!Number.isFinite(value)) return 0;
+      return value;
+    }
+
+    function formatBatchResults(entries) {
+      if (!entries.length) {
+        return "No batch results yet.";
+      }
+
+      return entries.map((entry, index) => {
+        return [
+          String(index + 1),
+          "id:     " + (entry.identifier || ""),
+          "public: " + (entry.public_url || ""),
+          "owner:  " + (entry.owner_url || "")
+        ].join("\n");
+      }).join("\n\n");
+    }
+
+    function renderBatchResults() {
+      els.batchResults.textContent = formatBatchResults(state.batchResults);
+      els.copyBatchResults.disabled = state.isCreatingBatch || state.batchResults.length === 0;
+    }
+
+    function setBatchCreationLocked(locked) {
+      state.isCreatingBatch = locked;
+      els.createNode.disabled = locked;
+      els.createBatch.disabled = locked;
+      els.copyBatchResults.disabled = locked || state.batchResults.length === 0;
+    }
+
+    function resetSelection() {
+      state.selectedSlug = "";
+      state.selectedNode = null;
+      state.selectedEvents = [];
+      els.selectedNodeLabel.textContent = "No node selected.";
+      els.inspectorEmpty.hidden = false;
+      els.inspectorContent.hidden = true;
+      els.inspectorFields.innerHTML = "";
+      els.inspectorJson.textContent = "";
+      els.eventsEmpty.hidden = false;
+      els.eventsList.innerHTML = "";
+      els.reissueOwner.disabled = true;
+      els.resetPin.disabled = true;
+      els.disableNode.disabled = true;
+      els.actionResult.textContent = "No action run yet.";
+    }
+
+    function getFilteredNodes() {
+      const search = state.nodeSearch.trim().toLowerCase();
+
+      return state.nodes.filter((node) => {
+        const status = String(node.status || "").trim().toLowerCase();
+
+        if (state.nodeStatusFilter === "active" && status !== "active") {
+          return false;
+        }
+
+        if (state.nodeStatusFilter === "disabled" && status !== "disabled") {
+          return false;
+        }
+
+        if (state.nodeStatusFilter === "lost" && status !== "lost") {
+          return false;
+        }
+
+        if (!search) {
+          return true;
+        }
+
+        const haystack = [
+          node.slug || "",
+          node.name || "",
+          node.identifier || ""
+        ].join(" ").toLowerCase();
+
+        return haystack.includes(search);
+      });
+    }
+
+    function renderNodes() {
+      els.nodesBody.innerHTML = "";
+      const visibleNodes = getFilteredNodes();
+
+      if (!visibleNodes.length) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+        cell.colSpan = 6;
+        cell.className = "muted";
+        cell.textContent = state.nodes.length ? "No nodes match the current filters." : "No nodes returned.";
+        row.appendChild(cell);
+        els.nodesBody.appendChild(row);
+        return;
+      }
+
+      for (const node of visibleNodes) {
+        const row = document.createElement("tr");
+        if (node.slug === state.selectedSlug) {
+          row.classList.add("selected");
+        }
+
+        row.addEventListener("click", () => {
+          selectNode(node.slug);
+        });
+
+        const cells = [
+          node.slug || "",
+          node.name || "",
+          node.status || "",
+          node.identifier || "",
+          node.created_at || "",
+          node.updated_at || ""
+        ];
+
+        for (const value of cells) {
+          const cell = document.createElement("td");
+          cell.textContent = value;
+          row.appendChild(cell);
+        }
+
+        els.nodesBody.appendChild(row);
+      }
+    }
+
+    function renderInspector() {
+      if (!state.selectedNode) {
+        els.inspectorEmpty.hidden = false;
+        els.inspectorContent.hidden = true;
+        return;
+      }
+
+      els.inspectorEmpty.hidden = true;
+      els.inspectorContent.hidden = false;
+      els.inspectorFields.innerHTML = "";
+
+      const fieldOrder = [
+        ["node_id", "Node ID"],
+        ["public_slug", "Slug"],
+        ["status", "Status"],
+        ["created_at", "Created"],
+        ["updated_at", "Updated"],
+        ["name", "Name"],
+        ["identifier", "Identifier"],
+        ["message", "Message"],
+        ["phone", "Phone"],
+        ["sms", "SMS"],
+        ["email", "Email"],
+        ["whatsapp", "WhatsApp"],
+        ["show_phone", "Show phone"],
+        ["show_sms", "Show SMS"],
+        ["show_email", "Show email"],
+        ["show_whatsapp", "Show WhatsApp"],
+        ["preferred_contact", "Preferred contact"],
+        ["image_url", "Image URL"],
+        ["owner_token", "Owner token"]
+      ];
+
+      for (const [key, label] of fieldOrder) {
+        const dt = document.createElement("dt");
+        dt.textContent = label;
+        const dd = document.createElement("dd");
+        const value = state.selectedNode[key];
+        dd.textContent = value === null || value === undefined || value === "" ? "—" : String(value);
+        if (typeof value === "string" && (key === "node_id" || key === "image_url" || key === "public_slug")) {
+          dd.classList.add("mono");
+        }
+        els.inspectorFields.appendChild(dt);
+        els.inspectorFields.appendChild(dd);
+      }
+
+      els.inspectorJson.textContent = formatJson(state.selectedNode);
+      els.reissueOwner.disabled = false;
+      els.resetPin.disabled = false;
+      els.disableNode.disabled = false;
+    }
+
+    function renderEvents() {
+      els.eventsList.innerHTML = "";
+
+      if (!state.selectedSlug) {
+        els.eventsEmpty.hidden = false;
+        return;
+      }
+
+      if (!state.selectedEvents.length) {
+        els.eventsEmpty.hidden = false;
+        els.eventsEmpty.textContent = "No events found for this node.";
+        return;
+      }
+
+      els.eventsEmpty.hidden = true;
+
+      for (const event of state.selectedEvents) {
+        const item = document.createElement("article");
+        item.className = "event";
+
+        const head = document.createElement("div");
+        head.className = "event-head";
+
+        const left = document.createElement("div");
+        left.innerHTML = "<strong>" + escapeHtml(event.event_type || "") + "</strong><div class=\"muted\">" + escapeHtml(event.actor_type || "") + (event.actor_ref ? " / " + escapeHtml(String(event.actor_ref)) : "") + "</div>";
+
+        const right = document.createElement("div");
+        right.className = "mono muted";
+        right.textContent = event.created_at || "";
+
+        head.appendChild(left);
+        head.appendChild(right);
+
+        const body = document.createElement("pre");
+        body.textContent = formatJson(event.payload);
+
+        item.appendChild(head);
+        item.appendChild(body);
+        els.eventsList.appendChild(item);
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    async function loadNodes() {
+      resetSelection();
+      setStatus("Loading nodes...", "loading");
+
+      try {
+        const data = await apiFetch("/api/admin/nodes");
+        if (!data) return;
+        state.nodes = Array.isArray(data.nodes) ? data.nodes : [];
+        renderNodes();
+        await loadAdminOverview();
+        await loadRecentActivity();
+        await loadAdminCollections();
+        setStatus("Loaded " + state.nodes.length + " nodes.", "success");
+      } catch (error) {
+        state.nodes = [];
+        renderNodes();
+        renderRecentActivity([], "Failed to load recent activity.");
+        setStatus(error.message, "error");
+      }
+    }
+
+    async function createNode() {
+      setStatus("Creating node...", "loading");
+
+      try {
+        const data = await apiFetch("/api/provision", {
+          method: "POST"
+        });
+        if (!data) return;
+
+        els.actionResult.textContent = formatJson(data);
+        setStatus("Node created successfully.", "success");
+
+        await loadNodes();
+
+        if (data.public_url) {
+          const slug = data.public_url.split("/n/").pop() || "";
+          if (slug) {
+            await selectNode(decodeURIComponent(slug), { preserveActionResult: true });
+          }
+        }
+      } catch (error) {
+        setStatus(error.message, "error");
+      }
+    }
+
+    async function createBatch() {
+      const quantity = getBatchQuantity();
+
+      if (quantity < 1 || quantity > 100) {
+        setStatus("Enter a batch quantity between 1 and 100.", "error");
+        return;
+      }
+
+      state.batchResults = [];
+      renderBatchResults();
+      setBatchCreationLocked(true);
+      setStatus("Creating batch of " + quantity + " nodes...", "loading");
+
+      try {
+        for (let index = 0; index < quantity; index += 1) {
+          const data = await apiFetch("/api/provision", {
+            method: "POST"
+          });
+          if (!data) return;
+
+          state.batchResults.push({
+            identifier: data.identifier || "",
+            public_url: data.public_url || "",
+            owner_url: data.owner_url || ""
+          });
+          renderBatchResults();
+          setStatus("Creating batch: " + (index + 1) + " / " + quantity, "loading");
+        }
+
+        await loadNodes();
+        setStatus("Created batch of " + state.batchResults.length + " nodes.", "success");
+      } catch (error) {
+        setStatus(error.message, "error");
+      } finally {
+        setBatchCreationLocked(false);
+        renderBatchResults();
+      }
+    }
+
+    async function copyBatchResults() {
+      if (!state.batchResults.length) {
+        setStatus("No batch results available to copy.", "error");
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(formatBatchResults(state.batchResults));
+        setStatus("Batch results copied.", "success");
+      } catch {
+        setStatus("Clipboard copy failed.", "error");
+      }
+    }
+
+    async function selectNode(slug, options) {
+      if (!slug) return;
+
+      const preserveActionResult = !!options?.preserveActionResult;
+      state.selectedSlug = slug;
+      state.selectedNode = null;
+      state.selectedEvents = [];
+      renderNodes();
+      renderInspector();
+      renderEvents();
+      els.selectedNodeLabel.textContent = "Selected: " + slug;
+      if (!preserveActionResult) {
+        els.actionResult.textContent = "No action run yet.";
+      }
+      setStatus("Loading node inspector and events for " + slug + "...", "loading");
+
+      try {
+        const [node, eventsData] = await Promise.all([
+          apiFetch("/api/admin/node/" + encodeURIComponent(slug)),
+          apiFetch("/api/admin/node/" + encodeURIComponent(slug) + "/events")
+        ]);
+
+        if (!node || !eventsData) return;
+
+        state.selectedNode = node;
+        state.selectedEvents = Array.isArray(eventsData.events) ? eventsData.events : [];
+        renderInspector();
+        renderEvents();
+        renderNodes();
+        setStatus("Loaded node inspector and events for " + slug + ".", "success");
+      } catch (error) {
+        resetSelection();
+        renderNodes();
+        setStatus(error.message, "error");
+      }
+    }
+
+    async function runNodeAction(path, successLabel) {
+      if (!state.selectedSlug) {
+        setStatus("Select a node first.", "error");
+        return;
+      }
+
+      setStatus(successLabel + " in progress...", "loading");
+
+      try {
+        const data = await apiFetch(path, {
+          method: "POST",
+          body: JSON.stringify({
+            public_slug: state.selectedSlug
+          })
+        });
+
+        if (!data) return;
+
+        els.actionResult.textContent = formatJson(data);
+        setStatus(successLabel + " completed for " + state.selectedSlug + ".", "success");
+
+        const target = state.nodes.find((node) => node.slug === state.selectedSlug);
+        if (target && data.updated_at) {
+          target.updated_at = data.updated_at;
+          renderNodes();
+        }
+
+        await selectNode(state.selectedSlug, { preserveActionResult: true });
+      } catch (error) {
+        els.actionResult.textContent = error.message;
+        setStatus(error.message, "error");
+      }
+    }
+
+    async function runOwnerKeyReplacement() {
+      if (!state.selectedSlug) {
+        setStatus("Select a node first.", "error");
+        return;
+      }
+
+      const confirmed = window.confirm(
+        "Replace owner key for " + state.selectedSlug + "?\n\n"
+        + "This immediately invalidates the current owner credential.\n"
+        + "The old owner NFC/link will stop working immediately.\n"
+        + "You must program a new owner key afterward."
+      );
+
+      if (!confirmed) {
+        return;
+      }
+
+      runNodeAction("/api/admin/reissue-owner", "Owner key replacement");
+    }
+
+    els.toggleKey.addEventListener("click", () => {
+      const isPassword = els.adminKey.type === "password";
+      els.adminKey.type = isPassword ? "text" : "password";
+      els.toggleKey.textContent = isPassword ? "Hide key" : "Show key";
+    });
+
+    els.createNode.addEventListener("click", createNode);
+    els.createBatch.addEventListener("click", createBatch);
+    els.copyBatchResults.addEventListener("click", copyBatchResults);
+
+    els.loadNodes.addEventListener("click", loadNodes);
+    els.nodeSearch.addEventListener("input", (event) => {
+      state.nodeSearch = event.target.value || "";
+      renderNodes();
+    });
+    els.nodeStatusFilter.addEventListener("change", (event) => {
+      state.nodeStatusFilter = event.target.value || "active";
+      renderNodes();
+    });
+
+    els.reissueOwner.addEventListener("click", () => {
+      runOwnerKeyReplacement();
+    });
+
+    els.resetPin.addEventListener("click", () => {
+      runNodeAction("/api/admin/reset-pin", "PIN reset");
+    });
+
+    els.disableNode.addEventListener("click", () => {
+      runNodeAction("/api/admin/disable-node", "Node disable");
+    });
+
+    setBatchCreationLocked(false);
+    renderBatchResults();
+    resetSelection();
+    setStatus("Enter the admin key, then load nodes.", "");
+  </script>
+</body>
+</html>
