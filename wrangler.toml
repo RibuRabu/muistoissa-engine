@@ -1,4 +1,4 @@
-name = "liminall-node-engine"
+name = "muistoissa-engine"
 main = "src/worker.js"
 compatibility_date = "2024-01-01"
 
@@ -8,9 +8,9 @@ binding = "ASSETS"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "liminall-node"
-database_id = "35b44425-a32a-4a74-bcae-267abaa5f3ea"
+database_name = "muistoissa-db"
+database_id = "0e0eb9e9-9fc7-41cd-9fc3-08a20ff054be"
 
 [[r2_buckets]]
 binding = "NODE_IMAGES"
-bucket_name = "liminall-node-images"
+bucket_name = "muistoissa-images"
