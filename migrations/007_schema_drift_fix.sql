@@ -1,0 +1,3 @@
+ALTER TABLE nodes ADD COLUMN sms TEXT;
+ALTER TABLE nodes ADD COLUMN show_sms INTEGER;
+ALTER TABLE nodes ADD COLUMN owner_session_version INTEGER DEFAULT 1;
