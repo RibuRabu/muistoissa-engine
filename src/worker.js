@@ -7,7 +7,7 @@ export default {
       const slug = (url.searchParams.get("slug") || "").trim();
 
       if (slug) {
-        const redirectUrl = new URL(`/n/${encodeURIComponent(slug)}`, request.url);
+        const redirectUrl = new URL(`/m/${encodeURIComponent(slug)}`, request.url);
         return Response.redirect(redirectUrl.toString(), 302);
       }
     }
@@ -17,6 +17,10 @@ export default {
     }
 
     if (request.method === "GET" && path.startsWith("/n/")) {
+      return servePublicPage(request, env);
+    }
+
+    if (request.method === "GET" && path.startsWith("/m/")) {
       return servePublicPage(request, env);
     }
 
@@ -480,7 +484,7 @@ async function provisionNode(request, env) {
   });
 
   return Response.json({
-    public_url: `${PUBLIC_APP_BASE_URL}/n/${slug}`,
+    public_url: `${PUBLIC_APP_BASE_URL}/m/${slug}`,
     owner_url: `${PUBLIC_APP_BASE_URL}/o/${ownerToken}`,
     identifier
   });
@@ -1311,7 +1315,7 @@ async function replaceCarrier(request, env, token) {
     node_id: node.id,
     public_slug: node.public_slug,
     public_identifier: node.public_identifier,
-    public_url: `/n/${node.public_slug}`,
+    public_url: `/m/${node.public_slug}`,
     event_type: "CARRIER_REPLACED",
     created_at: now
   });
