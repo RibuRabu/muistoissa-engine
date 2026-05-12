@@ -8,59 +8,67 @@
   <link rel="stylesheet" href="/public.css">
 </head>
 <body>
-  <div class="memorial-shell">
-    <header class="memorial-topbar">
-      <div class="memorial-mark" id="memorial-mark">Muistoissa</div>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <div class="site-mark" id="site-mark">MUISTOISSA</div>
       <div class="lang-switch" role="group" aria-label="Language switch">
         <button type="button" id="lang-fi" class="active">FI</button>
         <button type="button" id="lang-en">EN</button>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <main class="memorial-page">
-      <section class="state-panel" id="state-panel">
-        <div class="state-eyebrow" id="state-eyebrow">Muistoissa</div>
-        <h1 class="state-title" id="state-title">Ladataan muistosivua</h1>
-        <p class="state-text" id="state-text">Hetki vain.</p>
+  <main class="page-main">
+    <section class="page-state" id="page-state">
+      <p class="page-state__kicker" id="state-kicker">Muistoissa</p>
+      <h1 class="page-state__title" id="state-title">Ladataan muistosivua</h1>
+      <p class="page-state__text" id="state-text">Hetki vain.</p>
+    </section>
+
+    <article class="memorial-article" id="memorial-article" hidden>
+      <section class="hero-section">
+        <div class="hero-media" id="hero-media">
+          <figure class="hero-figure" id="hero-figure" hidden>
+            <img id="hero-image" src="" alt="">
+          </figure>
+          <div class="hero-placeholder" id="hero-placeholder">
+            <div class="hero-placeholder__frame"></div>
+            <p id="hero-placeholder-copy"></p>
+          </div>
+        </div>
+
+        <div class="hero-copy">
+          <p class="hero-copy__type" id="memorial-type"></p>
+          <h1 class="hero-copy__name" id="memorial-name"></h1>
+          <p class="hero-copy__dates" id="memorial-dates"></p>
+          <blockquote class="hero-copy__epitaph" id="memorial-epitaph"></blockquote>
+          <div class="hero-copy__memory" id="memory-text"></div>
+        </div>
       </section>
 
-      <article class="memorial-content" id="memorial-content" hidden>
-        <section class="memorial-hero">
-          <div class="hero-copy">
-            <div class="hero-kicker" id="hero-kicker"></div>
-            <h1 class="memorial-name" id="memorial-name"></h1>
-            <div class="memorial-dates" id="memorial-dates"></div>
-            <p class="memorial-epitaph" id="memorial-epitaph"></p>
-            <div class="memory-lead" id="memory-lead"></div>
-          </div>
+      <section class="gallery-section" id="gallery-section" hidden>
+        <div class="section-heading">
+          <h2 id="gallery-title">Kuvamuistoja</h2>
+        </div>
+        <div class="gallery-grid" id="gallery-grid"></div>
+      </section>
 
-          <div class="hero-visual" id="hero-visual">
-            <figure class="hero-frame" id="hero-frame" hidden>
-              <img id="hero-image" src="" alt="">
-            </figure>
-            <div class="hero-placeholder" id="hero-placeholder">
-              <div class="placeholder-ornament"></div>
-              <div class="placeholder-copy" id="hero-placeholder-copy"></div>
-            </div>
-          </div>
-        </section>
-
-        <section class="gallery-section" id="gallery-section" hidden>
-          <div class="section-head">
-            <h2 id="gallery-title">Muistoja kuvina</h2>
-          </div>
-          <div class="gallery-grid" id="gallery-grid"></div>
-        </section>
-
-        <section class="story-section" id="story-section" hidden>
-          <div class="section-head">
+      <section class="story-section" id="story-section" hidden>
+        <div class="story-layout">
+          <div class="section-heading story-heading">
             <h2 id="story-title">Elämän tarina</h2>
           </div>
           <div class="story-body" id="story-body"></div>
-        </section>
-      </article>
-    </main>
-  </div>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <span id="footer-mark">Muistoissa</span>
+    </div>
+  </footer>
 
   <script src="/public.js"></script>
 </body>

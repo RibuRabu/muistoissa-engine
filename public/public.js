@@ -1,69 +1,71 @@
 const i18n = {
   fi: {
     pageTitle: "Muistoissa",
-    memorialMark: "Muistoissa",
+    siteMark: "MUISTOISSA",
+    stateMark: "Muistoissa",
     loadingTitle: "Ladataan muistosivua",
     loadingText: "Hetki vain.",
-    notFoundTitle: "Muistosivua ei löytynyt",
-    notFoundText: "Tätä muistohuonetta ei ole saatavilla.",
+    disabledKicker: "Ei saatavilla",
     disabledTitle: "Muistosivu ei ole saatavilla",
     disabledText: "Tämä muistosivu on poistettu käytöstä.",
-    loadFailedTitle: "Lataus epäonnistui",
-    loadFailedText: "Muistosivun avaaminen ei juuri nyt onnistunut.",
-    stateDisabled: "Ei saatavilla",
-    stateNotFound: "Ei löytynyt",
-    stateError: "Virhe",
-    memorialTypeDefault: "Muistosivu",
-    galleryTitle: "Muistoja kuvina",
-    storyTitle: "Elämän tarina",
+    notFoundKicker: "Ei löytynyt",
+    notFoundTitle: "Muistosivua ei löytynyt",
+    notFoundText: "Tätä muistoarkistoa ei ole saatavilla.",
+    errorKicker: "Virhe",
+    errorTitle: "Lataus epäonnistui",
+    errorText: "Muistosivun avaaminen ei juuri nyt onnistunut.",
+    memorialTypeDefault: "Muistoarkisto",
     untitledMemorial: "Rakas muisto",
-    noImageCopy: "Muistot elävät kuvienkin ulkopuolella.",
+    noImageCopy: "Jotkin muistot säilyvät ilman kuvaakin.",
+    galleryTitle: "Kuvamuistoja",
+    storyTitle: "Elämän tarina",
     dateSeparator: "–"
   },
   en: {
     pageTitle: "Muistoissa",
-    memorialMark: "Muistoissa",
+    siteMark: "MUISTOISSA",
+    stateMark: "Muistoissa",
     loadingTitle: "Loading memorial page",
     loadingText: "Please wait a moment.",
-    notFoundTitle: "Memorial page not found",
-    notFoundText: "This memorial room is not available.",
+    disabledKicker: "Unavailable",
     disabledTitle: "Memorial page unavailable",
     disabledText: "This memorial page has been disabled.",
-    loadFailedTitle: "Loading failed",
-    loadFailedText: "The memorial page could not be opened right now.",
-    stateDisabled: "Unavailable",
-    stateNotFound: "Not found",
-    stateError: "Error",
-    memorialTypeDefault: "Memorial page",
-    galleryTitle: "Gallery of memories",
-    storyTitle: "Life story",
+    notFoundKicker: "Not found",
+    notFoundTitle: "Memorial page not found",
+    notFoundText: "This memory archive is not available.",
+    errorKicker: "Error",
+    errorTitle: "Loading failed",
+    errorText: "The memorial page could not be opened right now.",
+    memorialTypeDefault: "Memory archive",
     untitledMemorial: "Beloved memory",
-    noImageCopy: "Some memories remain vivid even without a photograph.",
+    noImageCopy: "Some memories remain without a photograph.",
+    galleryTitle: "Photo memories",
+    storyTitle: "Life story",
     dateSeparator: "–"
   }
 };
 
 let currentLang = "fi";
-let currentPageState = "loading";
+let currentState = "loading";
 let currentViewModel = null;
 
 const els = {
   html: document.documentElement,
-  memorialMark: document.getElementById("memorial-mark"),
+  siteMark: document.getElementById("site-mark"),
+  footerMark: document.getElementById("footer-mark"),
   langFi: document.getElementById("lang-fi"),
   langEn: document.getElementById("lang-en"),
-  statePanel: document.getElementById("state-panel"),
-  stateEyebrow: document.getElementById("state-eyebrow"),
+  pageState: document.getElementById("page-state"),
+  stateKicker: document.getElementById("state-kicker"),
   stateTitle: document.getElementById("state-title"),
   stateText: document.getElementById("state-text"),
-  memorialContent: document.getElementById("memorial-content"),
-  heroKicker: document.getElementById("hero-kicker"),
+  article: document.getElementById("memorial-article"),
+  memorialType: document.getElementById("memorial-type"),
   memorialName: document.getElementById("memorial-name"),
   memorialDates: document.getElementById("memorial-dates"),
   memorialEpitaph: document.getElementById("memorial-epitaph"),
-  memoryLead: document.getElementById("memory-lead"),
-  heroVisual: document.getElementById("hero-visual"),
-  heroFrame: document.getElementById("hero-frame"),
+  memoryText: document.getElementById("memory-text"),
+  heroFigure: document.getElementById("hero-figure"),
   heroImage: document.getElementById("hero-image"),
   heroPlaceholder: document.getElementById("hero-placeholder"),
   heroPlaceholderCopy: document.getElementById("hero-placeholder-copy"),
@@ -140,15 +142,13 @@ function parseGalleryJson(value) {
       continue;
     }
 
-    const url = getTrimmedString(
-      entry.url || entry.image_url || entry.src || ""
-    );
+    const url = getTrimmedString(entry.url || entry.image_url || entry.src || "");
 
     if (!url) {
       continue;
     }
 
-    const caption = getTrimmedString(entry.caption || entry.alt || entry.title || "");
+    const caption = getTrimmedString(entry.caption || entry.title || entry.alt || "");
     items.push({ url, caption });
   }
 
@@ -157,20 +157,18 @@ function parseGalleryJson(value) {
 
 function dedupeGalleryItems(items) {
   const seen = new Set();
-  const next = [];
+  const result = [];
 
   for (const item of items) {
-    const key = item.url;
-
-    if (!key || seen.has(key)) {
+    if (!item.url || seen.has(item.url)) {
       continue;
     }
 
-    seen.add(key);
-    next.push(item);
+    seen.add(item.url);
+    result.push(item);
   }
 
-  return next;
+  return result;
 }
 
 function buildDateLine(birthDate, deathDate) {
@@ -192,54 +190,29 @@ function buildDateLine(birthDate, deathDate) {
   return "";
 }
 
-function buildViewModel(node) {
-  const memorialName = getTrimmedString(node.memorial_name) || getTrimmedString(node.name) || t("untitledMemorial");
-  const birthDate = getTrimmedString(node.birth_date);
-  const deathDate = getTrimmedString(node.death_date);
-  const memorialType = getTrimmedString(node.memorial_type) || t("memorialTypeDefault");
-  const shortEpitaph = getTrimmedString(node.short_epitaph);
-  const memoryText = getTrimmedString(node.memory_text) || getTrimmedString(node.message);
-  const lifeStory = getTrimmedString(node.life_story);
-  const galleryItems = parseGalleryJson(node.gallery_json);
-  const explicitHeroUrl = getTrimmedString(node.hero_image_url) || getTrimmedString(node.image_url);
-  const heroItem = explicitHeroUrl
-    ? {
-        url: explicitHeroUrl,
-        caption: ""
-      }
-    : galleryItems[0] || null;
-  const heroImageUrl = heroItem ? heroItem.url : "";
+function buildViewModel(data) {
+  const memorialName = getTrimmedString(data.memorial_name) || getTrimmedString(data.name) || t("untitledMemorial");
+  const memorialType = getTrimmedString(data.memorial_type) || t("memorialTypeDefault");
+  const birthDate = getTrimmedString(data.birth_date);
+  const deathDate = getTrimmedString(data.death_date);
+  const shortEpitaph = getTrimmedString(data.short_epitaph);
+  const memoryText = getTrimmedString(data.memory_text) || getTrimmedString(data.message);
+  const lifeStory = getTrimmedString(data.life_story);
+  const galleryItems = parseGalleryJson(data.gallery_json);
+  const explicitHero = getTrimmedString(data.hero_image_url) || getTrimmedString(data.image_url);
+  const heroImageUrl = explicitHero || (galleryItems[0] ? galleryItems[0].url : "");
   const gallery = galleryItems.filter((item) => item.url !== heroImageUrl);
 
   return {
     memorialName,
-    birthDate,
-    deathDate,
-    dateLine: buildDateLine(birthDate, deathDate),
     memorialType,
+    dateLine: buildDateLine(birthDate, deathDate),
     shortEpitaph,
     memoryText,
     lifeStory,
     heroImageUrl,
     gallery
   };
-}
-
-function setLanguage(lang) {
-  currentLang = lang === "en" ? "en" : "fi";
-  els.html.lang = currentLang;
-  els.langFi.classList.toggle("active", currentLang === "fi");
-  els.langEn.classList.toggle("active", currentLang === "en");
-  els.memorialMark.textContent = t("memorialMark");
-  els.galleryTitle.textContent = t("galleryTitle");
-  els.storyTitle.textContent = t("storyTitle");
-
-  if (currentPageState === "ready" && currentViewModel) {
-    renderMemorial(currentViewModel);
-    return;
-  }
-
-  renderState(currentPageState);
 }
 
 function renderTextBlocks(container, text) {
@@ -251,42 +224,34 @@ function renderTextBlocks(container, text) {
     return;
   }
 
-  const parts = value
+  const blocks = value
     .split(/\n{2,}/)
-    .map((part) => part.trim())
+    .map((block) => block.trim())
     .filter(Boolean);
 
-  if (parts.length === 0) {
+  if (blocks.length === 0) {
     const p = document.createElement("p");
     p.textContent = value;
     container.appendChild(p);
     return;
   }
 
-  for (const part of parts) {
+  for (const block of blocks) {
     const p = document.createElement("p");
-    p.textContent = part;
+    p.textContent = block;
     container.appendChild(p);
   }
 }
 
-function renderGallery(items, memorialName) {
+function renderGallery(gallery, memorialName) {
   els.galleryGrid.textContent = "";
 
-  if (!items.length) {
+  if (!gallery.length) {
     els.gallerySection.hidden = true;
     return;
   }
 
-  const classes = ["gallery-grid"];
-
-  if (items.length === 1) classes.push("gallery-single");
-  if (items.length === 2) classes.push("gallery-pair");
-  if (items.length >= 3) classes.push("gallery-collage");
-
-  els.galleryGrid.className = classes.join(" ");
-
-  for (const item of items) {
+  for (const item of gallery) {
     const figure = document.createElement("figure");
     figure.className = "gallery-card";
 
@@ -296,9 +261,9 @@ function renderGallery(items, memorialName) {
     figure.appendChild(image);
 
     if (item.caption) {
-      const figcaption = document.createElement("figcaption");
-      figcaption.textContent = item.caption;
-      figure.appendChild(figcaption);
+      const caption = document.createElement("figcaption");
+      caption.textContent = item.caption;
+      figure.appendChild(caption);
     }
 
     els.galleryGrid.appendChild(figure);
@@ -308,65 +273,63 @@ function renderGallery(items, memorialName) {
 }
 
 function renderState(state) {
-  currentPageState = state;
-  els.statePanel.hidden = false;
-  els.memorialContent.hidden = true;
+  currentState = state;
+  els.pageState.hidden = false;
+  els.article.hidden = true;
   document.title = t("pageTitle");
 
   if (state === "loading") {
-    els.stateEyebrow.textContent = t("memorialMark");
+    els.stateKicker.textContent = t("stateMark");
     els.stateTitle.textContent = t("loadingTitle");
     els.stateText.textContent = t("loadingText");
     return;
   }
 
   if (state === "disabled") {
-    els.stateEyebrow.textContent = t("stateDisabled");
+    els.stateKicker.textContent = t("disabledKicker");
     els.stateTitle.textContent = t("disabledTitle");
     els.stateText.textContent = t("disabledText");
     return;
   }
 
   if (state === "not_found") {
-    els.stateEyebrow.textContent = t("stateNotFound");
+    els.stateKicker.textContent = t("notFoundKicker");
     els.stateTitle.textContent = t("notFoundTitle");
     els.stateText.textContent = t("notFoundText");
     return;
   }
 
-  els.stateEyebrow.textContent = t("stateError");
-  els.stateTitle.textContent = t("loadFailedTitle");
-  els.stateText.textContent = t("loadFailedText");
+  els.stateKicker.textContent = t("errorKicker");
+  els.stateTitle.textContent = t("errorTitle");
+  els.stateText.textContent = t("errorText");
 }
 
 function renderMemorial(viewModel) {
-  currentPageState = "ready";
+  currentState = "ready";
   currentViewModel = viewModel;
-  els.statePanel.hidden = true;
-  els.memorialContent.hidden = false;
+  els.pageState.hidden = true;
+  els.article.hidden = false;
 
-  document.title = `${viewModel.memorialName} | ${t("pageTitle")}`;
-
-  els.heroKicker.textContent = viewModel.memorialType;
+  els.memorialType.textContent = viewModel.memorialType;
+  els.memorialType.hidden = !viewModel.memorialType;
   els.memorialName.textContent = viewModel.memorialName;
   els.memorialDates.textContent = viewModel.dateLine;
   els.memorialDates.hidden = !viewModel.dateLine;
-
   els.memorialEpitaph.textContent = viewModel.shortEpitaph;
   els.memorialEpitaph.hidden = !viewModel.shortEpitaph;
 
-  renderTextBlocks(els.memoryLead, viewModel.memoryText);
-  els.memoryLead.hidden = !getTrimmedString(viewModel.memoryText);
+  renderTextBlocks(els.memoryText, viewModel.memoryText);
+  els.memoryText.hidden = !getTrimmedString(viewModel.memoryText);
 
   if (viewModel.heroImageUrl) {
     els.heroImage.src = viewModel.heroImageUrl;
     els.heroImage.alt = viewModel.memorialName;
-    els.heroFrame.hidden = false;
+    els.heroFigure.hidden = false;
     els.heroPlaceholder.hidden = true;
   } else {
     els.heroImage.src = "";
     els.heroImage.alt = "";
-    els.heroFrame.hidden = true;
+    els.heroFigure.hidden = true;
     els.heroPlaceholder.hidden = false;
     els.heroPlaceholderCopy.textContent = t("noImageCopy");
   }
@@ -375,6 +338,26 @@ function renderMemorial(viewModel) {
 
   renderTextBlocks(els.storyBody, viewModel.lifeStory);
   els.storySection.hidden = !getTrimmedString(viewModel.lifeStory);
+
+  document.title = `${viewModel.memorialName} | ${t("pageTitle")}`;
+}
+
+function setLanguage(lang) {
+  currentLang = lang === "en" ? "en" : "fi";
+  els.html.lang = currentLang;
+  els.langFi.classList.toggle("active", currentLang === "fi");
+  els.langEn.classList.toggle("active", currentLang === "en");
+  els.siteMark.textContent = t("siteMark");
+  els.footerMark.textContent = t("pageTitle");
+  els.galleryTitle.textContent = t("galleryTitle");
+  els.storyTitle.textContent = t("storyTitle");
+
+  if (currentState === "ready" && currentViewModel) {
+    renderMemorial(currentViewModel);
+    return;
+  }
+
+  renderState(currentState);
 }
 
 async function loadMemorial() {
