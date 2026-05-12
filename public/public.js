@@ -1,233 +1,82 @@
 const i18n = {
   fi: {
-    pageTitle: "Node",
-    nodeActivated: "Tunniste aktiivinen",
-    defaultMessage: "Tämä tunniste on yhdistetty pysyvään digitaaliseen identiteettiobjektiin.",
-
-    statusActive: "AKTIIVINEN",
-    statusLost: "KADONNUT",
-    statusUnknown: "TILA TUNTEMATON",
-    statusDisabled: "POISTETTU KÄYTÖSTÄ",
-
-    primaryCall: "Soita omistajalle",
-    primarySms: "Lähetä tekstiviesti",
-    primaryWhatsapp: "Lähetä WhatsApp",
-    primaryEmail: "Lähetä sähköposti",
-    primaryFallback: "Ota yhteyttä omistajaan",
-
-    call: "Soita",
-    sms: "SMS",
-    whatsapp: "WhatsApp",
-    email: "Sähköposti",
-    otherContactOptions: "Muut yhteystavat",
-
-    contactDisclaimer: "Puhelut ja tekstiviestit avautuvat omalla puhelimella ja oman operaattorin palveluilla.",
-
-    openMap: "Näytä sijainti kartalla →",
-
-    reportTitle: "Ota yhteyttä omistajaan",
-    reportSubtitleEnabled: "Lähetä viesti omistajalle julkisen sivun kautta.",
-    reportSubtitleDisabled: "",
-
-    finderName: "Nimesi",
-    finderContact: "Yhteystietosi",
-    reportMessage: "Viesti",
-    reportLocation: "Sijainti",
-    sendMessage: "Lähetä viesti",
-
-    missingSlug: "Slug puuttuu URL-osoitteesta.",
-    reportSent: "Viesti lähetetty.",
-    reportFailed: "Lähetys epäonnistui.",
-    reportError: "Virhe lähetyksessä.",
-    nodeNotFound: "Nodea ei löytynyt.",
-    nodeDisabled: "Tämä node on poistettu käytöstä. Yhteystiedot ja viestitoiminnot eivät ole saatavilla.",
-    loadFailed: "Lataus epäonnistui."
+    pageTitle: "Muistoissa",
+    memorialMark: "Muistoissa",
+    loadingTitle: "Ladataan muistosivua",
+    loadingText: "Hetki vain.",
+    notFoundTitle: "Muistosivua ei löytynyt",
+    notFoundText: "Tätä muistohuonetta ei ole saatavilla.",
+    disabledTitle: "Muistosivu ei ole saatavilla",
+    disabledText: "Tämä muistosivu on poistettu käytöstä.",
+    loadFailedTitle: "Lataus epäonnistui",
+    loadFailedText: "Muistosivun avaaminen ei juuri nyt onnistunut.",
+    stateDisabled: "Ei saatavilla",
+    stateNotFound: "Ei löytynyt",
+    stateError: "Virhe",
+    memorialTypeDefault: "Muistosivu",
+    galleryTitle: "Muistoja kuvina",
+    storyTitle: "Elämän tarina",
+    untitledMemorial: "Rakas muisto",
+    noImageCopy: "Muistot elävät kuvienkin ulkopuolella.",
+    dateSeparator: "–"
   },
   en: {
-    pageTitle: "Node",
-    nodeActivated: "Tag active",
-    defaultMessage: "This tag is linked to a persistent digital identity object.",
-
-    statusActive: "ACTIVE",
-    statusLost: "LOST",
-    statusUnknown: "STATUS UNKNOWN",
-    statusDisabled: "DISABLED",
-
-    primaryCall: "Call owner",
-    primarySms: "Send SMS",
-    primaryWhatsapp: "Message on WhatsApp",
-    primaryEmail: "Send email",
-    primaryFallback: "Contact owner",
-
-    call: "Call",
-    sms: "SMS",
-    whatsapp: "WhatsApp",
-    email: "Email",
-    otherContactOptions: "Other contact options",
-
-    contactDisclaimer: "Calls and text messages open through your own phone and mobile operator.",
-
-    openMap: "Show location on map →",
-
-    reportTitle: "Scanner messages",
-    reportSubtitleEnabled: "Send a message to the owner through the public page.",
-    reportSubtitleDisabled: "",
-
-    finderName: "Your name",
-    finderContact: "Your contact",
-    reportMessage: "Message",
-    reportLocation: "Location",
-    sendMessage: "Send message",
-
-    missingSlug: "Missing slug in URL.",
-    reportSent: "Message sent.",
-    reportFailed: "Send failed.",
-    reportError: "Error sending message.",
-    nodeNotFound: "Node not found.",
-    nodeDisabled: "This node has been disabled. Contact details and messaging are not available.",
-    loadFailed: "Load failed."
+    pageTitle: "Muistoissa",
+    memorialMark: "Muistoissa",
+    loadingTitle: "Loading memorial page",
+    loadingText: "Please wait a moment.",
+    notFoundTitle: "Memorial page not found",
+    notFoundText: "This memorial room is not available.",
+    disabledTitle: "Memorial page unavailable",
+    disabledText: "This memorial page has been disabled.",
+    loadFailedTitle: "Loading failed",
+    loadFailedText: "The memorial page could not be opened right now.",
+    stateDisabled: "Unavailable",
+    stateNotFound: "Not found",
+    stateError: "Error",
+    memorialTypeDefault: "Memorial page",
+    galleryTitle: "Gallery of memories",
+    storyTitle: "Life story",
+    untitledMemorial: "Beloved memory",
+    noImageCopy: "Some memories remain vivid even without a photograph.",
+    dateSeparator: "–"
   }
 };
 
 let currentLang = "fi";
-let currentNode = null;
-let isDisabledNode = false;
-let currentPublicPageState = "idle";
+let currentPageState = "loading";
+let currentViewModel = null;
 
 const els = {
+  html: document.documentElement,
+  memorialMark: document.getElementById("memorial-mark"),
   langFi: document.getElementById("lang-fi"),
   langEn: document.getElementById("lang-en"),
-
-  nodeActivation: document.getElementById("node-activation"),
-  nodeName: document.getElementById("node-name"),
-  nodeId: document.getElementById("node-id"),
-  nodeMessage: document.getElementById("node-message"),
-
-  nodeStatusWrap: document.getElementById("node-status-wrap"),
-  nodeStatusBadge: document.getElementById("node-status-badge"),
-
-  nodeImageSection: document.getElementById("node-image-section"),
-  nodeImage: document.getElementById("node-image"),
-
-  primaryActionSection: document.getElementById("node-primary-action-section"),
-  primaryAction: document.getElementById("primary-action"),
-  primaryActionIcon: document.getElementById("primary-action-icon"),
-  primaryActionLabel: document.getElementById("primary-action-label"),
-
-  secondaryActionsSection: document.getElementById("node-secondary-actions-section"),
-  secondaryActionsTitle: document.getElementById("secondary-actions-title"),
-  contactDisclaimer: document.getElementById("contact-disclaimer"),
-
-  actionPhone: document.getElementById("action-phone"),
-  actionSms: document.getElementById("action-sms"),
-  actionWhatsapp: document.getElementById("action-whatsapp"),
-  actionEmail: document.getElementById("action-email"),
-
-  actionPhoneLabel: document.getElementById("action-phone-label"),
-  actionSmsLabel: document.getElementById("action-sms-label"),
-  actionWhatsappLabel: document.getElementById("action-whatsapp-label"),
-  actionEmailLabel: document.getElementById("action-email-label"),
-
-  nodeLocationSection: document.getElementById("node-location-section"),
-  mapLink: document.getElementById("map-link"),
-
-  reportSection: document.getElementById("report-section"),
-  reportTitle: document.getElementById("report-title"),
-  reportSubtitle: document.getElementById("report-subtitle"),
-
-  labelFinderName: document.getElementById("label-finder-name"),
-  labelFinderContact: document.getElementById("label-finder-contact"),
-  labelReportMessage: document.getElementById("label-report-message"),
-  labelReportLocation: document.getElementById("label-report-location"),
-
-  finderName: document.getElementById("finder-name"),
-  finderContact: document.getElementById("finder-contact"),
-  reportMessage: document.getElementById("report-message"),
-  reportLocation: document.getElementById("report-location"),
-  reportSubmit: document.getElementById("report-submit"),
-  reportForm: document.getElementById("report-form"),
-  reportFeedback: document.getElementById("report-feedback")
+  statePanel: document.getElementById("state-panel"),
+  stateEyebrow: document.getElementById("state-eyebrow"),
+  stateTitle: document.getElementById("state-title"),
+  stateText: document.getElementById("state-text"),
+  memorialContent: document.getElementById("memorial-content"),
+  heroKicker: document.getElementById("hero-kicker"),
+  memorialName: document.getElementById("memorial-name"),
+  memorialDates: document.getElementById("memorial-dates"),
+  memorialEpitaph: document.getElementById("memorial-epitaph"),
+  memoryLead: document.getElementById("memory-lead"),
+  heroVisual: document.getElementById("hero-visual"),
+  heroFrame: document.getElementById("hero-frame"),
+  heroImage: document.getElementById("hero-image"),
+  heroPlaceholder: document.getElementById("hero-placeholder"),
+  heroPlaceholderCopy: document.getElementById("hero-placeholder-copy"),
+  gallerySection: document.getElementById("gallery-section"),
+  galleryTitle: document.getElementById("gallery-title"),
+  galleryGrid: document.getElementById("gallery-grid"),
+  storySection: document.getElementById("story-section"),
+  storyTitle: document.getElementById("story-title"),
+  storyBody: document.getElementById("story-body")
 };
 
 function t(key) {
   return i18n[currentLang][key] || "";
-}
-
-function getSlug() {
-  const url = new URL(window.location.href);
-  const querySlug = (url.searchParams.get("slug") || "").trim();
-
-  if (querySlug) {
-    return querySlug;
-  }
-
-  const parts = url.pathname.split("/").filter(Boolean);
-  if (parts.length >= 2 && parts[0] === "n") {
-    return decodeURIComponent(parts[1]);
-  }
-
-  return "";
-}
-
-function setLanguage(lang) {
-  currentLang = lang === "en" ? "en" : "fi";
-
-  els.langFi.classList.toggle("active", currentLang === "fi");
-  els.langEn.classList.toggle("active", currentLang === "en");
-
-  els.nodeActivation.textContent = t("nodeActivated");
-  els.actionPhoneLabel.textContent = t("call");
-  els.actionSmsLabel.textContent = t("sms");
-  els.actionWhatsappLabel.textContent = t("whatsapp");
-  els.actionEmailLabel.textContent = t("email");
-  els.secondaryActionsTitle.textContent = t("otherContactOptions");
-  els.contactDisclaimer.textContent = t("contactDisclaimer");
-  els.mapLink.textContent = t("openMap");
-  els.reportTitle.textContent = t("reportTitle");
-  els.labelFinderName.textContent = t("finderName");
-  els.labelFinderContact.textContent = t("finderContact");
-  els.labelReportMessage.textContent = t("reportMessage");
-  els.labelReportLocation.textContent = t("reportLocation");
-  els.reportSubmit.textContent = t("sendMessage");
-
-  if (currentPublicPageState === "node" && currentNode) {
-    renderNode(currentNode);
-    return;
-  }
-
-  if (currentPublicPageState === "disabled") {
-    renderDisabledNodeState();
-    return;
-  }
-
-  if (currentPublicPageState === "not_found") {
-    renderNotFoundState();
-    return;
-  }
-
-  if (currentPublicPageState === "load_failed") {
-    renderLoadFailedState();
-  }
-}
-
-function setActionEnabled(el, href) {
-  el.href = href;
-  el.classList.remove("action-disabled");
-  el.setAttribute("aria-disabled", "false");
-}
-
-function setActionDisabled(el) {
-  el.href = "javascript:void(0)";
-  el.classList.add("action-disabled");
-  el.setAttribute("aria-disabled", "true");
-}
-
-function setActionVisible(el, isVisible) {
-  el.style.display = isVisible ? "flex" : "none";
-}
-
-function isTruthy(value) {
-  return value === 1 || value === true || value === "1";
 }
 
 function getTrimmedString(value) {
@@ -238,484 +87,338 @@ function getTrimmedString(value) {
   return value.trim();
 }
 
-function normalizePhoneLike(value) {
-  return getTrimmedString(value).replace(/[^\d+]/g, "");
-}
+function getSlug() {
+  const url = new URL(window.location.href);
+  const querySlug = getTrimmedString(url.searchParams.get("slug") || "");
 
-function normalizeWhatsapp(value) {
-  return normalizePhoneLike(value).replace(/^\+/, "");
-}
+  if (querySlug) {
+    return querySlug;
+  }
 
-function getPublicLocationLabel(node) {
-  const lastRecoveryLabel = getTrimmedString(node.last_recovery_label);
-  if (lastRecoveryLabel) return lastRecoveryLabel;
+  const parts = url.pathname.split("/").filter(Boolean);
 
-  const locationLabel = getTrimmedString(node.location_label);
-  if (locationLabel) return locationLabel;
-
-  const locationAddress = getTrimmedString(node.location_address);
-  if (locationAddress) return locationAddress;
+  if (parts.length >= 2 && (parts[0] === "m" || parts[0] === "n")) {
+    return decodeURIComponent(parts[1]);
+  }
 
   return "";
 }
 
-function shouldShowPublicLocation(node) {
-  if (Object.prototype.hasOwnProperty.call(node, "show_last_recovery_point")) {
-    return isTruthy(node.show_last_recovery_point);
+function parseGalleryJson(value) {
+  const text = getTrimmedString(value);
+
+  if (!text) {
+    return [];
   }
 
-  if (Object.prototype.hasOwnProperty.call(node, "show_location")) {
-    return isTruthy(node.show_location);
+  let parsed;
+
+  try {
+    parsed = JSON.parse(text);
+  } catch {
+    return [];
   }
 
-  return !!getPublicLocationLabel(node);
-}
+  if (!Array.isArray(parsed)) {
+    return [];
+  }
 
-function buildMapHref(node) {
-  const locationLabel = getPublicLocationLabel(node);
-  if (!locationLabel) return "";
-  return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(locationLabel);
-}
+  const items = [];
 
-function renderPlainTextWithLinks(el, text) {
-  const value = typeof text === "string" ? text : "";
-  const urlPattern = /https?:\/\/[^\s]+/g;
+  for (const entry of parsed) {
+    if (typeof entry === "string") {
+      const url = getTrimmedString(entry);
 
-  el.textContent = "";
+      if (url) {
+        items.push({ url, caption: "" });
+      }
 
-  let lastIndex = 0;
-  let match = urlPattern.exec(value);
-
-  while (match) {
-    const index = match.index;
-    const url = match[0];
-
-    if (index > lastIndex) {
-      el.appendChild(document.createTextNode(value.slice(lastIndex, index)));
+      continue;
     }
 
-    const link = document.createElement("a");
-    link.href = url;
-    link.textContent = url;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    el.appendChild(link);
-
-    lastIndex = index + url.length;
-    match = urlPattern.exec(value);
-  }
-
-  if (lastIndex < value.length) {
-    el.appendChild(document.createTextNode(value.slice(lastIndex)));
-  }
-}
-
-function renderStatus(node) {
-  const status = getTrimmedString(node.status).toLowerCase();
-
-  if (!status) {
-    els.nodeStatusWrap.style.display = "none";
-    els.nodeStatusBadge.textContent = "";
-    els.nodeStatusBadge.className = "node-status-badge";
-    return;
-  }
-
-  els.nodeStatusWrap.style.display = "block";
-
-  if (status === "active") {
-    els.nodeStatusBadge.textContent = t("statusActive");
-    els.nodeStatusBadge.className = "node-status-badge status-active";
-    return;
-  }
-
-  if (status === "lost") {
-    els.nodeStatusBadge.textContent = t("statusLost");
-    els.nodeStatusBadge.className = "node-status-badge status-lost";
-    return;
-  }
-
-  els.nodeStatusBadge.textContent = t("statusUnknown");
-  els.nodeStatusBadge.className = "node-status-badge status-unknown";
-}
-
-function buildActions(node) {
-  const rawPhone = getTrimmedString(node.contact_phone);
-  const rawSms = getTrimmedString(node.contact_sms);
-  const rawWhatsapp = getTrimmedString(node.contact_whatsapp);
-  const rawEmail = getTrimmedString(node.contact_email);
-
-  const normalizedPhone = normalizePhoneLike(rawPhone);
-  const normalizedSms = normalizePhoneLike(rawSms);
-  const normalizedWhatsapp = normalizeWhatsapp(rawWhatsapp);
-
-  const actions = [];
-
-  if (rawPhone && normalizedPhone) {
-    actions.push({
-      key: "phone",
-      href: "tel:" + normalizedPhone,
-      label: t("primaryCall"),
-      icon: "📞"
-    });
-  }
-
-  if (rawSms && normalizedSms) {
-    actions.push({
-      key: "sms",
-      href: "sms:" + normalizedSms,
-      label: t("primarySms"),
-      icon: "✉"
-    });
-  }
-
-  if (rawWhatsapp && normalizedWhatsapp) {
-    actions.push({
-      key: "whatsapp",
-      href: "https://wa.me/" + normalizedWhatsapp,
-      label: t("primaryWhatsapp"),
-      icon: "💬"
-    });
-  }
-
-  if (rawEmail) {
-    actions.push({
-      key: "email",
-      href: "mailto:" + rawEmail,
-      label: t("primaryEmail"),
-      icon: "✉"
-    });
-  }
-
-  return actions;
-}
-
-function getOrderedActions(node) {
-  const actions = buildActions(node);
-  const preferred = getTrimmedString(node.preferred_contact).toLowerCase();
-
-  if (!preferred || preferred === "none") {
-    return actions;
-  }
-
-  const preferredAction = actions.find((action) => action.key === preferred);
-  if (!preferredAction) {
-    return actions;
-  }
-
-  const remainingActions = actions.filter((action) => action.key !== preferred);
-  return [preferredAction, ...remainingActions];
-}
-
-function resetSecondaryActions() {
-  setActionVisible(els.actionPhone, false);
-  setActionVisible(els.actionSms, false);
-  setActionVisible(els.actionWhatsapp, false);
-  setActionVisible(els.actionEmail, false);
-
-  setActionDisabled(els.actionPhone);
-  setActionDisabled(els.actionSms);
-  setActionDisabled(els.actionWhatsapp);
-  setActionDisabled(els.actionEmail);
-}
-
-function hideContactActions() {
-  els.primaryActionSection.style.display = "none";
-  els.secondaryActionsSection.style.display = "none";
-  els.contactDisclaimer.style.display = "none";
-  setActionDisabled(els.primaryAction);
-  resetSecondaryActions();
-}
-
-function resetPublicPageState() {
-  currentPublicPageState = "idle";
-  isDisabledNode = false;
-  hideContactActions();
-  els.reportSection.style.display = "none";
-  els.reportForm.style.display = "none";
-  els.reportSubtitle.textContent = "";
-  els.reportFeedback.textContent = "";
-}
-
-function showPrimaryActionSection() {
-  els.primaryActionSection.style.display = "block";
-}
-
-function renderPrimaryAndSecondaryActions(node) {
-  const actions = getOrderedActions(node);
-
-  resetSecondaryActions();
-
-  els.contactDisclaimer.style.display = "none";
-  els.contactDisclaimer.textContent = t("contactDisclaimer");
-
-  if (actions.length === 0) {
-    hideContactActions();
-    return;
-  }
-
-  showPrimaryActionSection();
-
-  const primary = actions[0];
-  const secondary = actions.slice(1);
-
-  els.primaryActionLabel.textContent = primary.label;
-  els.primaryActionIcon.textContent = primary.icon;
-  setActionEnabled(els.primaryAction, primary.href);
-
-  const phoneAction = secondary.find((action) => action.key === "phone");
-  const smsAction = secondary.find((action) => action.key === "sms");
-  const whatsappAction = secondary.find((action) => action.key === "whatsapp");
-  const emailAction = secondary.find((action) => action.key === "email");
-
-  if (phoneAction) {
-    setActionVisible(els.actionPhone, true);
-    setActionEnabled(els.actionPhone, phoneAction.href);
-  }
-
-  if (smsAction) {
-    setActionVisible(els.actionSms, true);
-    setActionEnabled(els.actionSms, smsAction.href);
-  }
-
-  if (whatsappAction) {
-    setActionVisible(els.actionWhatsapp, true);
-    setActionEnabled(els.actionWhatsapp, whatsappAction.href);
-  }
-
-  if (emailAction) {
-    setActionVisible(els.actionEmail, true);
-    setActionEnabled(els.actionEmail, emailAction.href);
-  }
-
-  const hasSecondary = secondary.length > 0;
-  const hasCallOrSms = actions.some((action) => action.key === "phone" || action.key === "sms");
-
-  els.secondaryActionsSection.style.display = hasSecondary ? "block" : "none";
-
-  if (hasCallOrSms) {
-    els.contactDisclaimer.style.display = "block";
-
-    if (!hasSecondary) {
-      els.secondaryActionsSection.style.display = "block";
+    if (!entry || typeof entry !== "object") {
+      continue;
     }
+
+    const url = getTrimmedString(
+      entry.url || entry.image_url || entry.src || ""
+    );
+
+    if (!url) {
+      continue;
+    }
+
+    const caption = getTrimmedString(entry.caption || entry.alt || entry.title || "");
+    items.push({ url, caption });
   }
+
+  return dedupeGalleryItems(items);
 }
 
-function renderReportSection(node) {
-  const allowAnonymousReport = isTruthy(node.allow_anonymous_report);
+function dedupeGalleryItems(items) {
+  const seen = new Set();
+  const next = [];
 
-  if (!allowAnonymousReport) {
-    els.reportSection.style.display = "none";
-    els.reportForm.style.display = "none";
-    els.reportSubtitle.textContent = "";
-    els.reportFeedback.textContent = "";
+  for (const item of items) {
+    const key = item.url;
+
+    if (!key || seen.has(key)) {
+      continue;
+    }
+
+    seen.add(key);
+    next.push(item);
+  }
+
+  return next;
+}
+
+function buildDateLine(birthDate, deathDate) {
+  const birth = getTrimmedString(birthDate);
+  const death = getTrimmedString(deathDate);
+
+  if (birth && death) {
+    return `${birth} ${t("dateSeparator")} ${death}`;
+  }
+
+  if (birth) {
+    return birth;
+  }
+
+  if (death) {
+    return death;
+  }
+
+  return "";
+}
+
+function buildViewModel(node) {
+  const memorialName = getTrimmedString(node.memorial_name) || getTrimmedString(node.name) || t("untitledMemorial");
+  const birthDate = getTrimmedString(node.birth_date);
+  const deathDate = getTrimmedString(node.death_date);
+  const memorialType = getTrimmedString(node.memorial_type) || t("memorialTypeDefault");
+  const shortEpitaph = getTrimmedString(node.short_epitaph);
+  const memoryText = getTrimmedString(node.memory_text) || getTrimmedString(node.message);
+  const lifeStory = getTrimmedString(node.life_story);
+  const galleryItems = parseGalleryJson(node.gallery_json);
+  const explicitHeroUrl = getTrimmedString(node.hero_image_url) || getTrimmedString(node.image_url);
+  const heroItem = explicitHeroUrl
+    ? {
+        url: explicitHeroUrl,
+        caption: ""
+      }
+    : galleryItems[0] || null;
+  const heroImageUrl = heroItem ? heroItem.url : "";
+  const gallery = galleryItems.filter((item) => item.url !== heroImageUrl);
+
+  return {
+    memorialName,
+    birthDate,
+    deathDate,
+    dateLine: buildDateLine(birthDate, deathDate),
+    memorialType,
+    shortEpitaph,
+    memoryText,
+    lifeStory,
+    heroImageUrl,
+    gallery
+  };
+}
+
+function setLanguage(lang) {
+  currentLang = lang === "en" ? "en" : "fi";
+  els.html.lang = currentLang;
+  els.langFi.classList.toggle("active", currentLang === "fi");
+  els.langEn.classList.toggle("active", currentLang === "en");
+  els.memorialMark.textContent = t("memorialMark");
+  els.galleryTitle.textContent = t("galleryTitle");
+  els.storyTitle.textContent = t("storyTitle");
+
+  if (currentPageState === "ready" && currentViewModel) {
+    renderMemorial(currentViewModel);
     return;
   }
 
-  els.reportSection.style.display = "block";
-  els.reportTitle.textContent = t("reportTitle");
-  els.reportSubtitle.textContent = t("reportSubtitleEnabled");
-  els.reportForm.style.display = "block";
-  els.reportFeedback.textContent = "";
+  renderState(currentPageState);
 }
 
-function renderDisabledNodeState() {
-  resetPublicPageState();
-  currentNode = null;
-  isDisabledNode = true;
-  currentPublicPageState = "disabled";
+function renderTextBlocks(container, text) {
+  container.textContent = "";
 
-  els.nodeName.textContent = t("pageTitle");
-  els.nodeId.textContent = "";
-  els.nodeMessage.textContent = t("nodeDisabled");
+  const value = getTrimmedString(text);
 
-  els.nodeImage.src = "";
-  els.nodeImage.alt = "";
-  els.nodeImageSection.style.display = "none";
-
-  els.mapLink.href = "#";
-  els.mapLink.style.display = "none";
-  els.nodeLocationSection.style.display = "none";
-
-  els.nodeStatusWrap.style.display = "block";
-  els.nodeStatusBadge.textContent = t("statusDisabled");
-  els.nodeStatusBadge.className = "node-status-badge";
-}
-
-function renderNotFoundState() {
-  resetPublicPageState();
-  currentNode = null;
-  isDisabledNode = false;
-  currentPublicPageState = "not_found";
-
-  els.nodeName.textContent = t("pageTitle");
-  els.nodeId.textContent = "";
-  els.nodeMessage.textContent = t("nodeNotFound");
-
-  els.nodeImage.src = "";
-  els.nodeImage.alt = "";
-  els.nodeImageSection.style.display = "none";
-
-  els.mapLink.href = "#";
-  els.mapLink.style.display = "none";
-  els.nodeLocationSection.style.display = "none";
-
-  els.nodeStatusWrap.style.display = "none";
-  els.nodeStatusBadge.textContent = "";
-  els.nodeStatusBadge.className = "node-status-badge";
-}
-
-function renderLoadFailedState() {
-  resetPublicPageState();
-  currentNode = null;
-  isDisabledNode = false;
-  currentPublicPageState = "load_failed";
-
-  els.nodeName.textContent = t("pageTitle");
-  els.nodeId.textContent = "";
-  els.nodeMessage.textContent = t("loadFailed");
-
-  els.nodeImage.src = "";
-  els.nodeImage.alt = "";
-  els.nodeImageSection.style.display = "none";
-
-  els.mapLink.href = "#";
-  els.mapLink.style.display = "none";
-  els.nodeLocationSection.style.display = "none";
-
-  els.nodeStatusWrap.style.display = "none";
-  els.nodeStatusBadge.textContent = "";
-  els.nodeStatusBadge.className = "node-status-badge";
-}
-
-function renderNode(node) {
-  currentNode = node;
-  isDisabledNode = false;
-  currentPublicPageState = "node";
-
-  els.nodeName.textContent = getTrimmedString(node.name || t("pageTitle"));
-  els.nodeId.textContent = getTrimmedString(node.identifier || "ID#");
-  renderPlainTextWithLinks(els.nodeMessage, getTrimmedString(node.message || t("defaultMessage")));
-
-  renderStatus(node);
-
-  const imageUrl = getTrimmedString(node.image_url);
-
-  if (imageUrl) {
-    const imageAlt = node.name || "Node image";
-    els.nodeImage.src = imageUrl;
-    els.nodeImage.alt = imageAlt;
-    els.nodeImageSection.style.display = "block";
-  } else {
-    els.nodeImage.src = "";
-    els.nodeImage.alt = "";
-    els.nodeImageSection.style.display = "none";
+  if (!value) {
+    return;
   }
 
-  renderPrimaryAndSecondaryActions(node);
-  renderReportSection(node);
+  const parts = value
+    .split(/\n{2,}/)
+    .map((part) => part.trim())
+    .filter(Boolean);
 
-  const showLocation = shouldShowPublicLocation(node);
-  const mapHref = buildMapHref(node);
+  if (parts.length === 0) {
+    const p = document.createElement("p");
+    p.textContent = value;
+    container.appendChild(p);
+    return;
+  }
 
-  if (showLocation && mapHref) {
-    els.mapLink.href = mapHref;
-    els.mapLink.style.display = "inline-block";
-    els.nodeLocationSection.style.display = "block";
-  } else {
-    els.mapLink.href = "#";
-    els.mapLink.style.display = "none";
-    els.nodeLocationSection.style.display = "none";
+  for (const part of parts) {
+    const p = document.createElement("p");
+    p.textContent = part;
+    container.appendChild(p);
   }
 }
 
-async function loadNode() {
+function renderGallery(items, memorialName) {
+  els.galleryGrid.textContent = "";
+
+  if (!items.length) {
+    els.gallerySection.hidden = true;
+    return;
+  }
+
+  const classes = ["gallery-grid"];
+
+  if (items.length === 1) classes.push("gallery-single");
+  if (items.length === 2) classes.push("gallery-pair");
+  if (items.length >= 3) classes.push("gallery-collage");
+
+  els.galleryGrid.className = classes.join(" ");
+
+  for (const item of items) {
+    const figure = document.createElement("figure");
+    figure.className = "gallery-card";
+
+    const image = document.createElement("img");
+    image.src = item.url;
+    image.alt = item.caption || memorialName;
+    figure.appendChild(image);
+
+    if (item.caption) {
+      const figcaption = document.createElement("figcaption");
+      figcaption.textContent = item.caption;
+      figure.appendChild(figcaption);
+    }
+
+    els.galleryGrid.appendChild(figure);
+  }
+
+  els.gallerySection.hidden = false;
+}
+
+function renderState(state) {
+  currentPageState = state;
+  els.statePanel.hidden = false;
+  els.memorialContent.hidden = true;
+  document.title = t("pageTitle");
+
+  if (state === "loading") {
+    els.stateEyebrow.textContent = t("memorialMark");
+    els.stateTitle.textContent = t("loadingTitle");
+    els.stateText.textContent = t("loadingText");
+    return;
+  }
+
+  if (state === "disabled") {
+    els.stateEyebrow.textContent = t("stateDisabled");
+    els.stateTitle.textContent = t("disabledTitle");
+    els.stateText.textContent = t("disabledText");
+    return;
+  }
+
+  if (state === "not_found") {
+    els.stateEyebrow.textContent = t("stateNotFound");
+    els.stateTitle.textContent = t("notFoundTitle");
+    els.stateText.textContent = t("notFoundText");
+    return;
+  }
+
+  els.stateEyebrow.textContent = t("stateError");
+  els.stateTitle.textContent = t("loadFailedTitle");
+  els.stateText.textContent = t("loadFailedText");
+}
+
+function renderMemorial(viewModel) {
+  currentPageState = "ready";
+  currentViewModel = viewModel;
+  els.statePanel.hidden = true;
+  els.memorialContent.hidden = false;
+
+  document.title = `${viewModel.memorialName} | ${t("pageTitle")}`;
+
+  els.heroKicker.textContent = viewModel.memorialType;
+  els.memorialName.textContent = viewModel.memorialName;
+  els.memorialDates.textContent = viewModel.dateLine;
+  els.memorialDates.hidden = !viewModel.dateLine;
+
+  els.memorialEpitaph.textContent = viewModel.shortEpitaph;
+  els.memorialEpitaph.hidden = !viewModel.shortEpitaph;
+
+  renderTextBlocks(els.memoryLead, viewModel.memoryText);
+  els.memoryLead.hidden = !getTrimmedString(viewModel.memoryText);
+
+  if (viewModel.heroImageUrl) {
+    els.heroImage.src = viewModel.heroImageUrl;
+    els.heroImage.alt = viewModel.memorialName;
+    els.heroFrame.hidden = false;
+    els.heroPlaceholder.hidden = true;
+  } else {
+    els.heroImage.src = "";
+    els.heroImage.alt = "";
+    els.heroFrame.hidden = true;
+    els.heroPlaceholder.hidden = false;
+    els.heroPlaceholderCopy.textContent = t("noImageCopy");
+  }
+
+  renderGallery(viewModel.gallery, viewModel.memorialName);
+
+  renderTextBlocks(els.storyBody, viewModel.lifeStory);
+  els.storySection.hidden = !getTrimmedString(viewModel.lifeStory);
+}
+
+async function loadMemorial() {
   const slug = getSlug();
-  resetPublicPageState();
+
+  renderState("loading");
 
   if (!slug) {
+    renderState("not_found");
     return;
   }
 
   try {
-    const res = await fetch("/api/public/" + encodeURIComponent(slug), {
-      headers: { Accept: "application/json" }
+    const res = await fetch(`/api/public/${encodeURIComponent(slug)}`, {
+      headers: {
+        Accept: "application/json"
+      }
     });
 
     if (res.status === 410) {
-      renderDisabledNodeState();
+      renderState("disabled");
       return;
     }
 
     if (res.status === 404) {
-      renderNotFoundState();
+      renderState("not_found");
       return;
     }
 
     if (!res.ok) {
-      renderLoadFailedState();
+      renderState("load_failed");
       return;
     }
 
     const data = await res.json();
-    renderNode(data);
+    renderMemorial(buildViewModel(data || {}));
   } catch (error) {
     console.error(error);
-    renderLoadFailedState();
+    renderState("load_failed");
   }
 }
-
-els.reportForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const slug = getSlug();
-  if (!slug) {
-    els.reportFeedback.textContent = t("missingSlug");
-    return;
-  }
-
-  if (!currentNode || !isTruthy(currentNode.allow_anonymous_report)) {
-    els.reportFeedback.textContent = t("reportFailed");
-    return;
-  }
-
-  const payload = {
-    name: els.finderName.value.trim(),
-    contact: els.finderContact.value.trim(),
-    message: els.reportMessage.value.trim(),
-    location: els.reportLocation.value.trim()
-  };
-
-  try {
-    const res = await fetch("/api/report/" + encodeURIComponent(slug), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
-
-    if (res.ok) {
-      els.reportFeedback.textContent = t("reportSent");
-      els.reportForm.reset();
-    } else {
-      els.reportFeedback.textContent = t("reportFailed");
-    }
-  } catch (error) {
-    console.error(error);
-    els.reportFeedback.textContent = t("reportError");
-  }
-});
 
 els.langFi.addEventListener("click", () => setLanguage("fi"));
 els.langEn.addEventListener("click", () => setLanguage("en"));
 
 setLanguage("fi");
-loadNode();
-
-window.addEventListener("load", () => {
-  window.setTimeout(() => {
-    document.body.classList.add("node-activation-ready");
-  }, 120);
-});
+loadMemorial();
