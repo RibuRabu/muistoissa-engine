@@ -752,6 +752,7 @@ button {
 
   .scene-layer--monolith {
     justify-items: center;
+    transform: translateX(-2vw);
   }
 
   .monolith-frame {
