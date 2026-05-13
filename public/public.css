@@ -341,18 +341,19 @@ button {
 .scene-layer--monolith {
   display: grid;
   place-items: center;
-  padding-top: 10vh;
-  padding-bottom: 18vh;
+  padding-top: 9vh;
+  padding-bottom: 17vh;
   z-index: 6;
   will-change: transform;
-  animation: monolith-presence 24s ease-in-out infinite;
+  animation: monolith-presence 20s ease-in-out infinite;
 }
 
 .monolith-frame {
   position: relative;
-  width: min(19.4rem, 88vw);
-  min-height: min(31rem, 72vh);
-  padding: 3.8rem 2rem 5rem;
+  width: min(23rem, 96vw);
+  min-height: min(36rem, 82vh);
+  max-width: none;
+  padding: 3.4rem 2rem 5.6rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -388,7 +389,7 @@ button {
 .monolith-artifact {
   position: absolute;
   left: 50%;
-  top: 15.2%;
+  top: 14.2%;
   width: 38%;
   transform: translateX(-50%);
   border-radius: 1rem;
@@ -410,8 +411,8 @@ button {
   z-index: 1;
   display: grid;
   gap: 0.62rem;
-  width: min(13.4rem, 60vw);
-  margin-bottom: 1rem;
+  width: min(14.8rem, 64vw);
+  margin-bottom: 1.8rem;
   text-align: center;
 }
 
@@ -426,7 +427,7 @@ button {
 .monolith-name {
   margin: 0;
   font-family: var(--serif);
-  font-size: clamp(2rem, 8vw, 3.15rem);
+  font-size: clamp(2.2rem, 9vw, 3.3rem);
   line-height: 0.92;
   letter-spacing: -0.05em;
   font-weight: 500;
@@ -439,7 +440,7 @@ button {
 
 .monolith-dates {
   margin: 0;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(205, 210, 218, 0.84);
@@ -591,7 +592,7 @@ button {
   }
 
   50% {
-    transform: translateY(-0.65vh) scale(1.035);
+    transform: translateY(-1vh) scale(1.07);
   }
 }
 
@@ -635,18 +636,18 @@ button {
   }
 
   .scene-layer--monolith {
-    animation-duration: 22s;
+    animation-duration: 19s;
   }
 
   .monolith-frame {
-    width: min(21rem, 34vw);
-    min-height: min(36rem, 74vh);
-    padding: 4.8rem 2.5rem 5.1rem;
+    width: min(22rem, 36vw);
+    min-height: min(38rem, 76vh);
+    padding: 4.4rem 2.5rem 5.2rem;
   }
 
   .monolith-inscription {
-    width: min(14rem, 21vw);
-    margin-bottom: 0.7rem;
+    width: min(14.4rem, 22vw);
+    margin-bottom: 1rem;
   }
 
   .scene-layer--quote {
@@ -702,17 +703,17 @@ button {
   }
 
   .scene-layer--monolith {
-    animation-duration: 26s;
+    animation-duration: 22s;
   }
 
   .monolith-frame {
-    width: 22rem;
+    width: 22.5rem;
     min-height: 40rem;
-    padding: 5rem 2.8rem 5.3rem;
+    padding: 4.8rem 2.8rem 5.4rem;
   }
 
   .monolith-inscription {
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.7rem;
   }
 
   .monolith-name {
