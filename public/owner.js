@@ -1,87 +1,42 @@
-﻿const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
-const ALLOWED_IMAGE_TYPES = ["image/png", "image/jpeg", "image/webp", "image/gif"];
-
 const i18n = {
   fi: {
-    page_title: "Node-hallinta",
-    page_subtitle: "Hallitse tunnisteen näkyvyyttä, yhteystapoja ja tapahtumahistoriaa.",
-    node_card_title: "Node-linkki",
-    controls_card_title: "Tunnisteen asetukset",
-    controls_card_intro: "Hallinta ja julkisen sivun tiedot.",
-    timeline_title: "Tapahtumahistoria",
+    page_title: "Muistoissa muistotoimittaja",
+    page_subtitle: "Muokkaa muistomerkinnan teksteja, julkaisutilaa ja scene-mediaa.",
+    editor_eyebrow: "Muistotoimittaja",
+    editor_card_title: "Muistosivun tiedot",
+    editor_card_intro: "Naita tietoja kaytetaan julkisessa mausoleumi-sceneessa.",
+    timeline_title: "Historia",
+    timeline_intro: "Omistajan ja jarjestelman viimeisimmat tapahtumat.",
+    open_public_page: "Avaa muistosivu",
 
-    identity_section_title: "Tunniste",
-    profile_name_label: "Tunnisteen otsikko",
-    public_message_label: "Julkinen viesti",
-    save_identity: "Tallenna tunniste",
+    overview_section_title: "Muiston yleiskuva",
+    memorial_name_label: "Muiston nimi",
+    memorial_type_label: "Muiston tyyppi",
+    birth_date_label: "Syntymaaika",
+    death_date_label: "Kuolinaika",
+    visibility_mode_label: "Nakymatila",
+    published_at_label: "Julkaistu",
+    published_at_hint: "Voit kayttaa esimerkiksi ISO-aikaleimaa tai paivamaaraa tekstina.",
+    save_overview: "Tallenna yleiskuva",
 
-    status_section_title: "Tila",
+    inscription_section_title: "Mausoleumin kaiverrus",
+    short_epitaph_label: "Lyhyt epitafi",
+    save_inscription: "Tallenna kaiverrus",
 
-    contact_section_title: "Yhteystavat",
-    contact_section_intro: "Määritä mitä yhteystapoja käytetään, mitkä niistä lisätään Node-sivulle ja mikä niistä on ensisijainen.",
-    phone_label: "Puhelin",
-    sms_label: "SMS",
-    whatsapp_label: "WhatsApp",
-    email_label: "Sähköposti",
-    show_phone_label: "Lisää Node-sivulle",
-    show_sms_label: "Lisää Node-sivulle",
-    show_whatsapp_label: "Lisää Node-sivulle",
-    show_email_label: "Lisää Node-sivulle",
-    preferred_contact_label: "Ensisijainen yhteystapa",
-    preferred_contact_hint: "Ensisijainen tapa näkyy julkisella sivulla päätoimintona, jos se on käytettävissä.",
-    preferred_contact_phone: "Puhelu",
-    preferred_contact_sms: "SMS",
-    preferred_contact_whatsapp: "WhatsApp",
-    preferred_contact_email: "Sähköposti",
-    preferred_contact_none: "Automaattinen",
-    preferred_contact_hidden_hint: "Ensisijainen yhteystapa tulee näkyviin vasta kun vähintään yksi yhteystieto on lisätty.",
-    save_contact_settings: "Tallenna yhteystavat",
+    memory_section_title: "Ensimmainen muisto",
+    memory_text_label: "Muistoteksti",
+    save_memory: "Tallenna muistoteksti",
 
-    location_section_title: "Sijainti",
-    location_section_intro: "Syötä sijainti tekstinä. Tämä voi olla osoite, paikan nimi tai viimeisin tunnettu sijainti.",
-    location_label: "Sijainti / osoite / paikan nimi",
-    location_hint: "Esimerkki: Helsinki, Tammisto, Rautatieasema tai Aleksanterinkatu 12, Helsinki",
-    show_location_label: "Lisää Node-sivulle",
-    save_location: "Tallenna sijainti",
-    collection_section_title: "Collection",
-    collection_section_intro: "Luo uusi Collection tai liitä tämä Node olemassa olevaan Collectioniin.",
-    collection_name_label: "Collectionin nimi",
-    collection_name_placeholder: "Valinnainen nimi",
-    create_collection_button: "Luo Collection",
-    collection_token_label: "Liittymiskoodi",
-    collection_token_placeholder: "Syötä liittymiskoodi",
-    join_collection_button: "Liitä Collectioniin",
-    collection_create_success: "Collection luotu. Tallenna liittymiskoodi nyt: {token}",
-    collection_join_success: "Node liitetty Collectioniin.",
-    collection_already_joined: "Tämä Node on jo liitetty tähän Collectioniin.",
-    collection_token_required: "Liittymiskoodi vaaditaan.",
-    collection_create_failed: "Collectionin luonti epäonnistui",
-    collection_join_failed: "Collectioniin liittäminen epäonnistui",
-    collection_invalid_token: "Liittymiskoodi on virheellinen tai Collection ei ole aktiivinen.",
-    collection_membership_none: "Tämä Node ei kuulu vielä mihinkään Collectioniin.",
-    collection_membership_current: "Tämä Node kuuluu Collectioniin: {name}",
-    open_collection_button: "Avaa kokoelma",
-    reissue_collection_link_button: "Luo uusi kutsulinkki",
-    collection_reissue_not_found: "Nykyistä kokoelmaa ei löytynyt.",
-    collection_reissue_failed: "Uuden kutsulinkin luominen epäonnistui.",
-    collection_reissue_success: "Uusi liittymiskoodi: {token} Vanha kutsulinkki tai liittymiskoodi ei enää toimi.",
-    collection_open_not_found: "Nykyistä kokoelmaa ei löytynyt.",
-    collection_open_failed: "Kokoelman avaaminen epäonnistui.",
-    leave_collection_button: "Poistu kokoelmasta",
-    confirm_leave_collection: "Haluatko varmasti poistua tästä kokoelmasta?",
-    collection_leave_success: "Poistuit kokoelmasta.",
-    collection_leave_missing: "Kokoelmatietoa ei löytynyt.",
-    collection_leave_not_found: "Kokoelmajäsenyyttä ei löytynyt.",
-    collection_leave_failed: "Kokoelmasta poistuminen epäonnistui.",
+    story_section_title: "Elamantarina",
+    life_story_label: "Pidempi elamantarina",
+    save_story: "Tallenna elamantarina",
 
-    scanner_messages_section_title: "Lähetä viesti omistajalle",
-    scanner_messages_intro: "Salli tai estä viestilomake henkilölle, joka avaa tämän Noden julkisen sivun skannaamalla tunnisteen.",
-    enable_reports: "Salli viestilomake skannaajalle",
-    disable_reports: "Estä viestilomake skannaajalta",
-
-    carrier_section_title: "Pyyntö tunnisteen vaihtoon",
-    carrier_reason_label: "Syy",
-    carrier_notes_label: "Lisähuomiot",
+    scene_media_section_title: "Scene-media",
+    hero_image_url_label: "Hero-kuvan URL",
+    hero_image_url_hint: "Valiaikainen tekstikentta. Nykyinen kuvan lataus ei viela kirjoita hero_image_url-kenttaan.",
+    gallery_json_label: "Gallery JSON",
+    gallery_json_hint: "Edistynyt valiaikainen kentta muistofragmentteja varten. Ei renderoidu viela julkisessa scenessa ruudukkona.",
+    save_scene_media: "Tallenna scene-media",
 
     pin_section_title: "Vaihda PIN",
     current_pin_label: "Nykyinen PIN",
@@ -89,175 +44,111 @@ const i18n = {
     confirm_pin_label: "Vahvista uusi PIN",
     change_pin_button: "Vaihda PIN",
     change_pin_success: "PIN vaihdettu.",
-    change_pin_failed: "PINin vaihto epäonnistui",
-    change_pin_mismatch: "Uusi PIN ja vahvistus eivät täsmää.",
+    change_pin_failed: "PINin vaihto epaonnistui",
+    change_pin_mismatch: "Uusi PIN ja vahvistus eivat taysmaa.",
     change_pin_invalid_format: "PINin on oltava 4-6 numeroa.",
     change_pin_invalid_current: "Nykyinen PIN on virheellinen.",
-    node_image_input_label: "Valitse kuva",
-    node_image_hint: "Sallitut muodot: PNG, JPG, WEBP tai GIF. Maksimikoko 5 MB.",
-    node_image_empty_title: "Ei kuvaa",
-    node_image_empty_text: "Tähän näkyy nykyinen Node-kuva.",
-    save_node_image: "Tallenna kuva",
-    clear_node_image_selection: "Tyhjennä valinta",
-    remove_node_image: "Poista kuva",
-    image_selected_ready: "Kuva valittu. Voit nyt tallentaa sen.",
-    image_selection_cleared: "Kuvavalinta tyhjennetty.",
-    image_upload_success: "Node-kuva tallennettu.",
-    image_delete_success: "Node-kuva poistettu.",
-    image_delete_failed: "Node-kuvan poisto epäonnistui",
-    image_upload_failed: "Node-kuvan tallennus epäonnistui",
-    image_missing_selection: "Valitse kuva ennen tallennusta.",
-    image_invalid_type: "Tiedostotyyppi ei ole sallittu. Käytä PNG-, JPG-, WEBP- tai GIF-kuvaa.",
-    image_too_large: "Kuva on liian suuri. Maksimikoko on 5 MB.",
-    image_remove_confirm: "Poistetaanko nykyinen Node-kuva?",
-    image_uploading: "Tallennetaan kuvaa…",
-    image_deleting: "Poistetaan kuvaa…",
 
-    set_active: "Aseta aktiiviseksi",
-    set_lost: "Aseta kadonneeksi",
-    replace_carrier: "Lähetä pyyntö",
-    open_public_page: "Avaa Node",
+    visibility_mode_draft: "Luonnos",
+    visibility_mode_private: "Yksityinen",
+    visibility_mode_public: "Julkinen",
+    visibility_mode_unknown: "Muu",
+    published_state_empty: "Ei asetettu",
+    hero_image_state_present: "Asetettu",
+    hero_image_state_empty: "Ei asetettu",
 
-    status: "Tila",
-    slug: "Slug",
-    finder_messages_status: "Skannaajan viestit",
-    finder_messages_enabled: "Sallittu",
-    finder_messages_disabled: "Estetty",
-    preferred_contact_status: "Ensisijainen yhteystapa",
-    location_status: "Sijainti",
-    location_visible: "Näkyy julkisesti",
-    location_hidden: "Ei näy julkisesti",
-    location_empty: "Ei asetettu",
-    identifier: "Tunniste",
-    dashboard_status: "Yleistila",
-
-    empty_timeline: "Ei tapahtumia vielä.",
-    timeline_show_all: "Näytä kaikki lokit",
+    memorial_name_fallback: "Nimeamaton muisto",
+    memorial_type_fallback: "Muistoarkisto",
+    history_empty: "Ei tapahtumia viela.",
+    timeline_show_all: "Nayta kaikki",
     timeline_hide_all: "Piilota lokit",
     timeline_filter_all: "Kaikki",
-    missing_token: "Owner-token puuttuu",
-    pin_prompt: "Syötä PIN",
-    pin_required: "PIN vaaditaan.",
-    pin_verify_failed: "PIN-vahvistus epäonnistui",
-    session_check_failed: "Istunnon tarkistus epäonnistui",
-    load_owner_failed: "Node-datan lataus epäonnistui",
-    load_timeline_failed: "Tapahtumahistorian lataus epäonnistui",
+
+    timeline_detail_message: "Viesti",
+    timeline_detail_location: "Sijainti",
+    timeline_detail_name: "Lahettaja",
+    timeline_detail_contact: "Yhteystieto",
+
+    summary_name: "Muisto",
+    summary_visibility: "Nakymatila",
+    summary_published: "Julkaistu",
+    summary_slug: "Slug",
+    summary_scene_media: "Hero-kuva",
+
+    load_owner_failed: "Omistajadatan lataus epaonnistui",
+    load_timeline_failed: "Historian lataus epaonnistui",
+    update_failed: "Paivitys epaonnistui",
     save_success: "Tallennus onnistui.",
-    carrier_success: "Pyyntö kirjattu.",
-    update_failed: "Päivitys epäonnistui",
-    carrier_failed: "Pyynnön kirjaus epäonnistui",
+    missing_token: "Owner-token puuttuu",
+    pin_prompt: "Syota PIN",
+    pin_required: "PIN vaaditaan.",
+    pin_verify_failed: "PIN-vahvistus epaonnistui",
+    session_check_failed: "Istunnon tarkistus epaonnistui",
+
     event_NODE_CREATED: "Node luotu",
-    event_PROFILE_UPDATED: "Profiilia päivitetty",
+    event_PROFILE_UPDATED: "Tietoja paivitetty",
     event_STATUS_CHANGED: "Tila muuttunut",
-    event_VISIBILITY_UPDATED: "Näkyvyysasetuksia päivitetty",
-    event_RECOVERY_LOCATION_UPDATED: "Sijaintia päivitetty",
+    event_VISIBILITY_UPDATED: "Nakymatila paivitetty",
+    event_RECOVERY_LOCATION_UPDATED: "Sijaintia paivitetty",
     event_ANONYMOUS_REPORT_CREATED: "Skannaajan viesti vastaanotettu",
     event_CARRIER_REPLACED: "Tunniste vaihdettu",
     event_OWNER_TOKEN_REISSUED: "Omistajan linkki uusittu",
+    event_pin_changed: "PIN vaihdettu",
+    event_OWNER_PIN_RESET: "PIN nollattu",
+    event_NODE_LEFT_COLLECTION: "Collection poistettu",
+    event_NODE_DISABLED: "Node poistettu kaytosta",
 
-    confirm_set_active: "Asetetaanko Node aktiiviseksi?",
-    confirm_set_lost: "Asetetaanko Node kadonneeksi?",
-    confirm_enable_reports: "Sallitaanko viestilomake skannaajalle?",
-    confirm_disable_reports: "Estetäänkö viestilomake skannaajalta?",
-    confirm_replace_carrier: "Kirjataanko pyyntö tunnisteen vaihtoon Node-historiaan?",
-    event_desc_ANONYMOUS_REPORT_CREATED: "Skannaajalta saapui uusi viesti.",
-    event_desc_NODE_CREATED: "Tämä Node luotiin.",
-    event_desc_NODE_CREATED_with_identifier: "Node {identifier} luotiin.",
-    event_desc_PROFILE_UPDATED: "Noden julkisia tietoja päivitettiin.",
-    event_desc_pin_changed: "Omistajan PIN-koodi vaihdettiin.",
-    event_desc_OWNER_PIN_RESET: "Omistajan PIN-koodi nollattiin.",
-    event_desc_NODE_DISABLED: "Node poistettiin käytöstä.",
-    event_desc_CARRIER_REPLACED: "Tälle Nodelle kirjattiin uusi tunniste.",
-    event_desc_NODE_LEFT_COLLECTION: "Node poistui kokoelmasta.",
-    event_desc_STATUS_CHANGED: "Noden tila päivitettiin.",
-    event_desc_VISIBILITY_UPDATED: "Noden näkyvyysasetuksia päivitettiin.",
-    event_desc_RECOVERY_LOCATION_UPDATED: "Noden sijaintitieto päivitettiin.",
+    event_desc_NODE_CREATED: "Muiston pohja luotiin.",
+    event_desc_PROFILE_UPDATED: "Julkisia muistotietoja paivitettiin.",
+    event_desc_STATUS_CHANGED: "Sisainen tila paivitettiin.",
+    event_desc_VISIBILITY_UPDATED: "Nakymatietoja paivitettiin.",
+    event_desc_RECOVERY_LOCATION_UPDATED: "Vanha sijaintikentta paivitettiin.",
+    event_desc_ANONYMOUS_REPORT_CREATED: "Skannaajalta saapui viesti.",
+    event_desc_CARRIER_REPLACED: "Carrier-historiaan kirjattiin muutos.",
     event_desc_OWNER_TOKEN_REISSUED: "Omistajan kirjautumislinkki uusittiin.",
-    event_detail_message: "Viesti",
-    event_detail_location: "Sijainti",
-    event_detail_name: "Lähettäjä",
-    event_detail_contact: "Yhteystieto",
+    event_desc_pin_changed: "Omistajan PIN vaihdettiin.",
+    event_desc_OWNER_PIN_RESET: "Omistajan PIN nollattiin.",
+    event_desc_NODE_LEFT_COLLECTION: "Node poistui collectionista.",
+    event_desc_NODE_DISABLED: "Node poistettiin kaytosta."
   },
   en: {
-    page_title: "Node management",
-    page_subtitle: "Manage visibility, contact methods, and event history.",
-    node_card_title: "Node link",
-    controls_card_title: "Tag settings",
-    controls_card_intro: "Management and public page details.",
-    timeline_title: "Timeline",
+    page_title: "Muistoissa memorial editor",
+    page_subtitle: "Edit memorial copy, publication state, and scene media.",
+    editor_eyebrow: "Memorial editor",
+    editor_card_title: "Memorial details",
+    editor_card_intro: "These fields are used by the public mausoleum scene.",
+    timeline_title: "History",
+    timeline_intro: "Recent owner and system events for this memorial.",
+    open_public_page: "Open memorial",
 
-    identity_section_title: "Tag",
-    profile_name_label: "Tag title",
-    public_message_label: "Public message",
-    save_identity: "Save tag",
+    overview_section_title: "Memorial overview",
+    memorial_name_label: "Memorial name",
+    memorial_type_label: "Memorial type",
+    birth_date_label: "Birth date",
+    death_date_label: "Death date",
+    visibility_mode_label: "Visibility mode",
+    published_at_label: "Published at",
+    published_at_hint: "You can use an ISO timestamp or a plain date string.",
+    save_overview: "Save overview",
 
-    status_section_title: "Status",
+    inscription_section_title: "Mausoleum inscription",
+    short_epitaph_label: "Short epitaph",
+    save_inscription: "Save inscription",
 
-    contact_section_title: "Contact methods",
-    contact_section_intro: "Define which contact methods are used, which ones are added to the Node page, and which one is primary.",
-    phone_label: "Phone",
-    sms_label: "SMS",
-    whatsapp_label: "WhatsApp",
-    email_label: "Email",
-    show_phone_label: "Add to Node page",
-    show_sms_label: "Add to Node page",
-    show_whatsapp_label: "Add to Node page",
-    show_email_label: "Add to Node page",
-    preferred_contact_label: "Primary contact method",
-    preferred_contact_hint: "The primary method becomes the main action on the public page when available.",
-    preferred_contact_phone: "Phone call",
-    preferred_contact_sms: "SMS",
-    preferred_contact_whatsapp: "WhatsApp",
-    preferred_contact_email: "Email",
-    preferred_contact_none: "Automatic",
-    preferred_contact_hidden_hint: "Primary contact appears after at least one contact method has been added.",
-    save_contact_settings: "Save contact methods",
+    memory_section_title: "Primary memory",
+    memory_text_label: "Memory text",
+    save_memory: "Save memory",
 
-    location_section_title: "Location",
-    location_section_intro: "Enter location as text. This can be an address, place name, or last known location.",
-    location_label: "Location / address / place name",
-    location_hint: "Example: Helsinki, Tammisto, Railway Station, or Aleksanterinkatu 12, Helsinki",
-    show_location_label: "Add to Node page",
-    save_location: "Save location",
-    collection_section_title: "Collection",
-    collection_section_intro: "Create a new Collection or link this Node to an existing Collection.",
-    collection_name_label: "Collection name",
-    collection_name_placeholder: "Optional name",
-    create_collection_button: "Create Collection",
-    collection_token_label: "Join code",
-    collection_token_placeholder: "Enter join code",
-    join_collection_button: "Join Collection",
-    collection_create_success: "Collection created. Save this join code now: {token}",
-    collection_join_success: "Node linked to Collection.",
-    collection_already_joined: "This Node is already linked to this Collection.",
-    collection_token_required: "Join code is required.",
-    collection_create_failed: "Failed to create Collection",
-    collection_join_failed: "Failed to join Collection",
-    collection_invalid_token: "Join code is invalid or the Collection is not active.",
-    collection_membership_none: "This Node does not belong to any Collection yet.",
-    collection_membership_current: "This Node belongs to Collection: {name}",
-    open_collection_button: "Open current Collection",
-    reissue_collection_link_button: "Reissue join link",
-    collection_reissue_not_found: "Current Collection was not found.",
-    collection_reissue_failed: "Failed to create a new join link.",
-    collection_reissue_success: "New join code: {token} The previous join link or join code no longer works.",
-    collection_open_not_found: "Current Collection was not found.",
-    collection_open_failed: "Failed to open the Collection.",
-    leave_collection_button: "Leave Collection",
-    confirm_leave_collection: "Are you sure you want to leave this Collection?",
-    collection_leave_success: "You left the Collection.",
-    collection_leave_missing: "Collection information was not found.",
-    collection_leave_not_found: "Collection membership was not found.",
-    collection_leave_failed: "Failed to leave the Collection.",
+    story_section_title: "Life story",
+    life_story_label: "Longer life story",
+    save_story: "Save life story",
 
-    scanner_messages_section_title: "Send message to owner",
-    scanner_messages_intro: "Allow or block the message form for a person who opens this Node’s public page by scanning the tag.",
-    enable_reports: "Allow scanner message form",
-    disable_reports: "Block scanner message form",
-
-    carrier_section_title: "Request tag replacement",
-    carrier_reason_label: "Reason",
-    carrier_notes_label: "Notes",
+    scene_media_section_title: "Scene media",
+    hero_image_url_label: "Hero image URL",
+    hero_image_url_hint: "Temporary text field. The current upload endpoint does not yet write to hero_image_url.",
+    gallery_json_label: "Gallery JSON",
+    gallery_json_hint: "Advanced temporary field for future memory fragments. It is not yet rendered as a public grid scene.",
+    save_scene_media: "Save scene media",
 
     pin_section_title: "Change PIN",
     current_pin_label: "Current PIN",
@@ -269,90 +160,68 @@ const i18n = {
     change_pin_mismatch: "New PIN and confirmation do not match.",
     change_pin_invalid_format: "PIN must be 4-6 digits.",
     change_pin_invalid_current: "Current PIN is incorrect.",
-    node_image_input_label: "Choose image",
-    node_image_hint: "Allowed formats: PNG, JPG, WEBP, or GIF. Maximum size 5 MB.",
-    node_image_empty_title: "No image",
-    node_image_empty_text: "The current Node image appears here.",
-    save_node_image: "Save image",
-    clear_node_image_selection: "Clear selection",
-    remove_node_image: "Remove image",
-    image_selected_ready: "Image selected. You can now save it.",
-    image_selection_cleared: "Image selection cleared.",
-    image_upload_success: "Node image saved.",
-    image_delete_success: "Node image removed.",
-    image_delete_failed: "Failed to remove Node image",
-    image_upload_failed: "Failed to save Node image",
-    image_missing_selection: "Choose an image before saving.",
-    image_invalid_type: "File type is not allowed. Use PNG, JPG, WEBP, or GIF.",
-    image_too_large: "Image is too large. Maximum size is 5 MB.",
-    image_remove_confirm: "Remove the current Node image?",
-    image_uploading: "Uploading image…",
-    image_deleting: "Removing image…",
 
-    set_active: "Set active",
-    set_lost: "Set lost",
-    replace_carrier: "Submit request",
-    open_public_page: "Open Node",
+    visibility_mode_draft: "Draft",
+    visibility_mode_private: "Private",
+    visibility_mode_public: "Public",
+    visibility_mode_unknown: "Custom",
+    published_state_empty: "Not set",
+    hero_image_state_present: "Set",
+    hero_image_state_empty: "Not set",
 
-    status: "Status",
-    slug: "Slug",
-    finder_messages_status: "Scanner messages",
-    finder_messages_enabled: "Enabled",
-    finder_messages_disabled: "Blocked",
-    preferred_contact_status: "Primary contact method",
-    location_status: "Location",
-    location_visible: "Visible on public page",
-    location_hidden: "Hidden from public page",
-    location_empty: "Not set",
-    identifier: "Identifier",
-    dashboard_status: "Overview",
-
-    empty_timeline: "No events yet.",
-    timeline_show_all: "Show all logs",
+    memorial_name_fallback: "Untitled memorial",
+    memorial_type_fallback: "Memory archive",
+    history_empty: "No events yet.",
+    timeline_show_all: "Show all",
     timeline_hide_all: "Hide logs",
     timeline_filter_all: "All",
+
+    timeline_detail_message: "Message",
+    timeline_detail_location: "Location",
+    timeline_detail_name: "Sender",
+    timeline_detail_contact: "Contact",
+
+    summary_name: "Memorial",
+    summary_visibility: "Visibility",
+    summary_published: "Published",
+    summary_slug: "Slug",
+    summary_scene_media: "Hero image",
+
+    load_owner_failed: "Failed to load owner memorial",
+    load_timeline_failed: "Failed to load history",
+    update_failed: "Update failed",
+    save_success: "Saved successfully.",
     missing_token: "Missing owner token",
     pin_prompt: "Enter PIN",
     pin_required: "PIN required.",
     pin_verify_failed: "PIN verification failed",
     session_check_failed: "Session check failed",
-    load_owner_failed: "Failed to load owner node",
-    load_timeline_failed: "Failed to load timeline",
-    save_success: "Saved successfully.",
-    carrier_success: "Request recorded.",
-    update_failed: "Update failed",
-    carrier_failed: "Failed to record request",
+
     event_NODE_CREATED: "Node created",
-    event_PROFILE_UPDATED: "Profile updated",
+    event_PROFILE_UPDATED: "Details updated",
     event_STATUS_CHANGED: "Status changed",
     event_VISIBILITY_UPDATED: "Visibility updated",
     event_RECOVERY_LOCATION_UPDATED: "Location updated",
     event_ANONYMOUS_REPORT_CREATED: "Scanner message received",
     event_CARRIER_REPLACED: "Carrier replaced",
     event_OWNER_TOKEN_REISSUED: "Owner link reissued",
+    event_pin_changed: "PIN changed",
+    event_OWNER_PIN_RESET: "PIN reset",
+    event_NODE_LEFT_COLLECTION: "Collection removed",
+    event_NODE_DISABLED: "Node disabled",
 
-    confirm_set_active: "Set this Node active?",
-    confirm_set_lost: "Set this Node lost?",
-    confirm_enable_reports: "Allow the scanner message form?",
-    confirm_disable_reports: "Block the scanner message form?",
-    confirm_replace_carrier: "Record a tag replacement request in Node history?",
-    event_desc_ANONYMOUS_REPORT_CREATED: "A new finder message was received.",
-    event_desc_NODE_CREATED: "This Node was created.",
-    event_desc_NODE_CREATED_with_identifier: "Node {identifier} was created.",
-    event_desc_PROFILE_UPDATED: "This Node's public details were updated.",
+    event_desc_NODE_CREATED: "The memorial record was created.",
+    event_desc_PROFILE_UPDATED: "Public memorial details were updated.",
+    event_desc_STATUS_CHANGED: "The internal status was updated.",
+    event_desc_VISIBILITY_UPDATED: "Visibility details were updated.",
+    event_desc_RECOVERY_LOCATION_UPDATED: "The legacy location field was updated.",
+    event_desc_ANONYMOUS_REPORT_CREATED: "A scanner message was received.",
+    event_desc_CARRIER_REPLACED: "A carrier change was recorded.",
+    event_desc_OWNER_TOKEN_REISSUED: "The owner access link was reissued.",
     event_desc_pin_changed: "The owner PIN was changed.",
     event_desc_OWNER_PIN_RESET: "The owner PIN was reset.",
-    event_desc_NODE_DISABLED: "This Node was disabled.",
-    event_desc_CARRIER_REPLACED: "A new carrier was recorded for this Node.",
-    event_desc_NODE_LEFT_COLLECTION: "This Node left its Collection.",
-    event_desc_STATUS_CHANGED: "This Node's status was updated.",
-    event_desc_VISIBILITY_UPDATED: "This Node's visibility settings were updated.",
-    event_desc_RECOVERY_LOCATION_UPDATED: "This Node's recovery location was updated.",
-    event_desc_OWNER_TOKEN_REISSUED: "The owner access link was reissued.",
-    event_detail_message: "Message",
-    event_detail_location: "Location",
-    event_detail_name: "Sender",
-    event_detail_contact: "Contact",
+    event_desc_NODE_LEFT_COLLECTION: "The node left its collection.",
+    event_desc_NODE_DISABLED: "The node was disabled."
   }
 };
 
@@ -362,9 +231,6 @@ let currentNode = null;
 let currentEvents = [];
 let timelineExpanded = false;
 let selectedTimelineMonth = "all";
-let selectedImageFile = null;
-let selectedImagePreviewUrl = null;
-let imageOperationInFlight = false;
 let ownerSessionActive = false;
 
 function getBootstrapToken() {
@@ -403,7 +269,6 @@ function setLanguage(lang) {
   renderNode();
   renderTimeline();
   updateLanguageButtons();
-  renderNodeImagePanel();
 }
 
 function updateLanguageButtons() {
@@ -424,144 +289,36 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-function isTruthyDbValue(value) {
-  return value === 1 || value === true || value === "1";
-}
-
-function formatStatus(status) {
-  if (currentLang === "fi") {
-    if (status === "active") return "aktiivinen";
-    if (status === "lost") return "kadonnut";
-  }
-
-  return status || "";
-}
-
 function getTrimmedString(value) {
   return typeof value === "string" ? value.trim() : "";
 }
 
-function getAvailableContactMethodsFromValues(values) {
-  const methods = [];
+function formatVisibilityMode(value) {
+  const normalized = getTrimmedString(value).toLowerCase();
 
-  if (getTrimmedString(values.phone)) methods.push("phone");
-  if (getTrimmedString(values.sms)) methods.push("sms");
-  if (getTrimmedString(values.whatsapp)) methods.push("whatsapp");
-  if (getTrimmedString(values.email)) methods.push("email");
+  if (normalized === "draft") return t("visibility_mode_draft");
+  if (normalized === "private") return t("visibility_mode_private");
+  if (normalized === "public") return t("visibility_mode_public");
+  if (!normalized) return t("visibility_mode_draft");
 
-  return methods;
+  return `${t("visibility_mode_unknown")}: ${normalized}`;
 }
 
-function getAvailableContactMethodsFromInputs() {
-  return getAvailableContactMethodsFromValues({
-    phone: document.getElementById("phoneInput").value,
-    sms: document.getElementById("smsInput").value,
-    whatsapp: document.getElementById("whatsappInput").value,
-    email: document.getElementById("emailInput").value
-  });
-}
-
-function getPreferredContactFieldWrap() {
-  const label = document.getElementById("preferredContactLabel");
-  return label ? label.closest(".field") : null;
-}
-
-function syncPreferredContactUI() {
-  const select = document.getElementById("preferredContact");
-  const hint = document.getElementById("preferredContactHint");
-  const wrap = getPreferredContactFieldWrap();
-
-  if (!select || !hint || !wrap) {
-    return;
-  }
-
-  const availableMethods = getAvailableContactMethodsFromInputs();
-  const availableSet = new Set(availableMethods);
-
-  for (const option of Array.from(select.options)) {
-    const value = getTrimmedString(option.value).toLowerCase();
-
-    if (value === "none") {
-      option.hidden = true;
-      option.disabled = true;
-      continue;
-    }
-
-    const isAvailable = availableSet.has(value);
-    option.hidden = !isAvailable;
-    option.disabled = !isAvailable;
-  }
-
-  if (availableMethods.length === 0) {
-    wrap.style.display = "none";
-    hint.textContent = t("preferred_contact_hidden_hint");
-    select.value = "none";
-    return;
-  }
-
-  wrap.style.display = "";
-  hint.textContent = t("preferred_contact_hint");
-
-  const currentValue = getTrimmedString(select.value).toLowerCase();
-  const currentIsAvailable = availableSet.has(currentValue);
-
-  if (!currentIsAvailable) {
-    select.value = availableMethods[0];
-  }
-}
-
-function formatPreferredContact(value) {
-  const normalized = typeof value === "string" ? value.trim().toLowerCase() : "";
-
-  if (normalized === "phone") return t("preferred_contact_phone");
-  if (normalized === "sms") return t("preferred_contact_sms");
-  if (normalized === "whatsapp") return t("preferred_contact_whatsapp");
-  if (normalized === "email") return t("preferred_contact_email");
-
-  return t("preferred_contact_none");
+function formatPublishedAt(value) {
+  const text = getTrimmedString(value);
+  return text || t("published_state_empty");
 }
 
 function translateEventType(type) {
-  return t(`event_${type}`) || type;
+  return t(`event_${type}`) || type || "";
 }
 
 function getTimelineEventDescription(event) {
-  const payload = event && event.payload && typeof event.payload === "object"
-    ? event.payload
-    : null;
-
-  switch (event?.event_type) {
-    case "ANONYMOUS_REPORT_CREATED":
-      return t("event_desc_ANONYMOUS_REPORT_CREATED");
-
-    case "NODE_CREATED": {
-      const identifier = typeof payload?.public_identifier === "string"
-        ? payload.public_identifier.trim()
-        : "";
-
-      if (identifier) {
-        return t("event_desc_NODE_CREATED_with_identifier")
-          .replace("{identifier}", identifier);
-      }
-
-      return t("event_desc_NODE_CREATED");
-    }
-
-    case "PROFILE_UPDATED":
-    case "pin_changed":
-    case "OWNER_PIN_RESET":
-    case "NODE_DISABLED":
-    case "CARRIER_REPLACED":
-    case "NODE_LEFT_COLLECTION":
-    case "STATUS_CHANGED":
-    case "VISIBILITY_UPDATED":
-    case "RECOVERY_LOCATION_UPDATED":
-    case "OWNER_TOKEN_REISSUED":
-      return t(`event_desc_${event.event_type}`) || "";
-
-    default:
-      return "";
+  if (!event || !event.event_type) {
+    return "";
   }
+
+  return t(`event_desc_${event.event_type}`) || "";
 }
 
 function getTimelineEventDetailRows(event) {
@@ -572,17 +329,16 @@ function getTimelineEventDetailRows(event) {
   const payload = event && event.payload && typeof event.payload === "object"
     ? event.payload
     : null;
-
-  const message = typeof payload?.message === "string" ? payload.message.trim() : "";
-  const location = typeof payload?.location === "string" ? payload.location.trim() : "";
-  const finderName = typeof payload?.finder_name === "string" ? payload.finder_name.trim() : "";
-  const finderContact = typeof payload?.finder_contact === "string" ? payload.finder_contact.trim() : "";
+  const message = getTrimmedString(payload?.message || "");
+  const location = getTrimmedString(payload?.location || "");
+  const senderName = getTrimmedString(payload?.finder_name || "");
+  const senderContact = getTrimmedString(payload?.finder_contact || "");
   const rows = [];
 
   if (message) {
     rows.push(`
       <div class="event-payload">
-        <strong>${escapeHtml(t("event_detail_message"))}:</strong> ${escapeHtml(message)}
+        <strong>${escapeHtml(t("timeline_detail_message"))}:</strong> ${escapeHtml(message)}
       </div>
     `);
   }
@@ -590,23 +346,23 @@ function getTimelineEventDetailRows(event) {
   if (location) {
     rows.push(`
       <div class="event-payload">
-        <strong>${escapeHtml(t("event_detail_location"))}:</strong> ${escapeHtml(location)}
+        <strong>${escapeHtml(t("timeline_detail_location"))}:</strong> ${escapeHtml(location)}
       </div>
     `);
   }
 
-  if (finderName) {
+  if (senderName) {
     rows.push(`
       <div class="event-payload">
-        <strong>${escapeHtml(t("event_detail_name"))}:</strong> ${escapeHtml(finderName)}
+        <strong>${escapeHtml(t("timeline_detail_name"))}:</strong> ${escapeHtml(senderName)}
       </div>
     `);
   }
 
-  if (finderContact) {
+  if (senderContact) {
     rows.push(`
       <div class="event-payload">
-        <strong>${escapeHtml(t("event_detail_contact"))}:</strong> ${escapeHtml(finderContact)}
+        <strong>${escapeHtml(t("timeline_detail_contact"))}:</strong> ${escapeHtml(senderContact)}
       </div>
     `);
   }
@@ -670,279 +426,120 @@ function updatePublicPageButton() {
   link.textContent = t("open_public_page");
 }
 
-function revokeSelectedImagePreviewUrl() {
-  if (selectedImagePreviewUrl) {
-    URL.revokeObjectURL(selectedImagePreviewUrl);
-    selectedImagePreviewUrl = null;
-  }
-}
-
-function getCurrentImageUrl() {
-  if (!currentNode || typeof currentNode.profile_image_url !== "string") {
-    return "";
-  }
-
-  return currentNode.profile_image_url.trim();
-}
-
-function clearSelectedImage() {
-  selectedImageFile = null;
-  revokeSelectedImagePreviewUrl();
-
-  const input = document.getElementById("nodeImageInput");
-  if (input) {
-    input.value = "";
-  }
-}
-
-function setImageButtonsDisabledState() {
-  const saveButton = document.getElementById("saveNodeImageButton");
-  const clearButton = document.getElementById("clearNodeImageSelectionButton");
-  const removeButton = document.getElementById("removeNodeImageButton");
-
-  const hasCurrentImage = getCurrentImageUrl() !== "";
-  const hasSelectedImage = !!selectedImageFile;
-
-  saveButton.disabled = imageOperationInFlight || !hasSelectedImage;
-  clearButton.disabled = imageOperationInFlight || !hasSelectedImage;
-  removeButton.disabled = imageOperationInFlight || !hasCurrentImage;
-}
-
-function syncTokenRouteControls() {
-  const disabled = !hasBootstrapToken();
-
-  document.getElementById("replaceCarrierButton").disabled = disabled;
-}
-
-function renderNodeImagePanel() {
-  const preview = document.getElementById("nodeImagePreview");
-  const currentImageUrl = getCurrentImageUrl();
-  const hasSelectedPreview = !!selectedImagePreviewUrl;
-  const hasCurrentImage = currentImageUrl !== "";
-
-  if (hasSelectedPreview) {
-    preview.className = "node-image-preview has-image";
-    preview.innerHTML = `
-      <img src="${escapeHtml(selectedImagePreviewUrl)}" alt="${escapeHtml(t("node_card_title"))}" />
-    `;
-  } else if (hasCurrentImage) {
-    preview.className = "node-image-preview has-image";
-    preview.innerHTML = `
-      <img src="${escapeHtml(currentImageUrl)}" alt="${escapeHtml(t("node_card_title"))}" />
-    `;
-  } else {
-    preview.className = "node-image-preview empty";
-    preview.innerHTML = `
-      <div class="node-image-empty">
-        <div class="node-image-empty-badge">${escapeHtml(t("node_image_empty_title"))}</div>
-        <div class="node-image-empty-text">${escapeHtml(t("node_image_empty_text"))}</div>
-      </div>
-    `;
-  }
-
-  setImageButtonsDisabledState();
-}
-
 function renderStaticTexts() {
   document.documentElement.lang = currentLang;
 
   document.getElementById("pageTitle").textContent = t("page_title");
   document.getElementById("pageSubtitle").textContent = t("page_subtitle");
-  document.getElementById("nodeCardTitle").textContent = t("node_card_title");
-  document.getElementById("controlsCardTitle").textContent = t("controls_card_title");
-  document.getElementById("controlsCardIntro").textContent = t("controls_card_intro");
+  document.getElementById("editorEyebrow").textContent = t("editor_eyebrow");
+  document.getElementById("editorCardTitle").textContent = t("editor_card_title");
+  document.getElementById("editorCardIntro").textContent = t("editor_card_intro");
   document.getElementById("timelineTitle").textContent = t("timeline_title");
+  document.getElementById("timelineIntro").textContent = t("timeline_intro");
   document.getElementById("openPublicPageButton").textContent = t("open_public_page");
 
-  document.getElementById("identitySectionTitle").textContent = t("identity_section_title");
-  document.getElementById("profileNameLabel").textContent = t("profile_name_label");
-  document.getElementById("publicMessageLabel").textContent = t("public_message_label");
-  document.getElementById("saveIdentityButton").textContent = t("save_identity");
+  document.getElementById("overviewSectionTitle").textContent = t("overview_section_title");
+  document.getElementById("memorialNameLabel").textContent = t("memorial_name_label");
+  document.getElementById("memorialTypeLabel").textContent = t("memorial_type_label");
+  document.getElementById("birthDateLabel").textContent = t("birth_date_label");
+  document.getElementById("deathDateLabel").textContent = t("death_date_label");
+  document.getElementById("visibilityModeLabel").textContent = t("visibility_mode_label");
+  document.getElementById("publishedAtLabel").textContent = t("published_at_label");
+  document.getElementById("publishedAtHint").textContent = t("published_at_hint");
+  document.getElementById("saveOverviewButton").textContent = t("save_overview");
 
-  document.getElementById("statusSectionTitle").textContent = t("status_section_title");
+  document.getElementById("inscriptionSectionTitle").textContent = t("inscription_section_title");
+  document.getElementById("shortEpitaphLabel").textContent = t("short_epitaph_label");
+  document.getElementById("saveInscriptionButton").textContent = t("save_inscription");
 
-  document.getElementById("contactSectionTitle").textContent = t("contact_section_title");
-  document.getElementById("contactSectionIntro").textContent = t("contact_section_intro");
-  document.getElementById("phoneLabel").textContent = t("phone_label");
-  document.getElementById("smsLabel").textContent = t("sms_label");
-  document.getElementById("whatsappLabel").textContent = t("whatsapp_label");
-  document.getElementById("emailLabel").textContent = t("email_label");
-  document.getElementById("showPhoneLabel").textContent = t("show_phone_label");
-  document.getElementById("showSmsLabel").textContent = t("show_sms_label");
-  document.getElementById("showWhatsappLabel").textContent = t("show_whatsapp_label");
-  document.getElementById("showEmailLabel").textContent = t("show_email_label");
-  document.getElementById("preferredContactLabel").textContent = t("preferred_contact_label");
-  document.getElementById("preferredContactHint").textContent = t("preferred_contact_hint");
+  document.getElementById("memorySectionTitle").textContent = t("memory_section_title");
+  document.getElementById("memoryTextLabel").textContent = t("memory_text_label");
+  document.getElementById("saveMemoryButton").textContent = t("save_memory");
 
-  document.getElementById("locationSectionTitle").textContent = t("location_section_title");
-  document.getElementById("locationSectionIntro").textContent = t("location_section_intro");
-  document.getElementById("locationLabel").textContent = t("location_label");
-  document.getElementById("locationHint").textContent = t("location_hint");
-  document.getElementById("showLocationLabel").textContent = t("show_location_label");
-  document.getElementById("saveLocationButton").textContent = t("save_location");
+  document.getElementById("storySectionTitle").textContent = t("story_section_title");
+  document.getElementById("lifeStoryLabel").textContent = t("life_story_label");
+  document.getElementById("saveStoryButton").textContent = t("save_story");
 
-  document.getElementById("collectionSectionTitle").textContent = t("collection_section_title");
-  document.getElementById("collectionSectionIntro").textContent = t("collection_section_intro");
-  document.getElementById("collectionNameLabel").textContent = t("collection_name_label");
-  document.getElementById("createCollectionButton").textContent = t("create_collection_button");
-  document.getElementById("collectionTokenLabel").textContent = t("collection_token_label");
-  document.getElementById("joinCollectionButton").textContent = t("join_collection_button");
-  document.getElementById("openCollectionButton").textContent = t("open_collection_button");
-  document.getElementById("reissueCollectionLinkButton").textContent = t("reissue_collection_link_button");
-  document.getElementById("leaveCollectionButton").textContent = t("leave_collection_button");
+  document.getElementById("sceneMediaSectionTitle").textContent = t("scene_media_section_title");
+  document.getElementById("heroImageUrlLabel").textContent = t("hero_image_url_label");
+  document.getElementById("heroImageUrlHint").textContent = t("hero_image_url_hint");
+  document.getElementById("galleryJsonLabel").textContent = t("gallery_json_label");
+  document.getElementById("galleryJsonHint").textContent = t("gallery_json_hint");
+  document.getElementById("saveSceneMediaButton").textContent = t("save_scene_media");
 
-  document.getElementById("scannerMessagesSectionTitle").textContent = t("scanner_messages_section_title");
-  document.getElementById("scannerMessagesIntro").textContent = t("scanner_messages_intro");
-
-  document.getElementById("carrierSectionTitle").textContent = t("carrier_section_title");
-  document.getElementById("carrierReasonLabel").textContent = t("carrier_reason_label");
-  document.getElementById("carrierNotesLabel").textContent = t("carrier_notes_label");
   document.getElementById("pinSectionTitle").textContent = t("pin_section_title");
   document.getElementById("currentPinLabel").textContent = t("current_pin_label");
   document.getElementById("newPinLabel").textContent = t("new_pin_label");
   document.getElementById("confirmPinLabel").textContent = t("confirm_pin_label");
   document.getElementById("changePinButton").textContent = t("change_pin_button");
 
-  document.getElementById("nodeImageInputLabel").textContent = t("node_image_input_label");
-  document.getElementById("nodeImageHint").textContent = t("node_image_hint");
-  document.getElementById("saveNodeImageButton").textContent = t("save_node_image");
-  document.getElementById("clearNodeImageSelectionButton").textContent = t("clear_node_image_selection");
-  document.getElementById("removeNodeImageButton").textContent = t("remove_node_image");
-
-  document.getElementById("setActiveButton").textContent = t("set_active");
-  document.getElementById("setLostButton").textContent = t("set_lost");
-  document.getElementById("replaceCarrierButton").textContent = t("replace_carrier");
-  document.getElementById("saveContactSettingsButton").textContent = t("save_contact_settings");
-
-  document.getElementById("profileName").placeholder = t("profile_name_label");
-  document.getElementById("phoneInput").placeholder = t("phone_label");
-  document.getElementById("smsInput").placeholder = t("sms_label");
-  document.getElementById("whatsappInput").placeholder = t("whatsapp_label");
-  document.getElementById("emailInput").placeholder = t("email_label");
-  document.getElementById("locationInput").placeholder = t("location_label");
-  document.getElementById("collectionNameInput").placeholder = t("collection_name_placeholder");
-  document.getElementById("collectionTokenInput").placeholder = t("collection_token_placeholder");
-
-  const preferredContactSelect = document.getElementById("preferredContact");
-  preferredContactSelect.options[0].text = t("preferred_contact_none");
-  preferredContactSelect.options[1].text = t("preferred_contact_phone");
-  preferredContactSelect.options[2].text = t("preferred_contact_sms");
-  preferredContactSelect.options[3].text = t("preferred_contact_whatsapp");
-  preferredContactSelect.options[4].text = t("preferred_contact_email");
+  const visibilityMode = document.getElementById("visibilityMode");
+  visibilityMode.options[0].text = t("visibility_mode_draft");
+  visibilityMode.options[1].text = t("visibility_mode_private");
+  visibilityMode.options[2].text = t("visibility_mode_public");
 
   updatePublicPageButton();
-  renderNodeImagePanel();
-  syncPreferredContactUI();
 }
 
 function renderHeroSummary() {
-  if (!currentNode) return;
+  if (!currentNode) {
+    return;
+  }
 
-  const reportsEnabled = isTruthyDbValue(currentNode.allow_anonymous_report);
-  const locationVisible = isTruthyDbValue(currentNode.show_last_recovery_point);
-  const locationText = currentNode.last_recovery_label ?? "";
-
+  const memorialName = getTrimmedString(currentNode.memorial_name) || t("memorial_name_fallback");
+  const memorialType = getTrimmedString(currentNode.memorial_type) || t("memorial_type_fallback");
   const heroSummary = document.getElementById("heroSummary");
+  const heroImageState = getTrimmedString(currentNode.hero_image_url)
+    ? t("hero_image_state_present")
+    : t("hero_image_state_empty");
 
   heroSummary.innerHTML = `
     <div class="hero-chip">
-      <div class="hero-chip-label">${escapeHtml(t("identifier"))}</div>
-      <div class="hero-chip-value">${escapeHtml(currentNode.public_identifier ?? "—")}</div>
+      <div class="hero-chip-label">${escapeHtml(t("summary_name"))}</div>
+      <div class="hero-chip-value">${escapeHtml(memorialName)}</div>
     </div>
     <div class="hero-chip">
-      <div class="hero-chip-label">${escapeHtml(t("dashboard_status"))}</div>
-      <div class="hero-chip-value">${escapeHtml(formatStatus(currentNode.status) || "—")}</div>
+      <div class="hero-chip-label">${escapeHtml(t("summary_visibility"))}</div>
+      <div class="hero-chip-value">${escapeHtml(formatVisibilityMode(currentNode.visibility_mode))}</div>
     </div>
     <div class="hero-chip">
-      <div class="hero-chip-label">${escapeHtml(t("preferred_contact_status"))}</div>
-      <div class="hero-chip-value">${escapeHtml(formatPreferredContact(currentNode.preferred_contact))}</div>
+      <div class="hero-chip-label">${escapeHtml(t("summary_published"))}</div>
+      <div class="hero-chip-value">${escapeHtml(formatPublishedAt(currentNode.published_at))}</div>
     </div>
     <div class="hero-chip">
-      <div class="hero-chip-label">${escapeHtml(t("location_status"))}</div>
-      <div class="hero-chip-value">${escapeHtml(locationText || t("location_empty"))} · ${escapeHtml(locationVisible ? t("location_visible") : t("location_hidden"))}</div>
+      <div class="hero-chip-label">${escapeHtml(t("summary_slug"))}</div>
+      <div class="hero-chip-value">${escapeHtml(currentNode.public_slug || "-")}</div>
     </div>
     <div class="hero-chip">
-      <div class="hero-chip-label">${escapeHtml(t("finder_messages_status"))}</div>
-      <div class="hero-chip-value">${escapeHtml(reportsEnabled ? t("finder_messages_enabled") : t("finder_messages_disabled"))}</div>
+      <div class="hero-chip-label">${escapeHtml(t("memorial_type_label"))}</div>
+      <div class="hero-chip-value">${escapeHtml(memorialType)}</div>
     </div>
     <div class="hero-chip">
-      <div class="hero-chip-label">${escapeHtml(t("slug"))}</div>
-      <div class="hero-chip-value">${escapeHtml(currentNode.public_slug ?? "—")}</div>
+      <div class="hero-chip-label">${escapeHtml(t("summary_scene_media"))}</div>
+      <div class="hero-chip-value">${escapeHtml(heroImageState)}</div>
     </div>
   `;
 }
 
 function renderNode() {
-  if (!currentNode) return;
-
-  const reportsEnabled = isTruthyDbValue(currentNode.allow_anonymous_report);
-  const locationVisible = isTruthyDbValue(currentNode.show_last_recovery_point);
-  const locationText = currentNode.last_recovery_label ?? "";
-  const nodeInfo = document.getElementById("nodeInfo");
+  if (!currentNode) {
+    return;
+  }
 
   renderHeroSummary();
   updatePublicPageButton();
 
-  document.getElementById("nodePanelTitle").textContent = currentNode.profile_name?.trim() || "Node";
-
-  nodeInfo.innerHTML = `
-    <div class="identifier">${escapeHtml(currentNode.public_identifier ?? "")}</div>
-    <div class="meta">
-      <div class="meta-row">
-        <span class="meta-label">${escapeHtml(t("status"))}</span>
-        <div class="status-badge">${escapeHtml(formatStatus(currentNode.status))}</div>
-      </div>
-      <div class="meta-row">
-        <span class="meta-label">${escapeHtml(t("slug"))}</span>
-        <div>${escapeHtml(currentNode.public_slug ?? "")}</div>
-      </div>
-      <div class="meta-row">
-        <span class="meta-label">${escapeHtml(t("finder_messages_status"))}</span>
-        <div>${escapeHtml(reportsEnabled ? t("finder_messages_enabled") : t("finder_messages_disabled"))}</div>
-      </div>
-      <div class="meta-row">
-        <span class="meta-label">${escapeHtml(t("preferred_contact_status"))}</span>
-        <div>${escapeHtml(formatPreferredContact(currentNode.preferred_contact))}</div>
-      </div>
-      <div class="meta-row">
-        <span class="meta-label">${escapeHtml(t("location_status"))}</span>
-        <div>${escapeHtml(locationText || t("location_empty"))}</div>
-        <div class="muted small" style="margin-top: 6px;">${escapeHtml(locationVisible ? t("location_visible") : t("location_hidden"))}</div>
-      </div>
-    </div>
-  `;
-
-  document.getElementById("toggleReportsButton").textContent = reportsEnabled
-    ? t("disable_reports")
-    : t("enable_reports");
-
-  document.getElementById("profileName").value = currentNode.profile_name ?? "";
-  document.getElementById("publicMessage").value = currentNode.public_message ?? "";
-
-  document.getElementById("phoneInput").value = currentNode.phone ?? "";
-  document.getElementById("smsInput").value = currentNode.sms ?? "";
-  document.getElementById("whatsappInput").value = currentNode.whatsapp ?? "";
-  document.getElementById("emailInput").value = currentNode.email ?? "";
-
-  document.getElementById("showPhoneInput").checked = isTruthyDbValue(currentNode.show_phone);
-  document.getElementById("showSmsInput").checked = isTruthyDbValue(currentNode.show_sms);
-  document.getElementById("showWhatsappInput").checked = isTruthyDbValue(currentNode.show_whatsapp);
-  document.getElementById("showEmailInput").checked = isTruthyDbValue(currentNode.show_email);
-
-  document.getElementById("preferredContact").value = (currentNode.preferred_contact || "none").toLowerCase();
-
-  document.getElementById("locationInput").value = currentNode.last_recovery_label ?? "";
-  document.getElementById("showLocationInput").checked = isTruthyDbValue(currentNode.show_last_recovery_point);
-  document.getElementById("collectionMembershipStatus").textContent = currentNode.collection
-    ? t("collection_membership_current").replace("{name}", currentNode.collection.name ?? "")
-    : t("collection_membership_none");
-  document.getElementById("openCollectionButton").hidden = !currentNode.collection || !currentNode.collection.id;
-  document.getElementById("reissueCollectionLinkButton").hidden = !currentNode.collection || !currentNode.collection.id;
-  document.getElementById("leaveCollectionButton").hidden = !currentNode.collection || !currentNode.collection.id;
-
-  syncPreferredContactUI();
-  renderNodeImagePanel();
-  syncTokenRouteControls();
+  document.getElementById("memorialName").value = currentNode.memorial_name ?? "";
+  document.getElementById("memorialType").value = currentNode.memorial_type ?? "";
+  document.getElementById("birthDate").value = currentNode.birth_date ?? "";
+  document.getElementById("deathDate").value = currentNode.death_date ?? "";
+  document.getElementById("visibilityMode").value = getTrimmedString(currentNode.visibility_mode || "draft") || "draft";
+  document.getElementById("publishedAt").value = currentNode.published_at ?? "";
+  document.getElementById("shortEpitaph").value = currentNode.short_epitaph ?? "";
+  document.getElementById("memoryText").value = currentNode.memory_text ?? "";
+  document.getElementById("lifeStory").value = currentNode.life_story ?? "";
+  document.getElementById("heroImageUrl").value = currentNode.hero_image_url ?? "";
+  document.getElementById("galleryJson").value = currentNode.gallery_json ?? "";
 }
 
 function renderTimeline() {
@@ -950,7 +547,7 @@ function renderTimeline() {
   timeline.innerHTML = "";
 
   if (!currentEvents.length) {
-    timeline.innerHTML = `<div class="muted">${escapeHtml(t("empty_timeline"))}</div>`;
+    timeline.innerHTML = `<div class="muted">${escapeHtml(t("history_empty"))}</div>`;
     return;
   }
 
@@ -1001,10 +598,6 @@ function renderTimeline() {
       controls.appendChild(monthSelect);
     }
 
-    if (!timelineExpanded && currentEvents.length <= 3) {
-      controls.style.display = "none";
-    }
-
     controls.appendChild(toggleButton);
     timeline.appendChild(controls);
   }
@@ -1019,10 +612,14 @@ function renderTimeline() {
     wrapper.className = "event";
     const description = getTimelineEventDescription(event);
     const detailRows = getTimelineEventDetailRows(event);
+    const timestamp = new Date(event.created_at);
+    const formattedTime = Number.isNaN(timestamp.getTime())
+      ? (event.created_at || "")
+      : timestamp.toLocaleString(currentLang === "fi" ? "fi-FI" : "en-US");
 
     wrapper.innerHTML = `
       <div class="event-type">${escapeHtml(translateEventType(event.event_type))}</div>
-      <div class="event-time">${escapeHtml(new Date(event.created_at).toLocaleString(currentLang === "fi" ? "fi-FI" : "en-US"))}</div>
+      <div class="event-time">${escapeHtml(formattedTime)}</div>
       ${description ? `<div class="event-payload">${escapeHtml(description)}</div>` : ""}
       ${detailRows}
     `;
@@ -1086,26 +683,6 @@ function clearPinStatus() {
   el.textContent = "";
 }
 
-function setCollectionStatus(message, type) {
-  const el = document.getElementById("collectionStatus");
-  el.className = type === "error" ? "small error" : "small";
-  el.textContent = message;
-}
-
-function clearCollectionStatus() {
-  const el = document.getElementById("collectionStatus");
-  el.className = "muted small";
-  el.textContent = "";
-}
-
-function setCollectionButtonsDisabledState(disabled) {
-  document.getElementById("createCollectionButton").disabled = disabled;
-  document.getElementById("joinCollectionButton").disabled = disabled;
-  document.getElementById("openCollectionButton").disabled = disabled;
-  document.getElementById("reissueCollectionLinkButton").disabled = disabled;
-  document.getElementById("leaveCollectionButton").disabled = disabled;
-}
-
 async function postOwnerUpdate(payload) {
   const endpoint = !ownerSessionActive && hasBootstrapToken() ? `/api/owner/${bootstrapToken}` : "/api/owner";
   const res = await fetch(endpoint, {
@@ -1128,262 +705,69 @@ async function postOwnerUpdate(payload) {
   setActionStatus(t("save_success"), "success");
 }
 
-function validateSelectedImage(file) {
-  if (!file) {
-    throw new Error(t("image_missing_selection"));
-  }
-
-  if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
-    throw new Error(t("image_invalid_type"));
-  }
-
-  if (file.size > MAX_IMAGE_BYTES) {
-    throw new Error(t("image_too_large"));
-  }
-}
-
-async function handleImageInputChange(event) {
-  const file = event.target.files && event.target.files[0] ? event.target.files[0] : null;
-
-  clearActionStatus();
-
-  if (!file) {
-    clearSelectedImage();
-    renderNodeImagePanel();
-    return;
-  }
-
-  try {
-    validateSelectedImage(file);
-
-    selectedImageFile = file;
-    revokeSelectedImagePreviewUrl();
-    selectedImagePreviewUrl = URL.createObjectURL(file);
-
-    renderNodeImagePanel();
-    setActionStatus(t("image_selected_ready"), "success");
-  } catch (error) {
-    clearSelectedImage();
-    renderNodeImagePanel();
-    setActionStatus(error.message || t("image_upload_failed"), "error");
-  }
-}
-
-function handleClearNodeImageSelection() {
-  clearActionStatus();
-  clearSelectedImage();
-  renderNodeImagePanel();
-  setActionStatus(t("image_selection_cleared"), "success");
-}
-
-async function handleSaveNodeImage() {
+async function handleSaveOverview() {
   clearActionStatus();
 
   try {
-    validateSelectedImage(selectedImageFile);
-  } catch (error) {
-    setActionStatus(error.message || t("image_upload_failed"), "error");
-    return;
-  }
-
-  imageOperationInFlight = true;
-  setImageButtonsDisabledState();
-  setActionStatus(t("image_uploading"), "success");
-
-  try {
-    const formData = new FormData();
-    formData.append("image", selectedImageFile);
-    const endpoint = !ownerSessionActive && hasBootstrapToken()
-      ? `/api/owner/${bootstrapToken}/image`
-      : "/api/owner/image";
-
-    const res = await fetch(endpoint, {
-      method: "POST",
-      body: formData
+    await postOwnerUpdate({
+      memorial_name: document.getElementById("memorialName").value,
+      memorial_type: document.getElementById("memorialType").value,
+      birth_date: document.getElementById("birthDate").value,
+      death_date: document.getElementById("deathDate").value,
+      visibility_mode: document.getElementById("visibilityMode").value,
+      published_at: document.getElementById("publishedAt").value
     });
-
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(text || t("image_upload_failed"));
-    }
-
-    clearSelectedImage();
-    await refreshAll();
-    setActionStatus(t("image_upload_success"), "success");
   } catch (error) {
-    setActionStatus(error.message || t("image_upload_failed"), "error");
-  } finally {
-    imageOperationInFlight = false;
-    setImageButtonsDisabledState();
+    setActionStatus(error.message || t("update_failed"), "error");
   }
 }
 
-async function handleRemoveNodeImage() {
-  if (!getCurrentImageUrl()) {
-    setActionStatus(t("image_delete_failed"), "error");
-    return;
-  }
-
-  if (!window.confirm(t("image_remove_confirm"))) {
-    return;
-  }
-
+async function handleSaveInscription() {
   clearActionStatus();
-  imageOperationInFlight = true;
-  setImageButtonsDisabledState();
-  setActionStatus(t("image_deleting"), "success");
 
   try {
-    const endpoint = !ownerSessionActive && hasBootstrapToken()
-      ? `/api/owner/${bootstrapToken}/image`
-      : "/api/owner/image";
-    const res = await fetch(endpoint, {
-      method: "DELETE"
+    await postOwnerUpdate({
+      short_epitaph: document.getElementById("shortEpitaph").value
     });
-
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(text || t("image_delete_failed"));
-    }
-
-    clearSelectedImage();
-    await refreshAll();
-    setActionStatus(t("image_delete_success"), "success");
-  } catch (error) {
-    setActionStatus(error.message || t("image_delete_failed"), "error");
-  } finally {
-    imageOperationInFlight = false;
-    setImageButtonsDisabledState();
-  }
-}
-
-async function handleSetStatus(nextStatus) {
-  const confirmText = nextStatus === "active" ? t("confirm_set_active") : t("confirm_set_lost");
-
-  if (!window.confirm(confirmText)) {
-    return;
-  }
-
-  clearActionStatus();
-
-  try {
-    await postOwnerUpdate({ status: nextStatus });
   } catch (error) {
     setActionStatus(error.message || t("update_failed"), "error");
   }
 }
 
-async function handleToggleReports() {
-  const nextValue = isTruthyDbValue(currentNode.allow_anonymous_report) ? 0 : 1;
-  const confirmText = nextValue === 1 ? t("confirm_enable_reports") : t("confirm_disable_reports");
-
-  if (!window.confirm(confirmText)) {
-    return;
-  }
-
+async function handleSaveMemory() {
   clearActionStatus();
 
   try {
-    await postOwnerUpdate({ allow_anonymous_report: nextValue });
-  } catch (error) {
-    setActionStatus(error.message || t("update_failed"), "error");
-  }
-}
-
-async function handleSaveIdentity() {
-  clearActionStatus();
-
-  try {
-    const payload = {
-      profile_name: document.getElementById("profileName").value,
-      public_message: document.getElementById("publicMessage").value
-    };
-
-    await postOwnerUpdate(payload);
-  } catch (error) {
-    setActionStatus(error.message || t("update_failed"), "error");
-  }
-}
-
-async function handleSaveContactSettings() {
-  clearActionStatus();
-
-  try {
-    const availableMethods = getAvailableContactMethodsFromInputs();
-    const preferredContactValue = availableMethods.length > 0
-      ? document.getElementById("preferredContact").value
-      : "none";
-
-    const payload = {
-      phone: document.getElementById("phoneInput").value,
-      sms: document.getElementById("smsInput").value,
-      whatsapp: document.getElementById("whatsappInput").value,
-      email: document.getElementById("emailInput").value,
-      show_phone: document.getElementById("showPhoneInput").checked ? 1 : 0,
-      show_sms: document.getElementById("showSmsInput").checked ? 1 : 0,
-      show_whatsapp: document.getElementById("showWhatsappInput").checked ? 1 : 0,
-      show_email: document.getElementById("showEmailInput").checked ? 1 : 0,
-      preferred_contact: preferredContactValue
-    };
-
-    await postOwnerUpdate(payload);
-  } catch (error) {
-    setActionStatus(error.message || t("update_failed"), "error");
-  }
-}
-
-async function handleSaveLocation() {
-  clearActionStatus();
-
-  try {
-    const payload = {
-      last_recovery_label: document.getElementById("locationInput").value,
-      show_last_recovery_point: document.getElementById("showLocationInput").checked ? 1 : 0
-    };
-
-    await postOwnerUpdate(payload);
-  } catch (error) {
-    setActionStatus(error.message || t("update_failed"), "error");
-  }
-}
-
-async function handleReplaceCarrier() {
-  if (!hasBootstrapToken()) {
-    setActionStatus(t("carrier_failed"), "error");
-    return;
-  }
-
-  if (!window.confirm(t("confirm_replace_carrier"))) {
-    return;
-  }
-
-  clearActionStatus();
-
-  const reason = document.getElementById("carrierReason").value;
-  const notes = document.getElementById("carrierNotes").value;
-
-  try {
-    const res = await fetch(`/api/owner/${bootstrapToken}/carrier`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify({ reason, notes })
+    await postOwnerUpdate({
+      memory_text: document.getElementById("memoryText").value
     });
-
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(text || t("carrier_failed"));
-    }
-
-    document.getElementById("carrierReason").value = "";
-    document.getElementById("carrierNotes").value = "";
-
-    await fetchTimeline();
-    renderTimeline();
-    setActionStatus(t("carrier_success"), "success");
   } catch (error) {
-    setActionStatus(error.message || t("carrier_failed"), "error");
+    setActionStatus(error.message || t("update_failed"), "error");
+  }
+}
+
+async function handleSaveStory() {
+  clearActionStatus();
+
+  try {
+    await postOwnerUpdate({
+      life_story: document.getElementById("lifeStory").value
+    });
+  } catch (error) {
+    setActionStatus(error.message || t("update_failed"), "error");
+  }
+}
+
+async function handleSaveSceneMedia() {
+  clearActionStatus();
+
+  try {
+    await postOwnerUpdate({
+      hero_image_url: document.getElementById("heroImageUrl").value,
+      gallery_json: document.getElementById("galleryJson").value
+    });
+  } catch (error) {
+    setActionStatus(error.message || t("update_failed"), "error");
   }
 }
 
@@ -1436,247 +820,16 @@ async function handleChangePin() {
   }
 }
 
-async function handleCreateCollection() {
-  clearCollectionStatus();
-  setCollectionButtonsDisabledState(true);
-
-  try {
-    const name = document.getElementById("collectionNameInput").value.trim();
-    const res = await fetch("/api/owner/collection/create", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify({ name })
-    });
-
-    const data = await res.json().catch(() => null);
-
-    if (res.status === 401 && data?.state === "pin_required") {
-      throw new Error(t("pin_required"));
-    }
-
-    if (!res.ok || !data || !data.ok || !data.access_token) {
-      throw new Error(t("collection_create_failed"));
-    }
-
-    setCollectionStatus(
-      t("collection_create_success").replace("{token}", data.access_token),
-      "success"
-    );
-  } catch (error) {
-    setCollectionStatus(error.message || t("collection_create_failed"), "error");
-  } finally {
-    setCollectionButtonsDisabledState(false);
-  }
-}
-
-async function handleJoinCollection() {
-  clearCollectionStatus();
-
-  const collectionToken = document.getElementById("collectionTokenInput").value.trim();
-
-  if (!collectionToken) {
-    setCollectionStatus(t("collection_token_required"), "error");
-    return;
-  }
-
-  setCollectionButtonsDisabledState(true);
-
-  try {
-    const res = await fetch("/api/owner/collection/join", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify({ collectionToken })
-    });
-
-    const data = await res.json().catch(() => null);
-
-    if (res.status === 401 && data?.state === "pin_required") {
-      throw new Error(t("pin_required"));
-    }
-
-    if (res.status === 404) {
-      throw new Error(t("collection_invalid_token"));
-    }
-
-    if (!res.ok || !data || !data.ok) {
-      throw new Error(t("collection_join_failed"));
-    }
-
-    if (data.state === "already_joined") {
-      setCollectionStatus(t("collection_already_joined"), "success");
-      return;
-    }
-
-    if (data.state === "joined") {
-      document.getElementById("collectionTokenInput").value = "";
-      setCollectionStatus(t("collection_join_success"), "success");
-      return;
-    }
-
-    throw new Error(t("collection_join_failed"));
-  } catch (error) {
-    setCollectionStatus(error.message || t("collection_join_failed"), "error");
-  } finally {
-    setCollectionButtonsDisabledState(false);
-  }
-}
-
-async function handleLeaveCollection() {
-  clearCollectionStatus();
-
-  if (!currentNode?.collection || !currentNode.collection.id) {
-    setCollectionStatus(t("collection_leave_missing"), "error");
-    return;
-  }
-
-  if (!window.confirm(t("confirm_leave_collection"))) {
-    return;
-  }
-
-  setCollectionButtonsDisabledState(true);
-
-  try {
-    const res = await fetch("/api/owner/collection/leave", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify({
-        collection_id: currentNode.collection.id
-      })
-    });
-
-    const data = await res.json().catch(() => null);
-
-    if (res.status === 401 && data?.state === "pin_required") {
-      throw new Error(t("pin_required"));
-    }
-
-    if (res.status === 404) {
-      throw new Error(t("collection_leave_not_found"));
-    }
-
-    if (!res.ok || !data || !data.ok || data.state !== "left") {
-      throw new Error(t("collection_leave_failed"));
-    }
-
-    await refreshAll();
-    setCollectionStatus(t("collection_leave_success"), "success");
-  } catch (error) {
-    setCollectionStatus(error.message || t("collection_leave_failed"), "error");
-  } finally {
-    setCollectionButtonsDisabledState(false);
-  }
-}
-
-async function handleOpenCollection() {
-  clearCollectionStatus();
-
-  if (!currentNode?.collection || !currentNode.collection.id) {
-    setCollectionStatus(t("collection_open_not_found"), "error");
-    return;
-  }
-
-  setCollectionButtonsDisabledState(true);
-
-  try {
-    const res = await fetch("/api/owner/collection/open", {
-      method: "POST"
-    });
-
-    const data = await res.json().catch(() => null);
-
-    if (res.status === 401 && data?.state === "pin_required") {
-      throw new Error(t("pin_required"));
-    }
-
-    if (res.status === 404) {
-      throw new Error(t("collection_open_not_found"));
-    }
-
-    if (!res.ok || !data || !data.ok || data.state !== "session_valid") {
-      throw new Error(t("collection_open_failed"));
-    }
-
-    window.location.replace("/collection");
-  } catch (error) {
-    setCollectionStatus(error.message || t("collection_open_failed"), "error");
-  } finally {
-    setCollectionButtonsDisabledState(false);
-  }
-}
-
-async function handleReissueCollectionLink() {
-  clearCollectionStatus();
-
-  if (!currentNode?.collection || !currentNode.collection.id) {
-    setCollectionStatus(t("collection_reissue_not_found"), "error");
-    return;
-  }
-
-  setCollectionButtonsDisabledState(true);
-
-  try {
-    const res = await fetch("/api/owner/collection/reissue-link", {
-      method: "POST"
-    });
-
-    const data = await res.json().catch(() => null);
-
-    if (res.status === 401 && data?.state === "pin_required") {
-      throw new Error(t("pin_required"));
-    }
-
-    if (res.status === 404) {
-      throw new Error(t("collection_reissue_not_found"));
-    }
-
-    if (!res.ok || !data || !data.ok || data.state !== "reissued" || !data.access_token) {
-      throw new Error(t("collection_reissue_failed"));
-    }
-
-    setCollectionStatus(
-      t("collection_reissue_success").replace("{token}", data.access_token),
-      "success"
-    );
-  } catch (error) {
-    setCollectionStatus(error.message || t("collection_reissue_failed"), "error");
-  } finally {
-    setCollectionButtonsDisabledState(false);
-  }
-}
-
 function bindEvents() {
   document.getElementById("langFi").addEventListener("click", () => setLanguage("fi"));
   document.getElementById("langEn").addEventListener("click", () => setLanguage("en"));
 
-  document.getElementById("setActiveButton").addEventListener("click", () => handleSetStatus("active"));
-  document.getElementById("setLostButton").addEventListener("click", () => handleSetStatus("lost"));
-  document.getElementById("toggleReportsButton").addEventListener("click", handleToggleReports);
-  document.getElementById("saveIdentityButton").addEventListener("click", handleSaveIdentity);
-  document.getElementById("saveContactSettingsButton").addEventListener("click", handleSaveContactSettings);
-  document.getElementById("saveLocationButton").addEventListener("click", handleSaveLocation);
-  document.getElementById("replaceCarrierButton").addEventListener("click", handleReplaceCarrier);
+  document.getElementById("saveOverviewButton").addEventListener("click", handleSaveOverview);
+  document.getElementById("saveInscriptionButton").addEventListener("click", handleSaveInscription);
+  document.getElementById("saveMemoryButton").addEventListener("click", handleSaveMemory);
+  document.getElementById("saveStoryButton").addEventListener("click", handleSaveStory);
+  document.getElementById("saveSceneMediaButton").addEventListener("click", handleSaveSceneMedia);
   document.getElementById("changePinButton").addEventListener("click", handleChangePin);
-  document.getElementById("createCollectionButton").addEventListener("click", handleCreateCollection);
-  document.getElementById("joinCollectionButton").addEventListener("click", handleJoinCollection);
-  document.getElementById("openCollectionButton").addEventListener("click", handleOpenCollection);
-  document.getElementById("reissueCollectionLinkButton").addEventListener("click", handleReissueCollectionLink);
-  document.getElementById("leaveCollectionButton").addEventListener("click", handleLeaveCollection);
-
-  document.getElementById("nodeImageInput").addEventListener("change", handleImageInputChange);
-  document.getElementById("saveNodeImageButton").addEventListener("click", handleSaveNodeImage);
-  document.getElementById("clearNodeImageSelectionButton").addEventListener("click", handleClearNodeImageSelection);
-  document.getElementById("removeNodeImageButton").addEventListener("click", handleRemoveNodeImage);
-
-  document.getElementById("phoneInput").addEventListener("input", syncPreferredContactUI);
-  document.getElementById("smsInput").addEventListener("input", syncPreferredContactUI);
-  document.getElementById("whatsappInput").addEventListener("input", syncPreferredContactUI);
-  document.getElementById("emailInput").addEventListener("input", syncPreferredContactUI);
 }
 
 async function fetchOwnerAuthState() {
@@ -1799,9 +952,5 @@ async function init() {
     document.body.innerHTML = `<p class="error">${escapeHtml(error.message)}</p>`;
   }
 }
-
-window.addEventListener("beforeunload", () => {
-  revokeSelectedImagePreviewUrl();
-});
 
 init();

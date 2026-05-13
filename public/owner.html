@@ -4,34 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Liminall Node</title>
+  <title>Muistoissa</title>
   <link rel="stylesheet" href="/style.css" />
   <link rel="stylesheet" href="/owner.css" />
 </head>
 <body>
   <div class="page-shell">
     <div class="page">
-      <div class="hero">
+      <header class="hero">
         <div class="hero-inner">
           <div class="topbar">
             <div class="topbar-left">
               <div class="brand-row">
                 <div class="brand-logo-frame">
-                  <img src="/logo.svg" alt="Liminall" class="brand-logo" />
+                  <img src="/logo.svg" alt="Muistoissa" class="brand-logo" />
                 </div>
 
                 <div class="brand-meta">
-                  <div class="brand-name">Liminall</div>
-                  <div class="eyebrow">Node-hallinta</div>
+                  <div class="brand-name">Muistoissa</div>
+                  <div class="eyebrow" id="editorEyebrow">Memorial editor</div>
                 </div>
               </div>
 
-              <h1 id="pageTitle">Node-hallinta</h1>
-              <div id="pageSubtitle" class="muted">Hallitse tunnisteen näkyvyyttä, yhteystapoja ja julkista sivua.</div>
+              <h1 id="pageTitle">Memorial editor</h1>
+              <div id="pageSubtitle" class="muted">Edit the memorial data used by the public mausoleum scene.</div>
             </div>
 
             <div class="topbar-right">
-              <a id="openPublicPageButton" class="link-button disabled" href="#" target="_blank" rel="noopener noreferrer">Avaa Node</a>
+              <a id="openPublicPageButton" class="link-button disabled" href="#" target="_blank" rel="noopener noreferrer">Open memorial</a>
               <button id="langFi" class="lang-button" type="button">FI</button>
               <button id="langEn" class="lang-button" type="button">EN</button>
             </div>
@@ -43,275 +43,159 @@
             <div id="heroSummary" class="hero-summary-grid"></div>
           </div>
         </div>
-      </div>
+      </header>
 
       <div class="main-grid">
         <div class="stack">
-          <div class="card">
-            <div class="node-panel">
-              <div class="node-panel-head">
-                <div class="node-panel-name">
-                  <div class="muted small" id="nodeCardTitle">Node-linkki</div>
-                  <div class="node-panel-title" id="nodePanelTitle">Node</div>
-                  <div class="node-panel-subtitle" id="controlsCardIntro"></div>
-                </div>
-              </div>
-
-              <div id="nodeInfo"></div>
-
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="section-block">
-              <h3 id="statusSectionTitle">Tila</h3>
-              <div class="button-row">
-                <button id="setActiveButton" class="status-action-button status-action-active" type="button"></button>
-                <button id="setLostButton" class="status-action-button status-action-lost" type="button"></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="node-image-card">
-              <div id="nodeImagePreview" class="node-image-preview empty"></div>
-
-              <div class="field">
-                <label id="nodeImageInputLabel" class="field-label" for="nodeImageInput"></label>
-                <input id="nodeImageInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif" />
-                <div id="nodeImageHint" class="field-hint"></div>
-              </div>
-
-              <div class="button-row">
-                <button id="saveNodeImageButton" class="primary-button" type="button"></button>
-                <button id="clearNodeImageSelectionButton" class="ghost-button" type="button"></button>
-                <button id="removeNodeImageButton" class="danger-button" type="button"></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
+          <section class="card">
             <div class="card-header">
-              <h2 id="controlsCardTitle">Tunnisteen asetukset</h2>
+              <h2 id="editorCardTitle">Memorial details</h2>
+              <p id="editorCardIntro" class="muted small">Update the inscriptions, memory text, scene media, and publication state for the public memorial.</p>
             </div>
 
             <div class="section-stack">
-              <div class="section-group">
-                <div class="section-group-title">Julkinen profiili</div>
-                <div class="section-block">
-                  <h3 id="identitySectionTitle">Tunniste</h3>
-
-                  <div class="field">
-                    <label id="profileNameLabel" class="field-label" for="profileName"></label>
-                    <input id="profileName" type="text" maxlength="120" />
-                  </div>
-
-                  <div class="field">
-                    <label id="publicMessageLabel" class="field-label" for="publicMessage"></label>
-                    <textarea id="publicMessage" maxlength="2000"></textarea>
-                  </div>
-
-                  <div class="button-row">
-                    <button id="saveIdentityButton" class="primary-button" type="button"></button>
-                  </div>
+              <section class="section-block">
+                <div class="section-head">
+                  <h3 id="overviewSectionTitle">Memorial overview</h3>
+                  <button id="saveOverviewButton" class="primary-button" type="button">Save overview</button>
                 </div>
 
-                <div class="section-block">
-                  <h3 id="locationSectionTitle">Sijainti</h3>
-                  <p id="locationSectionIntro" class="muted small"></p>
+                <div class="field-grid field-grid--two">
+                  <div class="field">
+                    <label id="memorialNameLabel" class="field-label" for="memorialName"></label>
+                    <input id="memorialName" type="text" maxlength="255" />
+                  </div>
 
                   <div class="field">
-                    <label id="locationLabel" class="field-label" for="locationInput"></label>
-                    <input id="locationInput" type="text" maxlength="255" />
-                    <div id="locationHint" class="field-hint"></div>
+                    <label id="memorialTypeLabel" class="field-label" for="memorialType"></label>
+                    <input id="memorialType" type="text" maxlength="100" />
                   </div>
-
-                  <div class="button-row">
-                    <label class="contact-toggle">
-                      <input id="showLocationInput" type="checkbox" />
-                      <span id="showLocationLabel"></span>
-                    </label>
-                  </div>
-
-                  <div class="button-row">
-                    <button id="saveLocationButton" class="primary-button" type="button"></button>
-                  </div>
-                </div>
-
-                <div class="section-block">
-                  <h3 id="contactSectionTitle">Yhteystavat</h3>
-                  <p id="contactSectionIntro" class="muted small"></p>
 
                   <div class="field">
-                    <label id="preferredContactLabel" class="field-label" for="preferredContact"></label>
-                    <select id="preferredContact">
-                      <option value="none"></option>
-                      <option value="phone"></option>
-                      <option value="sms"></option>
-                      <option value="whatsapp"></option>
-                      <option value="email"></option>
+                    <label id="birthDateLabel" class="field-label" for="birthDate"></label>
+                    <input id="birthDate" type="text" maxlength="64" />
+                  </div>
+
+                  <div class="field">
+                    <label id="deathDateLabel" class="field-label" for="deathDate"></label>
+                    <input id="deathDate" type="text" maxlength="64" />
+                  </div>
+
+                  <div class="field">
+                    <label id="visibilityModeLabel" class="field-label" for="visibilityMode"></label>
+                    <select id="visibilityMode">
+                      <option value="draft"></option>
+                      <option value="private"></option>
+                      <option value="public"></option>
                     </select>
-                    <div id="preferredContactHint" class="field-hint"></div>
                   </div>
 
-                  <div class="contact-grid">
-                    <div class="contact-row">
-                      <div class="contact-row-top">
-                        <label id="phoneLabel" class="field-label" for="phoneInput"></label>
-                        <label class="contact-toggle">
-                          <input id="showPhoneInput" type="checkbox" />
-                          <span id="showPhoneLabel"></span>
-                        </label>
-                      </div>
-                      <input id="phoneInput" type="text" maxlength="100" placeholder="" />
-                    </div>
-
-                    <div class="contact-row">
-                      <div class="contact-row-top">
-                        <label id="smsLabel" class="field-label" for="smsInput"></label>
-                        <label class="contact-toggle">
-                          <input id="showSmsInput" type="checkbox" />
-                          <span id="showSmsLabel"></span>
-                        </label>
-                      </div>
-                      <input id="smsInput" type="text" maxlength="100" placeholder="" />
-                    </div>
-
-                    <div class="contact-row">
-                      <div class="contact-row-top">
-                        <label id="whatsappLabel" class="field-label" for="whatsappInput"></label>
-                        <label class="contact-toggle">
-                          <input id="showWhatsappInput" type="checkbox" />
-                          <span id="showWhatsappLabel"></span>
-                        </label>
-                      </div>
-                      <input id="whatsappInput" type="text" maxlength="100" placeholder="" />
-                    </div>
-
-                    <div class="contact-row">
-                      <div class="contact-row-top">
-                        <label id="emailLabel" class="field-label" for="emailInput"></label>
-                        <label class="contact-toggle">
-                          <input id="showEmailInput" type="checkbox" />
-                          <span id="showEmailLabel"></span>
-                        </label>
-                      </div>
-                      <input id="emailInput" type="text" maxlength="255" placeholder="" />
-                    </div>
-                  </div>
-
-                  <div class="button-row">
-                    <button id="saveContactSettingsButton" class="primary-button" type="button"></button>
+                  <div class="field">
+                    <label id="publishedAtLabel" class="field-label" for="publishedAt"></label>
+                    <input id="publishedAt" type="text" maxlength="64" />
+                    <div id="publishedAtHint" class="field-hint"></div>
                   </div>
                 </div>
-              </div>
+              </section>
 
-              <div class="section-block">
-                <h3 id="collectionSectionTitle">Collection</h3>
-                <p id="collectionSectionIntro" class="muted small"></p>
-                <div id="collectionMembershipStatus" class="muted small"></div>
-
-                <div class="button-row">
-                  <button id="openCollectionButton" class="secondary-button" type="button" hidden></button>
-                  <button id="reissueCollectionLinkButton" class="secondary-button" type="button" hidden></button>
-                  <button id="leaveCollectionButton" class="ghost-button" type="button" hidden></button>
+              <section class="section-block">
+                <div class="section-head">
+                  <h3 id="inscriptionSectionTitle">Mausoleum inscription</h3>
+                  <button id="saveInscriptionButton" class="primary-button" type="button">Save inscription</button>
                 </div>
 
                 <div class="field">
-                  <label id="collectionNameLabel" class="field-label" for="collectionNameInput"></label>
-                  <input id="collectionNameInput" type="text" maxlength="255" />
+                  <label id="shortEpitaphLabel" class="field-label" for="shortEpitaph"></label>
+                  <textarea id="shortEpitaph" maxlength="500"></textarea>
                 </div>
+              </section>
 
-                <div class="button-row">
-                  <button id="createCollectionButton" class="primary-button" type="button"></button>
+              <section class="section-block">
+                <div class="section-head">
+                  <h3 id="memorySectionTitle">Primary memory</h3>
+                  <button id="saveMemoryButton" class="primary-button" type="button">Save memory</button>
                 </div>
 
                 <div class="field">
-                  <label id="collectionTokenLabel" class="field-label" for="collectionTokenInput"></label>
-                  <input id="collectionTokenInput" type="text" maxlength="255" />
+                  <label id="memoryTextLabel" class="field-label" for="memoryText"></label>
+                  <textarea id="memoryText" maxlength="4000"></textarea>
+                </div>
+              </section>
+
+              <section class="section-block">
+                <div class="section-head">
+                  <h3 id="storySectionTitle">Life story</h3>
+                  <button id="saveStoryButton" class="primary-button" type="button">Save life story</button>
                 </div>
 
-                <div class="button-row">
-                  <button id="joinCollectionButton" class="secondary-button" type="button"></button>
+                <div class="field">
+                  <label id="lifeStoryLabel" class="field-label" for="lifeStory"></label>
+                  <textarea id="lifeStory" class="textarea-long" maxlength="12000"></textarea>
+                </div>
+              </section>
+
+              <section class="section-block">
+                <div class="section-head">
+                  <h3 id="sceneMediaSectionTitle">Scene media</h3>
+                  <button id="saveSceneMediaButton" class="primary-button" type="button">Save scene media</button>
                 </div>
 
-                <div id="collectionStatus" class="muted small"></div>
+                <div class="field">
+                  <label id="heroImageUrlLabel" class="field-label" for="heroImageUrl"></label>
+                  <input id="heroImageUrl" type="text" maxlength="1000" />
+                  <div id="heroImageUrlHint" class="field-hint"></div>
+                </div>
+
+                <div class="field">
+                  <label id="galleryJsonLabel" class="field-label" for="galleryJson"></label>
+                  <textarea id="galleryJson" class="textarea-code" maxlength="20000"></textarea>
+                  <div id="galleryJsonHint" class="field-hint"></div>
+                </div>
+              </section>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="section-block">
+              <div class="section-head">
+                <h3 id="pinSectionTitle">Change PIN</h3>
               </div>
 
-              <div class="section-group">
-                <div class="section-group-title">Toiminnot ja turvallisuus</div>
-                <div class="section-block">
-                  <h3 id="scannerMessagesSectionTitle">Lähetä viesti omistajalle</h3>
-                  <p id="scannerMessagesIntro" class="muted small"></p>
-                  <div class="button-row">
-                    <button id="toggleReportsButton" class="secondary-button" type="button"></button>
-                  </div>
+              <div class="field-grid field-grid--three">
+                <div class="field">
+                  <label id="currentPinLabel" class="field-label" for="currentPinInput"></label>
+                  <input id="currentPinInput" type="password" inputmode="numeric" maxlength="6" />
                 </div>
 
-                <div class="section-block">
-                  <h3 id="carrierSectionTitle">Carrier</h3>
-
-                  <div class="field">
-                    <label id="carrierReasonLabel" class="field-label" for="carrierReason"></label>
-                    <input id="carrierReason" type="text" maxlength="255" />
-                  </div>
-
-                  <div class="field">
-                    <label id="carrierNotesLabel" class="field-label" for="carrierNotes"></label>
-                    <textarea id="carrierNotes" maxlength="1000"></textarea>
-                  </div>
-
-                  <div class="button-row">
-                    <button id="replaceCarrierButton" class="secondary-button" type="button"></button>
-                  </div>
+                <div class="field">
+                  <label id="newPinLabel" class="field-label" for="newPinInput"></label>
+                  <input id="newPinInput" type="password" inputmode="numeric" maxlength="6" />
                 </div>
 
-                <div class="section-block">
-                  <h3 id="pinSectionTitle">Vaihda PIN</h3>
-
-                  <div class="field">
-                    <label id="currentPinLabel" class="field-label" for="currentPinInput"></label>
-                    <input id="currentPinInput" type="password" inputmode="numeric" maxlength="6" />
-                  </div>
-
-                  <div class="field">
-                    <label id="newPinLabel" class="field-label" for="newPinInput"></label>
-                    <input id="newPinInput" type="password" inputmode="numeric" maxlength="6" />
-                  </div>
-
-                  <div class="field">
-                    <label id="confirmPinLabel" class="field-label" for="confirmPinInput"></label>
-                    <input id="confirmPinInput" type="password" inputmode="numeric" maxlength="6" />
-                  </div>
-
-                  <div id="pinStatus" class="muted small"></div>
-
-                  <div class="button-row">
-                    <button id="changePinButton" class="secondary-button" type="button"></button>
-                  </div>
+                <div class="field">
+                  <label id="confirmPinLabel" class="field-label" for="confirmPinInput"></label>
+                  <input id="confirmPinInput" type="password" inputmode="numeric" maxlength="6" />
                 </div>
+              </div>
+
+              <div id="pinStatus" class="muted small"></div>
+
+              <div class="button-row">
+                <button id="changePinButton" class="secondary-button" type="button">Change PIN</button>
               </div>
             </div>
-          </div>
+          </section>
         </div>
 
         <div class="stack">
-          <div class="card">
+          <section class="card">
             <div class="card-header">
-              <h2 id="timelineTitle"></h2>
+              <h2 id="timelineTitle">History</h2>
+              <p id="timelineIntro" class="muted small">Recent owner and system events for this memorial.</p>
             </div>
             <div id="timeline" class="timeline"></div>
-          </div>
+          </section>
         </div>
-      </div>
-
-      <div style="padding:20px 18px 24px; text-align:center; font-size:12px; line-height:1.4; color:rgba(19,32,42,0.52);">
-        <a
-          href="https://liminall.fi/support"
-          target="_blank"
-          rel="noreferrer noopener"
-          style="color:inherit; text-decoration:none; border-bottom:1px solid rgba(19,32,42,0.18);"
-        >Liminall support</a>
       </div>
     </div>
   </div>
