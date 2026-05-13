@@ -453,7 +453,7 @@ button {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding: 0 1.5rem 14vh;
+  padding: 0 1.5rem 18vh;
   z-index: 7;
 }
 
@@ -500,8 +500,8 @@ button {
   z-index: 1;
   display: grid;
   gap: 2rem;
-  margin-top: -6vh;
-  padding-bottom: 2rem;
+  margin-top: 1.75rem;
+  padding-bottom: 2.75rem;
 }
 
 .overlay-layer {
@@ -658,7 +658,7 @@ button {
   }
 
   .scene-layer--quote {
-    padding-bottom: 16vh;
+    padding-bottom: 20vh;
   }
 
   .scene-epitaph {
@@ -668,7 +668,7 @@ button {
 
   .content-overlay {
     gap: 3.5rem;
-    margin-top: -8vh;
+    margin-top: 2.5rem;
   }
 
   .overlay-layer {
@@ -714,28 +714,37 @@ button {
   }
 
   .monolith-frame {
-    width: 23rem;
-    min-height: 40.5rem;
-    padding: 4.4rem 2.8rem 5.6rem;
+    width: 28rem;
+    min-height: 47rem;
+    padding: 5.25rem 3.3rem 7.6rem;
   }
 
   .monolith-frame::before {
-    background-size: 100% 100%, auto 103%;
+    background-size: 100% 100%, auto 116%;
   }
 
   .monolith-inscription {
-    width: 15.1rem;
-    margin-bottom: 1.35rem;
+    width: 16.25rem;
+    margin-bottom: 4.8rem;
   }
 
   .monolith-name {
-    font-size: 3.35rem;
+    font-size: 2.75rem;
+  }
+
+  .scene-layer--quote {
+    padding-bottom: 22vh;
+  }
+
+  .scene-epitaph {
+    max-width: 24rem;
   }
 
   .content-overlay {
     gap: 4.5rem;
-    margin-top: -10vh;
-    padding-bottom: 3rem;
+    margin-top: 3.25rem;
+    padding-top: 0.5rem;
+    padding-bottom: 4rem;
   }
 
   .overlay-layer--story {
