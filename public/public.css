@@ -200,7 +200,7 @@ button {
   z-index: 0;
   background:
     linear-gradient(180deg, rgba(4, 6, 9, 0.18), rgba(4, 6, 9, 0.24)),
-    url("/assets/mausoleum-bg.png") center top / cover no-repeat;
+    url("/assets/mausoleum-bg.png") center center / cover no-repeat;
 }
 
 .scene-layer--depth {
@@ -350,10 +350,10 @@ button {
 
 .monolith-frame {
   position: relative;
-  width: min(25rem, 104vw);
-  min-height: min(40rem, 86vh);
+  width: min(24.5rem, 104vw);
+  min-height: min(39rem, 84vh);
   max-width: none;
-  padding: 3.1rem 2rem 6rem;
+  padding: 2.9rem 1.9rem 6rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -365,10 +365,13 @@ button {
 .monolith-frame::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background:
+  inset: -1% -4% -1% -4%;
+  background-image:
     linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0)),
-    url("/assets/monolith.png") center center / contain no-repeat;
+    url("/assets/monolith.png");
+  background-position: center center, center center;
+  background-size: 100% 100%, auto 108%;
+  background-repeat: no-repeat, no-repeat;
   filter: drop-shadow(0 32px 48px rgba(0, 0, 0, 0.42));
   opacity: 0.98;
 }
@@ -389,7 +392,7 @@ button {
 .monolith-artifact {
   position: absolute;
   left: 50%;
-  top: 13.4%;
+  top: 12.8%;
   width: 38%;
   transform: translateX(-50%);
   border-radius: 1rem;
@@ -412,7 +415,7 @@ button {
   display: grid;
   gap: 0.62rem;
   width: min(15.8rem, 68vw);
-  margin-bottom: 2.3rem;
+  margin-bottom: 2.7rem;
   text-align: center;
 }
 
@@ -632,7 +635,7 @@ button {
   .scene-layer--backdrop {
     background:
       linear-gradient(180deg, rgba(4, 6, 9, 0.14), rgba(4, 6, 9, 0.22)),
-      url("/assets/mausoleum-bg.png") center top / cover no-repeat;
+      url("/assets/mausoleum-bg.png") center center / cover no-repeat;
   }
 
   .scene-layer--monolith {
@@ -640,14 +643,18 @@ button {
   }
 
   .monolith-frame {
-    width: min(22.8rem, 38vw);
+    width: min(23rem, 38vw);
     min-height: min(39rem, 78vh);
-    padding: 4.2rem 2.5rem 5.4rem;
+    padding: 4rem 2.4rem 5.4rem;
+  }
+
+  .monolith-frame::before {
+    background-size: 100% 100%, auto 106%;
   }
 
   .monolith-inscription {
     width: min(15rem, 23vw);
-    margin-bottom: 1.3rem;
+    margin-bottom: 1.7rem;
   }
 
   .scene-layer--quote {
@@ -685,7 +692,7 @@ button {
   .scene-layer--backdrop {
     background:
       linear-gradient(180deg, rgba(4, 6, 9, 0.1), rgba(4, 6, 9, 0.2)),
-      url("/assets/mausoleum-bg.png") center top / contain no-repeat,
+      url("/assets/mausoleum-bg.png") center center / cover no-repeat,
       linear-gradient(180deg, #0a0d12, #030406);
   }
 
@@ -707,14 +714,18 @@ button {
   }
 
   .monolith-frame {
-    width: 22.8rem;
+    width: 23rem;
     min-height: 40.5rem;
-    padding: 4.6rem 2.8rem 5.6rem;
+    padding: 4.4rem 2.8rem 5.6rem;
+  }
+
+  .monolith-frame::before {
+    background-size: 100% 100%, auto 103%;
   }
 
   .monolith-inscription {
     width: 15.1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.35rem;
   }
 
   .monolith-name {
