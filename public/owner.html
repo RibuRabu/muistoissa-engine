@@ -16,22 +16,18 @@
           <div class="topbar">
             <div class="topbar-left">
               <div class="brand-row">
-                <div class="brand-logo-frame">
-                  <img src="/logo.svg" alt="Muistoissa" class="brand-logo" />
-                </div>
-
                 <div class="brand-meta">
                   <div class="brand-name">Muistoissa</div>
-                  <div class="eyebrow" id="editorEyebrow">Memorial editor</div>
+                  <div class="eyebrow" id="editorEyebrow">Muistosivun hallinta</div>
                 </div>
               </div>
 
-              <h1 id="pageTitle">Memorial editor</h1>
-              <div id="pageSubtitle" class="muted">Edit the memorial data used by the public mausoleum scene.</div>
+              <h1 id="pageTitle">Muistosivun hallinta</h1>
+              <div id="pageSubtitle" class="muted">Muokkaa tietoja, jotka näkyvät julkisessa Muistoissa-muistosivussa.</div>
             </div>
 
             <div class="topbar-right">
-              <a id="openPublicPageButton" class="link-button disabled" href="#" target="_blank" rel="noopener noreferrer">Open memorial</a>
+              <a id="openPublicPageButton" class="link-button disabled" href="#" target="_blank" rel="noopener noreferrer">Avaa muistosivu</a>
               <button id="langFi" class="lang-button" type="button">FI</button>
               <button id="langEn" class="lang-button" type="button">EN</button>
             </div>
@@ -49,15 +45,15 @@
         <div class="stack">
           <section class="card">
             <div class="card-header">
-              <h2 id="editorCardTitle">Memorial details</h2>
-              <p id="editorCardIntro" class="muted small">Update the inscriptions, memory text, scene media, and publication state for the public memorial.</p>
+              <h2 id="editorCardTitle">Muiston tiedot</h2>
+              <p id="editorCardIntro" class="muted small">Täällä hallitset muistomerkin tekstejä, mediaa ja julkaisutilaa.</p>
             </div>
 
             <div class="section-stack">
               <section class="section-block">
                 <div class="section-head">
-                  <h3 id="overviewSectionTitle">Memorial overview</h3>
-                  <button id="saveOverviewButton" class="primary-button" type="button">Save overview</button>
+                  <h3 id="overviewSectionTitle">Muiston tiedot</h3>
+                  <button id="saveOverviewButton" class="primary-button" type="button">Tallenna tiedot</button>
                 </div>
 
                 <div class="field-grid field-grid--two">
@@ -100,8 +96,8 @@
 
               <section class="section-block">
                 <div class="section-head">
-                  <h3 id="inscriptionSectionTitle">Mausoleum inscription</h3>
-                  <button id="saveInscriptionButton" class="primary-button" type="button">Save inscription</button>
+                  <h3 id="inscriptionSectionTitle">Muistomerkintä</h3>
+                  <button id="saveInscriptionButton" class="primary-button" type="button">Tallenna epitafi</button>
                 </div>
 
                 <div class="field">
@@ -112,8 +108,8 @@
 
               <section class="section-block">
                 <div class="section-head">
-                  <h3 id="memorySectionTitle">Primary memory</h3>
-                  <button id="saveMemoryButton" class="primary-button" type="button">Save memory</button>
+                  <h3 id="memorySectionTitle">Muistoteksti</h3>
+                  <button id="saveMemoryButton" class="primary-button" type="button">Tallenna muistoteksti</button>
                 </div>
 
                 <div class="field">
@@ -124,8 +120,8 @@
 
               <section class="section-block">
                 <div class="section-head">
-                  <h3 id="storySectionTitle">Life story</h3>
-                  <button id="saveStoryButton" class="primary-button" type="button">Save life story</button>
+                  <h3 id="storySectionTitle">Elämäntarina</h3>
+                  <button id="saveStoryButton" class="primary-button" type="button">Tallenna elämäntarina</button>
                 </div>
 
                 <div class="field">
@@ -136,8 +132,8 @@
 
               <section class="section-block">
                 <div class="section-head">
-                  <h3 id="sceneMediaSectionTitle">Scene media</h3>
-                  <button id="saveSceneMediaButton" class="primary-button" type="button">Save scene media</button>
+                  <h3 id="sceneMediaSectionTitle">Mausoleumin kuva-aineisto</h3>
+                  <button id="saveSceneMediaButton" class="primary-button" type="button">Tallenna kuva-aineisto</button>
                 </div>
 
                 <div class="field">
@@ -158,7 +154,7 @@
           <section class="card">
             <div class="section-block">
               <div class="section-head">
-                <h3 id="pinSectionTitle">Change PIN</h3>
+                <h3 id="pinSectionTitle">Suojaus</h3>
               </div>
 
               <div class="field-grid field-grid--three">
@@ -181,7 +177,7 @@
               <div id="pinStatus" class="muted small"></div>
 
               <div class="button-row">
-                <button id="changePinButton" class="secondary-button" type="button">Change PIN</button>
+                <button id="changePinButton" class="secondary-button" type="button">Vaihda PIN</button>
               </div>
             </div>
           </section>
@@ -190,8 +186,8 @@
         <div class="stack">
           <section class="card">
             <div class="card-header">
-              <h2 id="timelineTitle">History</h2>
-              <p id="timelineIntro" class="muted small">Recent owner and system events for this memorial.</p>
+              <h2 id="timelineTitle">Historia</h2>
+              <p id="timelineIntro" class="muted small">Muistosivun viimeisimmät muutokset ja järjestelmätapahtumat.</p>
             </div>
             <div id="timeline" class="timeline"></div>
           </section>
