@@ -350,10 +350,10 @@ button {
 
 .monolith-frame {
   position: relative;
-  width: min(23rem, 96vw);
-  min-height: min(36rem, 82vh);
+  width: min(25rem, 104vw);
+  min-height: min(40rem, 86vh);
   max-width: none;
-  padding: 3.4rem 2rem 5.6rem;
+  padding: 3.1rem 2rem 6rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -389,7 +389,7 @@ button {
 .monolith-artifact {
   position: absolute;
   left: 50%;
-  top: 14.2%;
+  top: 13.4%;
   width: 38%;
   transform: translateX(-50%);
   border-radius: 1rem;
@@ -411,8 +411,8 @@ button {
   z-index: 1;
   display: grid;
   gap: 0.62rem;
-  width: min(14.8rem, 64vw);
-  margin-bottom: 1.8rem;
+  width: min(15.8rem, 68vw);
+  margin-bottom: 2.3rem;
   text-align: center;
 }
 
@@ -640,14 +640,14 @@ button {
   }
 
   .monolith-frame {
-    width: min(22rem, 36vw);
-    min-height: min(38rem, 76vh);
-    padding: 4.4rem 2.5rem 5.2rem;
+    width: min(22.8rem, 38vw);
+    min-height: min(39rem, 78vh);
+    padding: 4.2rem 2.5rem 5.4rem;
   }
 
   .monolith-inscription {
-    width: min(14.4rem, 22vw);
-    margin-bottom: 1rem;
+    width: min(15rem, 23vw);
+    margin-bottom: 1.3rem;
   }
 
   .scene-layer--quote {
@@ -707,13 +707,14 @@ button {
   }
 
   .monolith-frame {
-    width: 22.5rem;
-    min-height: 40rem;
-    padding: 4.8rem 2.8rem 5.4rem;
+    width: 22.8rem;
+    min-height: 40.5rem;
+    padding: 4.6rem 2.8rem 5.6rem;
   }
 
   .monolith-inscription {
-    margin-bottom: 0.7rem;
+    width: 15.1rem;
+    margin-bottom: 1rem;
   }
 
   .monolith-name {
