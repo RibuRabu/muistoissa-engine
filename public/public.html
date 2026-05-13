@@ -25,40 +25,56 @@
       <p class="page-state__text" id="state-text">Hetki vain.</p>
     </section>
 
-    <article class="memorial-article" id="memorial-article" hidden>
-      <section class="hero-section">
-        <div class="hero-media" id="hero-media">
-          <figure class="hero-figure" id="hero-figure" hidden>
-            <img id="hero-image" src="" alt="">
-          </figure>
-          <div class="hero-placeholder" id="hero-placeholder">
-            <div class="hero-placeholder__frame"></div>
-            <p id="hero-placeholder-copy"></p>
+    <article class="memorial-page" id="memorial-article" hidden>
+      <section class="scene-root" id="scene-root" aria-labelledby="memorial-name">
+        <div class="scene-chamber">
+          <div class="scene-layer scene-layer--backdrop"></div>
+          <div class="scene-layer scene-layer--depth">
+            <div class="depth-pillar depth-pillar--left"></div>
+            <div class="depth-pillar depth-pillar--right"></div>
+            <div class="depth-aperture"></div>
           </div>
-        </div>
-
-        <div class="hero-copy">
-          <p class="hero-copy__type" id="memorial-type"></p>
-          <h1 class="hero-copy__name" id="memorial-name"></h1>
-          <p class="hero-copy__dates" id="memorial-dates"></p>
-          <blockquote class="hero-copy__epitaph" id="memorial-epitaph"></blockquote>
-          <div class="hero-copy__memory" id="memory-text"></div>
+          <div class="scene-layer scene-layer--light">
+            <div class="light-shaft light-shaft--center"></div>
+            <div class="light-shaft light-shaft--left"></div>
+            <div class="light-shaft light-shaft--right"></div>
+          </div>
+          <div class="scene-layer scene-layer--fog">
+            <div class="fog-band fog-band--upper"></div>
+            <div class="fog-band fog-band--lower"></div>
+          </div>
+          <div class="scene-layer scene-layer--floor">
+            <div class="floor-plane"></div>
+            <div class="floor-reflection"></div>
+          </div>
+          <div class="scene-layer scene-layer--monolith">
+            <div class="monolith-frame">
+              <div class="monolith-artifact" id="artifact-frame" hidden>
+                <img id="artifact-image" src="" alt="">
+              </div>
+              <div class="monolith-inscription">
+                <p class="monolith-type" id="memorial-type"></p>
+                <h1 class="monolith-name" id="memorial-name"></h1>
+                <p class="monolith-dates" id="memorial-dates"></p>
+              </div>
+            </div>
+          </div>
+          <div class="scene-layer scene-layer--particles"></div>
+          <div class="scene-layer scene-layer--quote">
+            <blockquote class="scene-epitaph" id="memorial-epitaph"></blockquote>
+          </div>
         </div>
       </section>
 
-      <section class="gallery-section" id="gallery-section" hidden>
-        <div class="section-heading">
-          <h2 id="gallery-title">Kuvamuistoja</h2>
+      <section class="content-overlay" id="content-overlay">
+        <div class="overlay-layer overlay-layer--memory" id="memory-layer" hidden>
+          <p class="overlay-kicker" id="memory-kicker">Muisto</p>
+          <div class="overlay-body" id="memory-text"></div>
         </div>
-        <div class="gallery-grid" id="gallery-grid"></div>
-      </section>
 
-      <section class="story-section" id="story-section" hidden>
-        <div class="story-layout">
-          <div class="section-heading story-heading">
-            <h2 id="story-title">Elämän tarina</h2>
-          </div>
-          <div class="story-body" id="story-body"></div>
+        <div class="overlay-layer overlay-layer--story" id="story-layer" hidden>
+          <p class="overlay-kicker" id="story-kicker">Elaman tarina</p>
+          <div class="overlay-body overlay-body--story" id="story-body"></div>
         </div>
       </section>
     </article>

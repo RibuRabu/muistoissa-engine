@@ -7,19 +7,18 @@ const i18n = {
     loadingText: "Hetki vain.",
     disabledKicker: "Ei saatavilla",
     disabledTitle: "Muistosivu ei ole saatavilla",
-    disabledText: "Tämä muistosivu on poistettu käytöstä.",
-    notFoundKicker: "Ei löytynyt",
-    notFoundTitle: "Muistosivua ei löytynyt",
-    notFoundText: "Tätä muistoarkistoa ei ole saatavilla.",
+    disabledText: "Tama muistosivu on poistettu kaytosta.",
+    notFoundKicker: "Ei loytynyt",
+    notFoundTitle: "Muistosivua ei loytynyt",
+    notFoundText: "Tata muistoarkistoa ei ole saatavilla.",
     errorKicker: "Virhe",
-    errorTitle: "Lataus epäonnistui",
+    errorTitle: "Lataus epaonnistui",
     errorText: "Muistosivun avaaminen ei juuri nyt onnistunut.",
     memorialTypeDefault: "Muistoarkisto",
     untitledMemorial: "Rakas muisto",
-    noImageCopy: "Jotkin muistot säilyvät ilman kuvaakin.",
-    galleryTitle: "Kuvamuistoja",
-    storyTitle: "Elämän tarina",
-    dateSeparator: "–"
+    memoryKicker: "Muisto",
+    storyKicker: "Elaman tarina",
+    dateSeparator: "-"
   },
   en: {
     pageTitle: "Muistoissa",
@@ -38,10 +37,9 @@ const i18n = {
     errorText: "The memorial page could not be opened right now.",
     memorialTypeDefault: "Memory archive",
     untitledMemorial: "Beloved memory",
-    noImageCopy: "Some memories remain without a photograph.",
-    galleryTitle: "Photo memories",
-    storyTitle: "Life story",
-    dateSeparator: "–"
+    memoryKicker: "Memory",
+    storyKicker: "Life story",
+    dateSeparator: "-"
   }
 };
 
@@ -60,20 +58,18 @@ const els = {
   stateTitle: document.getElementById("state-title"),
   stateText: document.getElementById("state-text"),
   article: document.getElementById("memorial-article"),
+  sceneRoot: document.getElementById("scene-root"),
   memorialType: document.getElementById("memorial-type"),
   memorialName: document.getElementById("memorial-name"),
   memorialDates: document.getElementById("memorial-dates"),
   memorialEpitaph: document.getElementById("memorial-epitaph"),
+  artifactFrame: document.getElementById("artifact-frame"),
+  artifactImage: document.getElementById("artifact-image"),
+  memoryLayer: document.getElementById("memory-layer"),
+  memoryKicker: document.getElementById("memory-kicker"),
   memoryText: document.getElementById("memory-text"),
-  heroFigure: document.getElementById("hero-figure"),
-  heroImage: document.getElementById("hero-image"),
-  heroPlaceholder: document.getElementById("hero-placeholder"),
-  heroPlaceholderCopy: document.getElementById("hero-placeholder-copy"),
-  gallerySection: document.getElementById("gallery-section"),
-  galleryTitle: document.getElementById("gallery-title"),
-  galleryGrid: document.getElementById("gallery-grid"),
-  storySection: document.getElementById("story-section"),
-  storyTitle: document.getElementById("story-title"),
+  storyLayer: document.getElementById("story-layer"),
+  storyKicker: document.getElementById("story-kicker"),
   storyBody: document.getElementById("story-body")
 };
 
@@ -190,6 +186,21 @@ function buildDateLine(birthDate, deathDate) {
   return "";
 }
 
+function buildTextBlocks(text) {
+  const value = getTrimmedString(text);
+
+  if (!value) {
+    return [];
+  }
+
+  const blocks = value
+    .split(/\n{2,}/)
+    .map((block) => block.trim())
+    .filter(Boolean);
+
+  return blocks.length > 0 ? blocks : [value];
+}
+
 function buildViewModel(data) {
   const memorialName = getTrimmedString(data.memorial_name) || getTrimmedString(data.name) || t("untitledMemorial");
   const memorialType = getTrimmedString(data.memorial_type) || t("memorialTypeDefault");
@@ -201,38 +212,23 @@ function buildViewModel(data) {
   const galleryItems = parseGalleryJson(data.gallery_json);
   const explicitHero = getTrimmedString(data.hero_image_url) || getTrimmedString(data.image_url);
   const heroImageUrl = explicitHero || (galleryItems[0] ? galleryItems[0].url : "");
-  const gallery = galleryItems.filter((item) => item.url !== heroImageUrl);
 
   return {
     memorialName,
     memorialType,
     dateLine: buildDateLine(birthDate, deathDate),
     shortEpitaph,
-    memoryText,
-    lifeStory,
+    memoryBlocks: buildTextBlocks(memoryText),
+    storyBlocks: buildTextBlocks(lifeStory),
     heroImageUrl,
-    gallery
+    galleryCount: galleryItems.length
   };
 }
 
-function renderTextBlocks(container, text) {
+function renderTextBlocks(container, blocks) {
   container.textContent = "";
 
-  const value = getTrimmedString(text);
-
-  if (!value) {
-    return;
-  }
-
-  const blocks = value
-    .split(/\n{2,}/)
-    .map((block) => block.trim())
-    .filter(Boolean);
-
-  if (blocks.length === 0) {
-    const p = document.createElement("p");
-    p.textContent = value;
-    container.appendChild(p);
+  if (!Array.isArray(blocks) || blocks.length === 0) {
     return;
   }
 
@@ -243,33 +239,12 @@ function renderTextBlocks(container, text) {
   }
 }
 
-function renderGallery(gallery, memorialName) {
-  els.galleryGrid.textContent = "";
-
-  if (!gallery.length) {
-    els.gallerySection.hidden = true;
-    return;
-  }
-
-  for (const item of gallery) {
-    const figure = document.createElement("figure");
-    figure.className = "gallery-card";
-
-    const image = document.createElement("img");
-    image.src = item.url;
-    image.alt = item.caption || memorialName;
-    figure.appendChild(image);
-
-    if (item.caption) {
-      const caption = document.createElement("figcaption");
-      caption.textContent = item.caption;
-      figure.appendChild(caption);
-    }
-
-    els.galleryGrid.appendChild(figure);
-  }
-
-  els.gallerySection.hidden = false;
+function syncSceneState(viewModel) {
+  els.sceneRoot.dataset.hasImage = viewModel.heroImageUrl ? "true" : "false";
+  els.sceneRoot.dataset.hasEpitaph = viewModel.shortEpitaph ? "true" : "false";
+  els.sceneRoot.dataset.hasMemory = viewModel.memoryBlocks.length > 0 ? "true" : "false";
+  els.sceneRoot.dataset.hasStory = viewModel.storyBlocks.length > 0 ? "true" : "false";
+  els.sceneRoot.dataset.hasFragments = viewModel.galleryCount > 0 ? "true" : "false";
 }
 
 function renderState(state) {
@@ -312,33 +287,31 @@ function renderMemorial(viewModel) {
 
   els.memorialType.textContent = viewModel.memorialType;
   els.memorialType.hidden = !viewModel.memorialType;
+
   els.memorialName.textContent = viewModel.memorialName;
   els.memorialDates.textContent = viewModel.dateLine;
   els.memorialDates.hidden = !viewModel.dateLine;
+
   els.memorialEpitaph.textContent = viewModel.shortEpitaph;
   els.memorialEpitaph.hidden = !viewModel.shortEpitaph;
 
-  renderTextBlocks(els.memoryText, viewModel.memoryText);
-  els.memoryText.hidden = !getTrimmedString(viewModel.memoryText);
+  renderTextBlocks(els.memoryText, viewModel.memoryBlocks);
+  els.memoryLayer.hidden = viewModel.memoryBlocks.length === 0;
+
+  renderTextBlocks(els.storyBody, viewModel.storyBlocks);
+  els.storyLayer.hidden = viewModel.storyBlocks.length === 0;
 
   if (viewModel.heroImageUrl) {
-    els.heroImage.src = viewModel.heroImageUrl;
-    els.heroImage.alt = viewModel.memorialName;
-    els.heroFigure.hidden = false;
-    els.heroPlaceholder.hidden = true;
+    els.artifactImage.src = viewModel.heroImageUrl;
+    els.artifactImage.alt = viewModel.memorialName;
+    els.artifactFrame.hidden = false;
   } else {
-    els.heroImage.src = "";
-    els.heroImage.alt = "";
-    els.heroFigure.hidden = true;
-    els.heroPlaceholder.hidden = false;
-    els.heroPlaceholderCopy.textContent = t("noImageCopy");
+    els.artifactImage.src = "";
+    els.artifactImage.alt = "";
+    els.artifactFrame.hidden = true;
   }
 
-  renderGallery(viewModel.gallery, viewModel.memorialName);
-
-  renderTextBlocks(els.storyBody, viewModel.lifeStory);
-  els.storySection.hidden = !getTrimmedString(viewModel.lifeStory);
-
+  syncSceneState(viewModel);
   document.title = `${viewModel.memorialName} | ${t("pageTitle")}`;
 }
 
@@ -349,8 +322,8 @@ function setLanguage(lang) {
   els.langEn.classList.toggle("active", currentLang === "en");
   els.siteMark.textContent = t("siteMark");
   els.footerMark.textContent = t("pageTitle");
-  els.galleryTitle.textContent = t("galleryTitle");
-  els.storyTitle.textContent = t("storyTitle");
+  els.memoryKicker.textContent = t("memoryKicker");
+  els.storyKicker.textContent = t("storyKicker");
 
   if (currentState === "ready" && currentViewModel) {
     renderMemorial(currentViewModel);
