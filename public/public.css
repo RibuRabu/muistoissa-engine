@@ -743,6 +743,37 @@ button {
   }
 }
 
+@media (max-width: 759px) {
+  .scene-layer--backdrop {
+    background:
+      linear-gradient(180deg, rgba(4, 6, 9, 0.18), rgba(4, 6, 9, 0.24)),
+      url("/assets/mausoleum-bg.png") 50% 50% / cover no-repeat;
+  }
+
+  .scene-layer--monolith {
+    justify-items: center;
+  }
+
+  .monolith-frame {
+    margin-inline: auto;
+  }
+
+  .monolith-frame::before {
+    left: 50%;
+    right: auto;
+    top: -1%;
+    bottom: -1%;
+    width: 112%;
+    transform: translateX(-50%);
+    background-position: center center, center center;
+    background-size: 100% 100%, auto 108%;
+  }
+
+  .monolith-inscription {
+    margin-inline: auto;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .light-shaft,
   .fog-band,
