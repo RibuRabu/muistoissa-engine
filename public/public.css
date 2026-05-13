@@ -753,35 +753,19 @@ button {
 }
 
 @media (max-width: 759px) {
-  .scene-root,
-  .scene-chamber {
-    min-height: max(calc(100svh - 5.5rem), 45rem);
-  }
-
   .scene-layer--backdrop {
     background:
       linear-gradient(180deg, rgba(4, 6, 9, 0.18), rgba(4, 6, 9, 0.24)),
       url("/assets/mausoleum-bg.png") 50% 50% / cover no-repeat;
   }
 
-  .scene-layer {
-    backface-visibility: hidden;
-  }
-
   .scene-layer--monolith {
     justify-items: center;
-    padding-top: 10vh;
-    padding-bottom: 22vh;
-    will-change: auto;
-    animation: none;
+    transform: translateX(-2vw);
   }
 
   .monolith-frame {
     margin-inline: auto;
-    position: relative;
-    left: -2vw;
-    min-height: min(39rem, 78vh);
-    padding-bottom: 5.1rem;
   }
 
   .monolith-frame::before {
@@ -797,42 +781,6 @@ button {
 
   .monolith-inscription {
     margin-inline: auto;
-    margin-bottom: 2rem;
-  }
-
-  .scene-layer--quote {
-    padding-bottom: 13vh;
-  }
-
-  .scene-epitaph {
-    max-width: 16rem;
-    line-height: 1.72;
-  }
-
-  .content-overlay {
-    gap: 2.75rem;
-    margin-top: 3rem;
-    padding-top: 1rem;
-  }
-
-  .overlay-layer,
-  .overlay-layer--story {
-    max-width: none;
-    margin-left: 0;
-  }
-
-  .overlay-layer {
-    padding: 0 0.45rem;
-  }
-
-  .scene-layer--particles::before,
-  .scene-layer--particles::after {
-    animation: none;
-  }
-
-  .light-shaft,
-  .fog-band {
-    animation: none;
   }
 }
 
