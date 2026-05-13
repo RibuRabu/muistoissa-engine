@@ -773,7 +773,7 @@ button {
     padding-top: 10vh;
     padding-bottom: 22vh;
     will-change: auto;
-    animation-duration: 24s;
+    animation: none;
   }
 
   .monolith-frame {
@@ -827,6 +827,11 @@ button {
 
   .scene-layer--particles::before,
   .scene-layer--particles::after {
+    animation: none;
+  }
+
+  .light-shaft,
+  .fog-band {
     animation: none;
   }
 }
