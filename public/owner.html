@@ -63,11 +63,6 @@
                   </div>
 
                   <div class="field">
-                    <label id="memorialTypeLabel" class="field-label" for="memorialType"></label>
-                    <input id="memorialType" type="text" maxlength="100" />
-                  </div>
-
-                  <div class="field">
                     <label id="birthDateLabel" class="field-label" for="birthDate"></label>
                     <input id="birthDate" type="text" maxlength="64" />
                   </div>
@@ -92,6 +87,8 @@
                     <div id="publishedAtHint" class="field-hint"></div>
                   </div>
                 </div>
+
+                <input id="memorialType" type="hidden" />
               </section>
 
               <section class="section-block">
@@ -132,21 +129,19 @@
 
               <section class="section-block">
                 <div class="section-head">
-                  <h3 id="sceneMediaSectionTitle">Mausoleumin kuva-aineisto</h3>
-                  <button id="saveSceneMediaButton" class="primary-button" type="button">Tallenna kuva-aineisto</button>
+                  <h3 id="sceneMediaSectionTitle">Muistotilan kuva</h3>
                 </div>
 
-                <div class="field">
-                  <label id="heroImageUrlLabel" class="field-label" for="heroImageUrl"></label>
-                  <input id="heroImageUrl" type="text" maxlength="1000" />
-                  <div id="heroImageUrlHint" class="field-hint"></div>
+                <div class="section-copy">
+                  <p id="sceneMediaIntro" class="muted small">Muistotilan kuva tuo sivulle tunnelmaa. Kuvan lataus tulee seuraavassa vaiheessa.</p>
                 </div>
 
-                <div class="field">
-                  <label id="galleryJsonLabel" class="field-label" for="galleryJson"></label>
-                  <textarea id="galleryJson" class="textarea-code" maxlength="20000"></textarea>
-                  <div id="galleryJsonHint" class="field-hint"></div>
+                <div class="button-row">
+                  <button id="sceneMediaPlaceholderButton" class="secondary-button" type="button" disabled>Lataa kuva myöhemmin</button>
                 </div>
+
+                <input id="heroImageUrl" type="hidden" />
+                <textarea id="galleryJson" class="is-hidden" maxlength="20000"></textarea>
               </section>
             </div>
           </section>

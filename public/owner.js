@@ -11,10 +11,9 @@ const i18n = {
 
     overview_section_title: "Muiston tiedot",
     memorial_name_label: "Muiston nimi",
-    memorial_type_label: "Muiston tyyppi",
     birth_date_label: "Syntymäaika",
     death_date_label: "Kuolinaika",
-    visibility_mode_label: "Näkymätila",
+    visibility_mode_label: "Julkaisutila",
     published_at_label: "Julkaistu",
     published_at_hint: "Voit käyttää esimerkiksi ISO-aikaleimaa tai päivämäärää tekstinä.",
     save_overview: "Tallenna tiedot",
@@ -31,12 +30,9 @@ const i18n = {
     life_story_label: "Elämäntarina",
     save_story: "Tallenna elämäntarina",
 
-    scene_media_section_title: "Mausoleumin kuva-aineisto",
-    hero_image_url_label: "Pääkuvan osoite",
-    hero_image_url_hint: "Väliaikainen tekstikenttä. Nykyinen kuvan lataus ei vielä kirjoita hero_image_url-kenttään.",
-    gallery_json_label: "Gallerian JSON",
-    gallery_json_hint: "Edistynyt väliaikainen kenttä tulevia muistofragmentteja varten. Ei vielä näy julkisessa muistosivussa ruudukkona.",
-    save_scene_media: "Tallenna kuva-aineisto",
+    scene_media_section_title: "Muistotilan kuva",
+    scene_media_intro: "Muistotilan kuva tuo sivulle tunnelmaa. Kuvan lataus tulee seuraavassa vaiheessa.",
+    scene_media_placeholder_button: "Kuvan lataus tulossa",
 
     pin_section_title: "Suojaus",
     current_pin_label: "Nykyinen PIN",
@@ -46,7 +42,7 @@ const i18n = {
     change_pin_success: "PIN vaihdettu.",
     change_pin_failed: "PIN-koodin vaihto epäonnistui",
     change_pin_mismatch: "Uusi PIN ja vahvistus eivät täsmää.",
-    change_pin_invalid_format: "PIN-koodin on oltava 4–6 numeroa.",
+    change_pin_invalid_format: "PIN-koodin on oltava 4-6 numeroa.",
     change_pin_invalid_current: "Nykyinen PIN on virheellinen.",
 
     visibility_mode_draft: "Luonnos",
@@ -54,11 +50,8 @@ const i18n = {
     visibility_mode_public: "Julkinen",
     visibility_mode_unknown: "Muu",
     published_state_empty: "Ei asetettu",
-    hero_image_state_present: "Asetettu",
-    hero_image_state_empty: "Ei asetettu",
 
     memorial_name_fallback: "Nimeämätön muisto",
-    memorial_type_fallback: "Muistoarkisto",
     history_empty: "Ei tapahtumia vielä.",
     timeline_show_all: "Näytä kaikki",
     timeline_hide_all: "Piilota lokit",
@@ -70,10 +63,9 @@ const i18n = {
     timeline_detail_contact: "Yhteystieto",
 
     summary_name: "Muisto",
-    summary_visibility: "Näkymätila",
+    summary_visibility: "Julkaisutila",
     summary_published: "Julkaistu",
     summary_slug: "Osoite",
-    summary_scene_media: "Pääkuva",
 
     load_owner_failed: "Muistosivun tietojen lataus epäonnistui",
     load_timeline_failed: "Historian lataus epäonnistui",
@@ -88,7 +80,7 @@ const i18n = {
     event_NODE_CREATED: "Muistosivu luotu",
     event_PROFILE_UPDATED: "Muiston tietoja päivitetty",
     event_STATUS_CHANGED: "Sisäinen tila muuttunut",
-    event_VISIBILITY_UPDATED: "Näkymätila päivitetty",
+    event_VISIBILITY_UPDATED: "Julkaisutila päivitetty",
     event_RECOVERY_LOCATION_UPDATED: "Perustietoja päivitetty",
     event_ANONYMOUS_REPORT_CREATED: "Viesti vastaanotettu",
     event_CARRIER_REPLACED: "Tunniste vaihdettu",
@@ -101,7 +93,7 @@ const i18n = {
     event_desc_NODE_CREATED: "Muistosivun pohja luotiin.",
     event_desc_PROFILE_UPDATED: "Julkisia muistotietoja päivitettiin.",
     event_desc_STATUS_CHANGED: "Sisäistä tilaa päivitettiin.",
-    event_desc_VISIBILITY_UPDATED: "Muistosivun näkymätilaa päivitettiin.",
+    event_desc_VISIBILITY_UPDATED: "Muistosivun julkaisutilaa päivitettiin.",
     event_desc_RECOVERY_LOCATION_UPDATED: "Vanhaa taustatietoa päivitettiin.",
     event_desc_ANONYMOUS_REPORT_CREATED: "Muistosivulle saapui viesti.",
     event_desc_CARRIER_REPLACED: "Tunnistehistoriaan kirjattiin muutos.",
@@ -123,10 +115,9 @@ const i18n = {
 
     overview_section_title: "Memorial details",
     memorial_name_label: "Memorial name",
-    memorial_type_label: "Memorial type",
     birth_date_label: "Birth date",
     death_date_label: "Death date",
-    visibility_mode_label: "Visibility mode",
+    visibility_mode_label: "Publication status",
     published_at_label: "Published at",
     published_at_hint: "You can use an ISO timestamp or a plain date string.",
     save_overview: "Save details",
@@ -143,12 +134,9 @@ const i18n = {
     life_story_label: "Life story",
     save_story: "Save life story",
 
-    scene_media_section_title: "Mausoleum media",
-    hero_image_url_label: "Primary image URL",
-    hero_image_url_hint: "Temporary text field. The current upload endpoint does not yet write to hero_image_url.",
-    gallery_json_label: "Gallery JSON",
-    gallery_json_hint: "Advanced temporary field for future memory fragments. It is not yet rendered as a public grid scene.",
-    save_scene_media: "Save media",
+    scene_media_section_title: "Memorial image",
+    scene_media_intro: "The memorial image will shape the atmosphere of the space. Image upload will arrive in the next step.",
+    scene_media_placeholder_button: "Image upload coming next",
 
     pin_section_title: "Security",
     current_pin_label: "Current PIN",
@@ -166,11 +154,8 @@ const i18n = {
     visibility_mode_public: "Public",
     visibility_mode_unknown: "Custom",
     published_state_empty: "Not set",
-    hero_image_state_present: "Set",
-    hero_image_state_empty: "Not set",
 
     memorial_name_fallback: "Untitled memorial",
-    memorial_type_fallback: "Memory archive",
     history_empty: "No events yet.",
     timeline_show_all: "Show all",
     timeline_hide_all: "Hide logs",
@@ -182,10 +167,9 @@ const i18n = {
     timeline_detail_contact: "Contact",
 
     summary_name: "Memorial",
-    summary_visibility: "Visibility",
+    summary_visibility: "Publication",
     summary_published: "Published",
     summary_slug: "Address",
-    summary_scene_media: "Primary image",
 
     load_owner_failed: "Failed to load memorial data",
     load_timeline_failed: "Failed to load history",
@@ -200,7 +184,7 @@ const i18n = {
     event_NODE_CREATED: "Memorial created",
     event_PROFILE_UPDATED: "Memorial details updated",
     event_STATUS_CHANGED: "Internal status changed",
-    event_VISIBILITY_UPDATED: "Visibility updated",
+    event_VISIBILITY_UPDATED: "Publication updated",
     event_RECOVERY_LOCATION_UPDATED: "Legacy details updated",
     event_ANONYMOUS_REPORT_CREATED: "Message received",
     event_CARRIER_REPLACED: "Carrier replaced",
@@ -213,7 +197,7 @@ const i18n = {
     event_desc_NODE_CREATED: "The memorial record was created.",
     event_desc_PROFILE_UPDATED: "Public memorial details were updated.",
     event_desc_STATUS_CHANGED: "The internal status was updated.",
-    event_desc_VISIBILITY_UPDATED: "Visibility details were updated.",
+    event_desc_VISIBILITY_UPDATED: "The memorial publication status was updated.",
     event_desc_RECOVERY_LOCATION_UPDATED: "A legacy field was updated.",
     event_desc_ANONYMOUS_REPORT_CREATED: "A message was received.",
     event_desc_CARRIER_REPLACED: "A carrier change was recorded.",
@@ -440,7 +424,6 @@ function renderStaticTexts() {
 
   document.getElementById("overviewSectionTitle").textContent = t("overview_section_title");
   document.getElementById("memorialNameLabel").textContent = t("memorial_name_label");
-  document.getElementById("memorialTypeLabel").textContent = t("memorial_type_label");
   document.getElementById("birthDateLabel").textContent = t("birth_date_label");
   document.getElementById("deathDateLabel").textContent = t("death_date_label");
   document.getElementById("visibilityModeLabel").textContent = t("visibility_mode_label");
@@ -461,11 +444,8 @@ function renderStaticTexts() {
   document.getElementById("saveStoryButton").textContent = t("save_story");
 
   document.getElementById("sceneMediaSectionTitle").textContent = t("scene_media_section_title");
-  document.getElementById("heroImageUrlLabel").textContent = t("hero_image_url_label");
-  document.getElementById("heroImageUrlHint").textContent = t("hero_image_url_hint");
-  document.getElementById("galleryJsonLabel").textContent = t("gallery_json_label");
-  document.getElementById("galleryJsonHint").textContent = t("gallery_json_hint");
-  document.getElementById("saveSceneMediaButton").textContent = t("save_scene_media");
+  document.getElementById("sceneMediaIntro").textContent = t("scene_media_intro");
+  document.getElementById("sceneMediaPlaceholderButton").textContent = t("scene_media_placeholder_button");
 
   document.getElementById("pinSectionTitle").textContent = t("pin_section_title");
   document.getElementById("currentPinLabel").textContent = t("current_pin_label");
@@ -487,20 +467,12 @@ function renderHeroSummary() {
   }
 
   const memorialName = getTrimmedString(currentNode.memorial_name) || t("memorial_name_fallback");
-  const memorialType = getTrimmedString(currentNode.memorial_type) || t("memorial_type_fallback");
   const heroSummary = document.getElementById("heroSummary");
-  const heroImageState = getTrimmedString(currentNode.hero_image_url)
-    ? t("hero_image_state_present")
-    : t("hero_image_state_empty");
 
   heroSummary.innerHTML = `
     <div class="hero-chip">
       <div class="hero-chip-label">${escapeHtml(t("summary_name"))}</div>
       <div class="hero-chip-value">${escapeHtml(memorialName)}</div>
-    </div>
-    <div class="hero-chip">
-      <div class="hero-chip-label">${escapeHtml(t("memorial_type_label"))}</div>
-      <div class="hero-chip-value">${escapeHtml(memorialType)}</div>
     </div>
     <div class="hero-chip">
       <div class="hero-chip-label">${escapeHtml(t("summary_visibility"))}</div>
@@ -513,10 +485,6 @@ function renderHeroSummary() {
     <div class="hero-chip">
       <div class="hero-chip-label">${escapeHtml(t("summary_slug"))}</div>
       <div class="hero-chip-value">${escapeHtml(currentNode.public_slug || "-")}</div>
-    </div>
-    <div class="hero-chip">
-      <div class="hero-chip-label">${escapeHtml(t("summary_scene_media"))}</div>
-      <div class="hero-chip-value">${escapeHtml(heroImageState)}</div>
     </div>
   `;
 }
@@ -758,19 +726,6 @@ async function handleSaveStory() {
   }
 }
 
-async function handleSaveSceneMedia() {
-  clearActionStatus();
-
-  try {
-    await postOwnerUpdate({
-      hero_image_url: document.getElementById("heroImageUrl").value,
-      gallery_json: document.getElementById("galleryJson").value
-    });
-  } catch (error) {
-    setActionStatus(error.message || t("update_failed"), "error");
-  }
-}
-
 async function handleChangePin() {
   clearPinStatus();
 
@@ -828,7 +783,6 @@ function bindEvents() {
   document.getElementById("saveInscriptionButton").addEventListener("click", handleSaveInscription);
   document.getElementById("saveMemoryButton").addEventListener("click", handleSaveMemory);
   document.getElementById("saveStoryButton").addEventListener("click", handleSaveStory);
-  document.getElementById("saveSceneMediaButton").addEventListener("click", handleSaveSceneMedia);
   document.getElementById("changePinButton").addEventListener("click", handleChangePin);
 }
 

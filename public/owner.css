@@ -345,6 +345,11 @@ p {
   gap: 16px;
 }
 
+.section-copy {
+  display: grid;
+  gap: 0.45rem;
+}
+
 .section-block {
   display: grid;
   gap: 14px;
@@ -481,6 +486,10 @@ textarea {
   font-size: 12px;
   color: var(--text-faint);
   line-height: 1.45;
+}
+
+.is-hidden {
+  display: none !important;
 }
 
 .timeline {
