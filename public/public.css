@@ -753,6 +753,11 @@ button {
 }
 
 @media (max-width: 759px) {
+  .scene-root,
+  .scene-chamber {
+    min-height: 45rem;
+  }
+
   .scene-layer--backdrop {
     background:
       linear-gradient(180deg, rgba(4, 6, 9, 0.18), rgba(4, 6, 9, 0.24)),
@@ -761,11 +766,17 @@ button {
 
   .scene-layer--monolith {
     justify-items: center;
-    transform: translateX(-2vw);
+    padding-top: 2.5rem;
+    padding-bottom: 8.5rem;
+    will-change: auto;
+    animation: none;
+    transform: none;
   }
 
   .monolith-frame {
     margin-inline: auto;
+    min-height: 35rem;
+    padding: 2.6rem 1.7rem 4.75rem;
   }
 
   .monolith-frame::before {
@@ -781,6 +792,37 @@ button {
 
   .monolith-inscription {
     margin-inline: auto;
+    width: min(14.5rem, 62vw);
+    margin-bottom: 4rem;
+  }
+
+  .scene-layer--quote {
+    padding: 0 1.25rem 3.5rem;
+  }
+
+  .scene-epitaph {
+    max-width: 15.5rem;
+    font-size: 0.96rem;
+    line-height: 1.7;
+  }
+
+  .content-overlay {
+    gap: 2.75rem;
+    margin-top: 2.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .overlay-layer,
+  .overlay-layer--story {
+    max-width: none;
+    margin-left: 0;
+  }
+
+  .light-shaft,
+  .fog-band,
+  .scene-layer--particles::before,
+  .scene-layer--particles::after {
+    animation: none;
   }
 }
 
