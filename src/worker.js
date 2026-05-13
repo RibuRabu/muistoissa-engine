@@ -1066,6 +1066,31 @@ async function getPublicNode(env, slug) {
       birth_date,
       death_date,
       memorial_type,
+      identity_kind,
+      display_name_override,
+      public_name_mode,
+      person_first_name,
+      person_middle_names,
+      person_last_name,
+      person_nickname,
+      person_honorific,
+      person_descriptor,
+      show_person_middle_names,
+      show_person_last_name,
+      show_person_nickname,
+      show_person_honorific,
+      show_person_descriptor,
+      prefer_person_nickname,
+      animal_name,
+      animal_registered_name,
+      animal_nickname,
+      animal_species,
+      animal_breed,
+      show_animal_registered_name,
+      show_animal_nickname,
+      show_animal_species,
+      show_animal_breed,
+      prefer_animal_nickname,
       short_epitaph,
       memory_text,
       life_story,
@@ -1109,6 +1134,7 @@ async function getPublicNode(env, slug) {
     }, { status: 410 });
   }
 
+  const publicDisplayName = derivePublicDisplayName(row);
   const publicData = {
     slug: row.public_slug || "",
     name: resolveVisibilityFlag(row.show_profile_name, 0) ? (row.profile_name || "") : "",
@@ -1116,6 +1142,13 @@ async function getPublicNode(env, slug) {
     identifier: resolveVisibilityFlag(row.show_identifier, 0) ? (row.public_identifier || "") : "",
     message: resolveVisibilityFlag(row.show_message, 0) ? (row.public_message || "") : "",
     memorial_name: row.memorial_name || "",
+    public_display_name: publicDisplayName || "",
+    identity_kind: row.identity_kind || "",
+    public_name_mode: row.public_name_mode || "",
+    person_descriptor: resolveVisibilityFlag(row.show_person_descriptor, 0) ? (row.person_descriptor || "") : "",
+    animal_registered_name: resolveVisibilityFlag(row.show_animal_registered_name, 0) ? (row.animal_registered_name || "") : "",
+    animal_species: resolveVisibilityFlag(row.show_animal_species, 0) ? (row.animal_species || "") : "",
+    animal_breed: resolveVisibilityFlag(row.show_animal_breed, 0) ? (row.animal_breed || "") : "",
     birth_date: row.birth_date || "",
     death_date: row.death_date || "",
     memorial_type: row.memorial_type || "",
@@ -1162,6 +1195,31 @@ async function getOwnerNode(request, env, token) {
       birth_date,
       death_date,
       memorial_type,
+      identity_kind,
+      display_name_override,
+      public_name_mode,
+      person_first_name,
+      person_middle_names,
+      person_last_name,
+      person_nickname,
+      person_honorific,
+      person_descriptor,
+      show_person_middle_names,
+      show_person_last_name,
+      show_person_nickname,
+      show_person_honorific,
+      show_person_descriptor,
+      prefer_person_nickname,
+      animal_name,
+      animal_registered_name,
+      animal_nickname,
+      animal_species,
+      animal_breed,
+      show_animal_registered_name,
+      show_animal_nickname,
+      show_animal_species,
+      show_animal_breed,
+      prefer_animal_nickname,
       short_epitaph,
       memory_text,
       life_story,
@@ -1196,7 +1254,7 @@ async function getOwnerNode(request, env, token) {
     .bind(auth.tokenHash)
     .first();
 
-  return Response.json(row);
+  return Response.json(await buildOwnerResponse(env, row));
 }
 
 async function getOwnerNodeEvents(request, env, token) {
@@ -1452,6 +1510,35 @@ async function uploadOwnerNodeImageForExisting(request, env, existing) {
       profile_name,
       profile_image_url,
       public_message,
+      memorial_name,
+      birth_date,
+      death_date,
+      memorial_type,
+      identity_kind,
+      display_name_override,
+      public_name_mode,
+      person_first_name,
+      person_middle_names,
+      person_last_name,
+      person_nickname,
+      person_honorific,
+      person_descriptor,
+      show_person_middle_names,
+      show_person_last_name,
+      show_person_nickname,
+      show_person_honorific,
+      show_person_descriptor,
+      prefer_person_nickname,
+      animal_name,
+      animal_registered_name,
+      animal_nickname,
+      animal_species,
+      animal_breed,
+      show_animal_registered_name,
+      show_animal_nickname,
+      show_animal_species,
+      show_animal_breed,
+      prefer_animal_nickname,
       phone,
       sms,
       email,
@@ -1564,6 +1651,35 @@ async function deleteOwnerNodeImageForExisting(env, existing) {
       profile_name,
       profile_image_url,
       public_message,
+      memorial_name,
+      birth_date,
+      death_date,
+      memorial_type,
+      identity_kind,
+      display_name_override,
+      public_name_mode,
+      person_first_name,
+      person_middle_names,
+      person_last_name,
+      person_nickname,
+      person_honorific,
+      person_descriptor,
+      show_person_middle_names,
+      show_person_last_name,
+      show_person_nickname,
+      show_person_honorific,
+      show_person_descriptor,
+      prefer_person_nickname,
+      animal_name,
+      animal_registered_name,
+      animal_nickname,
+      animal_species,
+      animal_breed,
+      show_animal_registered_name,
+      show_animal_nickname,
+      show_animal_species,
+      show_animal_breed,
+      prefer_animal_nickname,
       phone,
       sms,
       email,
@@ -1615,6 +1731,31 @@ async function updateOwnerNode(request, env, token) {
       birth_date,
       death_date,
       memorial_type,
+      identity_kind,
+      display_name_override,
+      public_name_mode,
+      person_first_name,
+      person_middle_names,
+      person_last_name,
+      person_nickname,
+      person_honorific,
+      person_descriptor,
+      show_person_middle_names,
+      show_person_last_name,
+      show_person_nickname,
+      show_person_honorific,
+      show_person_descriptor,
+      prefer_person_nickname,
+      animal_name,
+      animal_registered_name,
+      animal_nickname,
+      animal_species,
+      animal_breed,
+      show_animal_registered_name,
+      show_animal_nickname,
+      show_animal_species,
+      show_animal_breed,
+      prefer_animal_nickname,
       short_epitaph,
       memory_text,
       life_story,
@@ -1681,6 +1822,31 @@ async function performOwnerNodeUpdate(request, env, existing) {
     birth_date: sanitizeNullableString(body.birth_date, existing.birth_date, 64),
     death_date: sanitizeNullableString(body.death_date, existing.death_date, 64),
     memorial_type: sanitizeNullableString(body.memorial_type, existing.memorial_type, 100),
+    identity_kind: sanitizeIdentityKind(body.identity_kind, existing.identity_kind),
+    display_name_override: sanitizeNullableString(body.display_name_override, existing.display_name_override, 255),
+    public_name_mode: sanitizeNullableString(body.public_name_mode, existing.public_name_mode, 32),
+    person_first_name: sanitizeNullableString(body.person_first_name, existing.person_first_name, 120),
+    person_middle_names: sanitizeNullableString(body.person_middle_names, existing.person_middle_names, 255),
+    person_last_name: sanitizeNullableString(body.person_last_name, existing.person_last_name, 120),
+    person_nickname: sanitizeNullableString(body.person_nickname, existing.person_nickname, 120),
+    person_honorific: sanitizeNullableString(body.person_honorific, existing.person_honorific, 120),
+    person_descriptor: sanitizeNullableString(body.person_descriptor, existing.person_descriptor, 255),
+    show_person_middle_names: sanitizeBooleanLike(body.show_person_middle_names, existing.show_person_middle_names),
+    show_person_last_name: sanitizeBooleanLike(body.show_person_last_name, existing.show_person_last_name),
+    show_person_nickname: sanitizeBooleanLike(body.show_person_nickname, existing.show_person_nickname),
+    show_person_honorific: sanitizeBooleanLike(body.show_person_honorific, existing.show_person_honorific),
+    show_person_descriptor: sanitizeBooleanLike(body.show_person_descriptor, existing.show_person_descriptor),
+    prefer_person_nickname: sanitizeBooleanLike(body.prefer_person_nickname, existing.prefer_person_nickname),
+    animal_name: sanitizeNullableString(body.animal_name, existing.animal_name, 120),
+    animal_registered_name: sanitizeNullableString(body.animal_registered_name, existing.animal_registered_name, 255),
+    animal_nickname: sanitizeNullableString(body.animal_nickname, existing.animal_nickname, 120),
+    animal_species: sanitizeNullableString(body.animal_species, existing.animal_species, 120),
+    animal_breed: sanitizeNullableString(body.animal_breed, existing.animal_breed, 120),
+    show_animal_registered_name: sanitizeBooleanLike(body.show_animal_registered_name, existing.show_animal_registered_name),
+    show_animal_nickname: sanitizeBooleanLike(body.show_animal_nickname, existing.show_animal_nickname),
+    show_animal_species: sanitizeBooleanLike(body.show_animal_species, existing.show_animal_species),
+    show_animal_breed: sanitizeBooleanLike(body.show_animal_breed, existing.show_animal_breed),
+    prefer_animal_nickname: sanitizeBooleanLike(body.prefer_animal_nickname, existing.prefer_animal_nickname),
     short_epitaph: sanitizeNullableString(body.short_epitaph, existing.short_epitaph, 500),
     memory_text: sanitizeNullableString(body.memory_text, existing.memory_text, 4000),
     life_story: sanitizeNullableString(body.life_story, existing.life_story, 12000),
@@ -1718,6 +1884,31 @@ async function performOwnerNodeUpdate(request, env, existing) {
       birth_date = ?,
       death_date = ?,
       memorial_type = ?,
+      identity_kind = ?,
+      display_name_override = ?,
+      public_name_mode = ?,
+      person_first_name = ?,
+      person_middle_names = ?,
+      person_last_name = ?,
+      person_nickname = ?,
+      person_honorific = ?,
+      person_descriptor = ?,
+      show_person_middle_names = ?,
+      show_person_last_name = ?,
+      show_person_nickname = ?,
+      show_person_honorific = ?,
+      show_person_descriptor = ?,
+      prefer_person_nickname = ?,
+      animal_name = ?,
+      animal_registered_name = ?,
+      animal_nickname = ?,
+      animal_species = ?,
+      animal_breed = ?,
+      show_animal_registered_name = ?,
+      show_animal_nickname = ?,
+      show_animal_species = ?,
+      show_animal_breed = ?,
+      prefer_animal_nickname = ?,
       short_epitaph = ?,
       memory_text = ?,
       life_story = ?,
@@ -1752,6 +1943,31 @@ async function performOwnerNodeUpdate(request, env, existing) {
       next.birth_date,
       next.death_date,
       next.memorial_type,
+      next.identity_kind,
+      next.display_name_override,
+      next.public_name_mode,
+      next.person_first_name,
+      next.person_middle_names,
+      next.person_last_name,
+      next.person_nickname,
+      next.person_honorific,
+      next.person_descriptor,
+      next.show_person_middle_names,
+      next.show_person_last_name,
+      next.show_person_nickname,
+      next.show_person_honorific,
+      next.show_person_descriptor,
+      next.prefer_person_nickname,
+      next.animal_name,
+      next.animal_registered_name,
+      next.animal_nickname,
+      next.animal_species,
+      next.animal_breed,
+      next.show_animal_registered_name,
+      next.show_animal_nickname,
+      next.show_animal_species,
+      next.show_animal_breed,
+      next.prefer_animal_nickname,
       next.short_epitaph,
       next.memory_text,
       next.life_story,
@@ -1807,6 +2023,31 @@ async function performOwnerNodeUpdate(request, env, existing) {
       birth_date,
       death_date,
       memorial_type,
+      identity_kind,
+      display_name_override,
+      public_name_mode,
+      person_first_name,
+      person_middle_names,
+      person_last_name,
+      person_nickname,
+      person_honorific,
+      person_descriptor,
+      show_person_middle_names,
+      show_person_last_name,
+      show_person_nickname,
+      show_person_honorific,
+      show_person_descriptor,
+      prefer_person_nickname,
+      animal_name,
+      animal_registered_name,
+      animal_nickname,
+      animal_species,
+      animal_breed,
+      show_animal_registered_name,
+      show_animal_nickname,
+      show_animal_species,
+      show_animal_breed,
+      prefer_animal_nickname,
       short_epitaph,
       memory_text,
       life_story,
@@ -2137,6 +2378,31 @@ async function getOwnerSessionRecord(request, env) {
       birth_date,
       death_date,
       memorial_type,
+      identity_kind,
+      display_name_override,
+      public_name_mode,
+      person_first_name,
+      person_middle_names,
+      person_last_name,
+      person_nickname,
+      person_honorific,
+      person_descriptor,
+      show_person_middle_names,
+      show_person_last_name,
+      show_person_nickname,
+      show_person_honorific,
+      show_person_descriptor,
+      prefer_person_nickname,
+      animal_name,
+      animal_registered_name,
+      animal_nickname,
+      animal_species,
+      animal_breed,
+      show_animal_registered_name,
+      show_animal_nickname,
+      show_animal_species,
+      show_animal_breed,
+      prefer_animal_nickname,
       short_epitaph,
       memory_text,
       life_story,
@@ -2415,6 +2681,7 @@ async function getActiveCollectionMembershipByNodeId(env, nodeId) {
 
 async function buildOwnerResponse(env, node) {
   const collection = await getActiveCollectionMembershipByNodeId(env, node.id);
+  const publicDisplayName = derivePublicDisplayName(node);
 
   return {
     status: node.status,
@@ -2424,9 +2691,35 @@ async function buildOwnerResponse(env, node) {
     profile_image_url: node.profile_image_url,
     public_message: node.public_message,
     memorial_name: node.memorial_name || "",
+    public_display_name: publicDisplayName || "",
     birth_date: node.birth_date || "",
     death_date: node.death_date || "",
     memorial_type: node.memorial_type || "",
+    identity_kind: node.identity_kind || "",
+    display_name_override: node.display_name_override || "",
+    public_name_mode: node.public_name_mode || "",
+    person_first_name: node.person_first_name || "",
+    person_middle_names: node.person_middle_names || "",
+    person_last_name: node.person_last_name || "",
+    person_nickname: node.person_nickname || "",
+    person_honorific: node.person_honorific || "",
+    person_descriptor: node.person_descriptor || "",
+    show_person_middle_names: node.show_person_middle_names,
+    show_person_last_name: node.show_person_last_name,
+    show_person_nickname: node.show_person_nickname,
+    show_person_honorific: node.show_person_honorific,
+    show_person_descriptor: node.show_person_descriptor,
+    prefer_person_nickname: node.prefer_person_nickname,
+    animal_name: node.animal_name || "",
+    animal_registered_name: node.animal_registered_name || "",
+    animal_nickname: node.animal_nickname || "",
+    animal_species: node.animal_species || "",
+    animal_breed: node.animal_breed || "",
+    show_animal_registered_name: node.show_animal_registered_name,
+    show_animal_nickname: node.show_animal_nickname,
+    show_animal_species: node.show_animal_species,
+    show_animal_breed: node.show_animal_breed,
+    prefer_animal_nickname: node.prefer_animal_nickname,
     short_epitaph: node.short_epitaph || "",
     memory_text: node.memory_text || "",
     life_story: node.life_story || "",
@@ -3275,6 +3568,31 @@ function buildChangeSet(existing, next) {
     "birth_date",
     "death_date",
     "memorial_type",
+    "identity_kind",
+    "display_name_override",
+    "public_name_mode",
+    "person_first_name",
+    "person_middle_names",
+    "person_last_name",
+    "person_nickname",
+    "person_honorific",
+    "person_descriptor",
+    "show_person_middle_names",
+    "show_person_last_name",
+    "show_person_nickname",
+    "show_person_honorific",
+    "show_person_descriptor",
+    "prefer_person_nickname",
+    "animal_name",
+    "animal_registered_name",
+    "animal_nickname",
+    "animal_species",
+    "animal_breed",
+    "show_animal_registered_name",
+    "show_animal_nickname",
+    "show_animal_species",
+    "show_animal_breed",
+    "prefer_animal_nickname",
     "short_epitaph",
     "memory_text",
     "life_story",
@@ -3765,6 +4083,32 @@ function sanitizeStatus(value, fallback) {
   return fallback;
 }
 
+function sanitizeIdentityKind(value, fallback) {
+  if (value === undefined) {
+    return fallback;
+  }
+
+  if (value === null) {
+    return null;
+  }
+
+  if (typeof value !== "string") {
+    return fallback;
+  }
+
+  const normalized = value.trim().toLowerCase();
+
+  if (normalized === "") {
+    return null;
+  }
+
+  if (normalized === "human" || normalized === "animal" || normalized === "other") {
+    return normalized;
+  }
+
+  return fallback;
+}
+
 function sanitizePreferredContact(value, fallback) {
   if (value === undefined) {
     return fallback;
@@ -3965,4 +4309,78 @@ function getImageKeyFromUrl(imageUrl) {
 
   const key = imageUrl.replace("/images/", "").trim();
   return key || null;
+}
+
+function derivePublicDisplayName(node) {
+  const override = getTrimmedValue(node?.display_name_override);
+
+  if (override) {
+    return override;
+  }
+
+  const identityKind = getTrimmedValue(node?.identity_kind).toLowerCase();
+
+  if (identityKind === "human") {
+    return (
+      deriveHumanPublicDisplayName(node) ||
+      getTrimmedValue(node?.memorial_name) ||
+      getTrimmedValue(node?.profile_name) ||
+      null
+    );
+  }
+
+  if (identityKind === "animal") {
+    return (
+      deriveAnimalPublicDisplayName(node) ||
+      getTrimmedValue(node?.memorial_name) ||
+      getTrimmedValue(node?.profile_name) ||
+      null
+    );
+  }
+
+  return getTrimmedValue(node?.memorial_name) || getTrimmedValue(node?.profile_name) || null;
+}
+
+function deriveHumanPublicDisplayName(node) {
+  const firstName = getTrimmedValue(node?.person_first_name);
+  const middleNames = resolveVisibilityFlag(node?.show_person_middle_names, 0)
+    ? getTrimmedValue(node?.person_middle_names)
+    : "";
+  const lastName = resolveVisibilityFlag(node?.show_person_last_name, 0)
+    ? getTrimmedValue(node?.person_last_name)
+    : "";
+  const nickname = getTrimmedValue(node?.person_nickname);
+  const honorific = resolveVisibilityFlag(node?.show_person_honorific, 0)
+    ? getTrimmedValue(node?.person_honorific)
+    : "";
+
+  const useNickname = resolveVisibilityFlag(node?.prefer_person_nickname, 0) && nickname;
+  const baseName = useNickname ? nickname : (firstName || nickname);
+
+  const parts = [honorific, baseName, middleNames, lastName].filter(Boolean);
+  return parts.length > 0 ? parts.join(" ") : null;
+}
+
+function deriveAnimalPublicDisplayName(node) {
+  const nickname = getTrimmedValue(node?.animal_nickname);
+  const animalName = getTrimmedValue(node?.animal_name);
+  const registeredName = getTrimmedValue(node?.animal_registered_name);
+  const publicNameMode = getTrimmedValue(node?.public_name_mode).toLowerCase();
+
+  if (
+    resolveVisibilityFlag(node?.show_animal_registered_name, 0) &&
+    registeredName &&
+    publicNameMode === "registered"
+  ) {
+    return registeredName;
+  }
+
+  const useNickname = resolveVisibilityFlag(node?.prefer_animal_nickname, 0) && nickname;
+  const baseName = useNickname ? nickname : (animalName || nickname);
+
+  return baseName || registeredName || null;
+}
+
+function getTrimmedValue(value) {
+  return typeof value === "string" ? value.trim() : "";
 }
