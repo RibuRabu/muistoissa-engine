@@ -10,12 +10,18 @@ const i18n = {
     open_public_page: "Avaa muistosivu",
 
     identity_section_title: "Nimi ja identiteetti",
+    identity_section_intro: "Valitse kenestä muistosivu kertoo ja tarkista, miltä nimi näyttää monoliitissa.",
     identity_kind_label: "Kenestä muistosivu kertoo?",
     identity_kind_human: "Ihminen",
     identity_kind_animal: "Eläin",
     identity_kind_other: "Muu",
+    memorial_type_label: "Monoliitin yläteksti",
+    memorial_type_hint: "Tämä näkyy pienellä tekstillä nimen yläpuolella. Esimerkkejä: Muisto, Hautakivi, Koira, Kuningas, In memoriam.",
+    memorial_type_placeholder: "Muisto",
+    display_name_override_summary: "Määritä julkinen nimi itse",
     display_name_override_label: "Julkinen nimi käsin",
     display_name_override_hint: "Käytä tätä vain, jos haluat määrittää monoliitissa näkyvän nimen itse.",
+    display_name_override_placeholder: "Esimerkiksi Aino Virtanen",
     public_display_name_preview_label: "Monoliitissa näkyvä nimi",
     save_identity: "Tallenna nimi",
     human_identity_title: "Ihmisen tiedot",
@@ -24,12 +30,10 @@ const i18n = {
     person_last_name_label: "Sukunimi",
     person_nickname_label: "Kutsumanimi",
     person_honorific_label: "Arvonimi tai puhuttelu",
-    person_descriptor_label: "Lisämääre",
     prefer_person_nickname_label: "Käytä kutsumanimeä etunimen sijasta",
     show_person_middle_names_label: "Näytä muut etunimet",
     show_person_last_name_label: "Näytä sukunimi",
-    show_person_honorific_label: "Näytä arvonimi",
-    show_person_descriptor_label: "Näytä lisämääre",
+    show_person_honorific_label: "Näytä arvonimi tai puhuttelu",
     animal_identity_title: "Eläimen tiedot",
     animal_name_label: "Nimi",
     animal_registered_name_label: "Rekisterinimi",
@@ -146,12 +150,18 @@ const i18n = {
     open_public_page: "Open memorial",
 
     identity_section_title: "Name and identity",
+    identity_section_intro: "Choose who the memorial is for and check how the name appears on the monolith.",
     identity_kind_label: "Who is this memorial for?",
     identity_kind_human: "Human",
     identity_kind_animal: "Animal",
     identity_kind_other: "Other",
+    memorial_type_label: "Monolith top label",
+    memorial_type_hint: "This appears in small text above the name. Examples: Memory, Grave marker, Dog, King, In memoriam.",
+    memorial_type_placeholder: "Memory",
+    display_name_override_summary: "Set the public name manually",
     display_name_override_label: "Set public name manually",
     display_name_override_hint: "Use this only if you want to define the name shown on the monolith yourself.",
+    display_name_override_placeholder: "For example Aino Virtanen",
     public_display_name_preview_label: "Name shown on the monolith",
     save_identity: "Save name",
     human_identity_title: "Human details",
@@ -160,12 +170,10 @@ const i18n = {
     person_last_name_label: "Last name",
     person_nickname_label: "Nickname",
     person_honorific_label: "Honorific or title",
-    person_descriptor_label: "Descriptor",
     prefer_person_nickname_label: "Use nickname instead of first name",
     show_person_middle_names_label: "Show middle names",
     show_person_last_name_label: "Show last name",
-    show_person_honorific_label: "Show honorific",
-    show_person_descriptor_label: "Show descriptor",
+    show_person_honorific_label: "Show honorific or title",
     animal_identity_title: "Animal details",
     animal_name_label: "Name",
     animal_registered_name_label: "Registered name",
@@ -487,9 +495,15 @@ function renderStaticTexts() {
   document.getElementById("openPublicPageButton").textContent = t("open_public_page");
 
   document.getElementById("identitySectionTitle").textContent = t("identity_section_title");
+  document.getElementById("identitySectionIntro").textContent = t("identity_section_intro");
   document.getElementById("identityKindLabel").textContent = t("identity_kind_label");
+  document.getElementById("memorialTypeLabel").textContent = t("memorial_type_label");
+  document.getElementById("memorialTypeHint").textContent = t("memorial_type_hint");
+  document.getElementById("memorialTypeInput").placeholder = t("memorial_type_placeholder");
+  document.getElementById("manualNameSummary").textContent = t("display_name_override_summary");
   document.getElementById("displayNameOverrideLabel").textContent = t("display_name_override_label");
   document.getElementById("displayNameOverrideHint").textContent = t("display_name_override_hint");
+  document.getElementById("displayNameOverride").placeholder = t("display_name_override_placeholder");
   document.getElementById("publicDisplayNamePreviewLabel").textContent = t("public_display_name_preview_label");
   document.getElementById("saveIdentityButton").textContent = t("save_identity");
   document.getElementById("humanIdentityTitle").textContent = t("human_identity_title");
@@ -498,12 +512,10 @@ function renderStaticTexts() {
   document.getElementById("personLastNameLabel").textContent = t("person_last_name_label");
   document.getElementById("personNicknameLabel").textContent = t("person_nickname_label");
   document.getElementById("personHonorificLabel").textContent = t("person_honorific_label");
-  document.getElementById("personDescriptorLabel").textContent = t("person_descriptor_label");
   document.getElementById("preferPersonNicknameLabel").textContent = t("prefer_person_nickname_label");
   document.getElementById("showPersonMiddleNamesLabel").textContent = t("show_person_middle_names_label");
   document.getElementById("showPersonLastNameLabel").textContent = t("show_person_last_name_label");
   document.getElementById("showPersonHonorificLabel").textContent = t("show_person_honorific_label");
-  document.getElementById("showPersonDescriptorLabel").textContent = t("show_person_descriptor_label");
   document.getElementById("animalIdentityTitle").textContent = t("animal_identity_title");
   document.getElementById("animalNameLabel").textContent = t("animal_name_label");
   document.getElementById("animalRegisteredNameLabel").textContent = t("animal_registered_name_label");
@@ -637,6 +649,7 @@ function syncCompatibilityFields() {
   document.getElementById("publicDisplayNamePreview").value = preview || "";
   document.getElementById("memorialName").value = resolvedLegacyName;
   document.getElementById("publicNameMode").value = publicNameMode;
+  document.getElementById("memorialType").value = document.getElementById("memorialTypeInput").value;
 }
 
 function updateIdentityUi() {
@@ -685,20 +698,21 @@ function renderNode() {
   document.getElementById("identityKind").value = getTrimmedString(currentNode.identity_kind || "other") || "other";
   document.getElementById("displayNameOverride").value = currentNode.display_name_override ?? "";
   document.getElementById("memorialName").value = currentNode.memorial_name ?? "";
+  document.getElementById("memorialTypeInput").value = currentNode.memorial_type ?? "";
   document.getElementById("memorialType").value = currentNode.memorial_type ?? "";
   document.getElementById("publicNameMode").value = currentNode.public_name_mode ?? "default";
+  document.getElementById("personDescriptor").value = currentNode.person_descriptor ?? "";
+  document.getElementById("showPersonDescriptor").value = currentNode.show_person_descriptor ? "1" : "0";
 
   document.getElementById("personFirstName").value = currentNode.person_first_name ?? "";
   document.getElementById("personMiddleNames").value = currentNode.person_middle_names ?? "";
   document.getElementById("personLastName").value = currentNode.person_last_name ?? "";
   document.getElementById("personNickname").value = currentNode.person_nickname ?? "";
   document.getElementById("personHonorific").value = currentNode.person_honorific ?? "";
-  document.getElementById("personDescriptor").value = currentNode.person_descriptor ?? "";
   document.getElementById("preferPersonNickname").checked = Boolean(currentNode.prefer_person_nickname);
   document.getElementById("showPersonMiddleNames").checked = Boolean(currentNode.show_person_middle_names);
   document.getElementById("showPersonLastName").checked = Boolean(currentNode.show_person_last_name);
   document.getElementById("showPersonHonorific").checked = Boolean(currentNode.show_person_honorific);
-  document.getElementById("showPersonDescriptor").checked = Boolean(currentNode.show_person_descriptor);
 
   document.getElementById("animalName").value = currentNode.animal_name ?? "";
   document.getElementById("animalRegisteredName").value = currentNode.animal_registered_name ?? "";
@@ -721,11 +735,14 @@ function renderNode() {
   document.getElementById("heroImageUrl").value = currentNode.hero_image_url ?? "";
   document.getElementById("galleryJson").value = currentNode.gallery_json ?? "";
 
+  const hasOverride = getTrimmedString(currentNode.display_name_override);
+  document.getElementById("manualNameDetails").open = Boolean(hasOverride);
+
   updateIdentityUi();
 
   if (getTrimmedString(currentNode.public_display_name)) {
     document.getElementById("publicDisplayNamePreview").value = currentNode.public_display_name;
-    if (!getTrimmedString(document.getElementById("displayNameOverride").value)) {
+    if (!hasOverride) {
       document.getElementById("memorialName").value = currentNode.public_display_name;
     }
   }
@@ -914,7 +931,7 @@ async function handleSaveIdentity() {
       show_person_middle_names: document.getElementById("showPersonMiddleNames").checked ? 1 : 0,
       show_person_last_name: document.getElementById("showPersonLastName").checked ? 1 : 0,
       show_person_honorific: document.getElementById("showPersonHonorific").checked ? 1 : 0,
-      show_person_descriptor: document.getElementById("showPersonDescriptor").checked ? 1 : 0,
+      show_person_descriptor: document.getElementById("showPersonDescriptor").value === "1" ? 1 : 0,
       prefer_person_nickname: document.getElementById("preferPersonNickname").checked ? 1 : 0,
       animal_name: document.getElementById("animalName").value,
       animal_registered_name: document.getElementById("animalRegisteredName").value,
@@ -1034,18 +1051,17 @@ async function handleChangePin() {
 function bindIdentityEvents() {
   const identityInputIds = [
     "identityKind",
+    "memorialTypeInput",
     "displayNameOverride",
     "personFirstName",
     "personMiddleNames",
     "personLastName",
     "personNickname",
     "personHonorific",
-    "personDescriptor",
     "preferPersonNickname",
     "showPersonMiddleNames",
     "showPersonLastName",
     "showPersonHonorific",
-    "showPersonDescriptor",
     "animalName",
     "animalRegisteredName",
     "animalNickname",
@@ -1069,6 +1085,13 @@ function bindIdentityEvents() {
       document.getElementById("animalUseRegisteredAsMain").checked = false;
     }
     updateIdentityUi();
+  });
+
+  document.getElementById("displayNameOverride").addEventListener("input", () => {
+    const hasValue = getTrimmedString(document.getElementById("displayNameOverride").value);
+    if (hasValue) {
+      document.getElementById("manualNameDetails").open = true;
+    }
   });
 }
 
@@ -1208,3 +1231,4 @@ async function init() {
 }
 
 init();
+
