@@ -731,8 +731,13 @@ async function getAdminNodeInspector(request, env, slug) {
       death_date,
       memorial_type,
       short_epitaph,
+      show_epitaph,
       memory_text,
+      show_memory_text,
       life_story,
+      show_life_story,
+      show_identity_details,
+      identity_details_position,
       hero_image_url,
       gallery_json,
       visibility_mode,
@@ -772,8 +777,13 @@ async function getAdminNodeInspector(request, env, slug) {
     death_date: node.death_date || "",
     memorial_type: node.memorial_type || "",
     short_epitaph: node.short_epitaph || "",
+    show_epitaph: resolveVisibilityFlag(node.show_epitaph, 1),
     memory_text: node.memory_text || "",
+    show_memory_text: resolveVisibilityFlag(node.show_memory_text, 1),
     life_story: node.life_story || "",
+    show_life_story: resolveVisibilityFlag(node.show_life_story, 1),
+    show_identity_details: resolveVisibilityFlag(node.show_identity_details, 0),
+    identity_details_position: sanitizeIdentityDetailsPosition(node.identity_details_position, "below_name"),
     hero_image_url: node.hero_image_url || "",
     gallery_json: node.gallery_json || "",
     visibility_mode: node.visibility_mode || "draft",
@@ -1092,8 +1102,13 @@ async function getPublicNode(env, slug) {
       show_animal_breed,
       prefer_animal_nickname,
       short_epitaph,
+      show_epitaph,
       memory_text,
+      show_memory_text,
       life_story,
+      show_life_story,
+      show_identity_details,
+      identity_details_position,
       hero_image_url,
       gallery_json,
       visibility_mode,
@@ -1135,6 +1150,7 @@ async function getPublicNode(env, slug) {
   }
 
   const publicDisplayName = derivePublicDisplayName(row);
+  const identityDetailsText = deriveIdentityDetailsText(row);
   const publicData = {
     slug: row.public_slug || "",
     name: resolveVisibilityFlag(row.show_profile_name, 0) ? (row.profile_name || "") : "",
@@ -1153,8 +1169,14 @@ async function getPublicNode(env, slug) {
     death_date: row.death_date || "",
     memorial_type: row.memorial_type || "",
     short_epitaph: row.short_epitaph || "",
+    show_epitaph: resolveVisibilityFlag(row.show_epitaph, 1),
     memory_text: row.memory_text || "",
+    show_memory_text: resolveVisibilityFlag(row.show_memory_text, 1),
     life_story: row.life_story || "",
+    show_life_story: resolveVisibilityFlag(row.show_life_story, 1),
+    show_identity_details: resolveVisibilityFlag(row.show_identity_details, 0),
+    identity_details_position: sanitizeIdentityDetailsPosition(row.identity_details_position, "below_name"),
+    identity_details_text: identityDetailsText || "",
     hero_image_url: row.hero_image_url || "",
     gallery_json: row.gallery_json || "",
     visibility_mode: row.visibility_mode || "draft",
@@ -1221,8 +1243,13 @@ async function getOwnerNode(request, env, token) {
       show_animal_breed,
       prefer_animal_nickname,
       short_epitaph,
+      show_epitaph,
       memory_text,
+      show_memory_text,
       life_story,
+      show_life_story,
+      show_identity_details,
+      identity_details_position,
       hero_image_url,
       gallery_json,
       visibility_mode,
@@ -1539,6 +1566,14 @@ async function uploadOwnerNodeImageForExisting(request, env, existing) {
       show_animal_species,
       show_animal_breed,
       prefer_animal_nickname,
+      short_epitaph,
+      show_epitaph,
+      memory_text,
+      show_memory_text,
+      life_story,
+      show_life_story,
+      show_identity_details,
+      identity_details_position,
       phone,
       sms,
       email,
@@ -1680,6 +1715,14 @@ async function deleteOwnerNodeImageForExisting(env, existing) {
       show_animal_species,
       show_animal_breed,
       prefer_animal_nickname,
+      short_epitaph,
+      show_epitaph,
+      memory_text,
+      show_memory_text,
+      life_story,
+      show_life_story,
+      show_identity_details,
+      identity_details_position,
       phone,
       sms,
       email,
@@ -1757,8 +1800,13 @@ async function updateOwnerNode(request, env, token) {
       show_animal_breed,
       prefer_animal_nickname,
       short_epitaph,
+      show_epitaph,
       memory_text,
+      show_memory_text,
       life_story,
+      show_life_story,
+      show_identity_details,
+      identity_details_position,
       hero_image_url,
       gallery_json,
       visibility_mode,
@@ -1848,8 +1896,13 @@ async function performOwnerNodeUpdate(request, env, existing) {
     show_animal_breed: sanitizeBooleanLike(body.show_animal_breed, existing.show_animal_breed),
     prefer_animal_nickname: sanitizeBooleanLike(body.prefer_animal_nickname, existing.prefer_animal_nickname),
     short_epitaph: sanitizeNullableString(body.short_epitaph, existing.short_epitaph, 500),
+    show_epitaph: sanitizeBooleanLike(body.show_epitaph, existing.show_epitaph),
     memory_text: sanitizeNullableString(body.memory_text, existing.memory_text, 4000),
+    show_memory_text: sanitizeBooleanLike(body.show_memory_text, existing.show_memory_text),
     life_story: sanitizeNullableString(body.life_story, existing.life_story, 12000),
+    show_life_story: sanitizeBooleanLike(body.show_life_story, existing.show_life_story),
+    show_identity_details: sanitizeBooleanLike(body.show_identity_details, existing.show_identity_details),
+    identity_details_position: sanitizeIdentityDetailsPosition(body.identity_details_position, existing.identity_details_position),
     hero_image_url: sanitizeNullableString(body.hero_image_url, existing.hero_image_url, 1000),
     gallery_json: sanitizeNullableString(body.gallery_json, existing.gallery_json, 20000),
     visibility_mode: sanitizeNullableString(body.visibility_mode, existing.visibility_mode, 32),
@@ -1910,8 +1963,13 @@ async function performOwnerNodeUpdate(request, env, existing) {
       show_animal_breed = ?,
       prefer_animal_nickname = ?,
       short_epitaph = ?,
+      show_epitaph = ?,
       memory_text = ?,
+      show_memory_text = ?,
       life_story = ?,
+      show_life_story = ?,
+      show_identity_details = ?,
+      identity_details_position = ?,
       hero_image_url = ?,
       gallery_json = ?,
       visibility_mode = ?,
@@ -1969,8 +2027,13 @@ async function performOwnerNodeUpdate(request, env, existing) {
       next.show_animal_breed,
       next.prefer_animal_nickname,
       next.short_epitaph,
+      next.show_epitaph,
       next.memory_text,
+      next.show_memory_text,
       next.life_story,
+      next.show_life_story,
+      next.show_identity_details,
+      next.identity_details_position,
       next.hero_image_url,
       next.gallery_json,
       next.visibility_mode,
@@ -2049,8 +2112,13 @@ async function performOwnerNodeUpdate(request, env, existing) {
       show_animal_breed,
       prefer_animal_nickname,
       short_epitaph,
+      show_epitaph,
       memory_text,
+      show_memory_text,
       life_story,
+      show_life_story,
+      show_identity_details,
+      identity_details_position,
       hero_image_url,
       gallery_json,
       visibility_mode,
@@ -2404,8 +2472,13 @@ async function getOwnerSessionRecord(request, env) {
       show_animal_breed,
       prefer_animal_nickname,
       short_epitaph,
+      show_epitaph,
       memory_text,
+      show_memory_text,
       life_story,
+      show_life_story,
+      show_identity_details,
+      identity_details_position,
       hero_image_url,
       gallery_json,
       visibility_mode,
@@ -2721,8 +2794,14 @@ async function buildOwnerResponse(env, node) {
     show_animal_breed: node.show_animal_breed,
     prefer_animal_nickname: node.prefer_animal_nickname,
     short_epitaph: node.short_epitaph || "",
+    show_epitaph: resolveVisibilityFlag(node.show_epitaph, 1),
     memory_text: node.memory_text || "",
+    show_memory_text: resolveVisibilityFlag(node.show_memory_text, 1),
     life_story: node.life_story || "",
+    show_life_story: resolveVisibilityFlag(node.show_life_story, 1),
+    show_identity_details: resolveVisibilityFlag(node.show_identity_details, 0),
+    identity_details_position: sanitizeIdentityDetailsPosition(node.identity_details_position, "below_name"),
+    identity_details_text: deriveIdentityDetailsText(node) || "",
     hero_image_url: node.hero_image_url || "",
     gallery_json: node.gallery_json || "",
     visibility_mode: node.visibility_mode || "draft",
@@ -3594,8 +3673,13 @@ function buildChangeSet(existing, next) {
     "show_animal_breed",
     "prefer_animal_nickname",
     "short_epitaph",
+    "show_epitaph",
     "memory_text",
+    "show_memory_text",
     "life_story",
+    "show_life_story",
+    "show_identity_details",
+    "identity_details_position",
     "hero_image_url",
     "gallery_json",
     "visibility_mode",
@@ -4197,6 +4281,37 @@ function sanitizeBooleanLike(value, fallback) {
   return fallback;
 }
 
+function sanitizeIdentityDetailsPosition(value, fallback) {
+  if (value === undefined) {
+    return fallback || "below_name";
+  }
+
+  if (value === null) {
+    return "below_name";
+  }
+
+  if (typeof value !== "string") {
+    return fallback || "below_name";
+  }
+
+  const normalized = value.trim().toLowerCase();
+
+  if (normalized === "") {
+    return "below_name";
+  }
+
+  if (
+    normalized === "hidden" ||
+    normalized === "below_name" ||
+    normalized === "above_epitaph" ||
+    normalized === "memory_section"
+  ) {
+    return normalized;
+  }
+
+  return fallback || "below_name";
+}
+
 function normalizeCompareValue(value) {
   if (value === null || value === undefined) {
     return null;
@@ -4379,6 +4494,32 @@ function deriveAnimalPublicDisplayName(node) {
   const baseName = useNickname ? nickname : (animalName || nickname);
 
   return baseName || registeredName || null;
+}
+
+function deriveIdentityDetailsText(node) {
+  const identityKind = getTrimmedValue(node?.identity_kind).toLowerCase();
+
+  if (identityKind === "animal") {
+    const parts = [
+      getTrimmedValue(node?.animal_registered_name),
+      getTrimmedValue(node?.animal_species),
+      getTrimmedValue(node?.animal_breed)
+    ].filter(Boolean);
+
+    return parts.length > 0 ? parts.join(" \u00b7 ") : null;
+  }
+
+  if (identityKind === "human") {
+    const parts = [
+      getTrimmedValue(node?.person_nickname),
+      getTrimmedValue(node?.person_middle_names),
+      getTrimmedValue(node?.person_honorific)
+    ].filter(Boolean);
+
+    return parts.length > 0 ? parts.join(" \u00b7 ") : null;
+  }
+
+  return null;
 }
 
 function getTrimmedValue(value) {
