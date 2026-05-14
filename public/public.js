@@ -62,11 +62,14 @@ const els = {
   memorialType: document.getElementById("memorial-type"),
   memorialName: document.getElementById("memorial-name"),
   memorialDates: document.getElementById("memorial-dates"),
+  identityDetailsBelowName: document.getElementById("identity-details-below-name"),
+  identityDetailsAboveEpitaph: document.getElementById("identity-details-above-epitaph"),
   memorialEpitaph: document.getElementById("memorial-epitaph"),
   artifactFrame: document.getElementById("artifact-frame"),
   artifactImage: document.getElementById("artifact-image"),
   memoryLayer: document.getElementById("memory-layer"),
   memoryKicker: document.getElementById("memory-kicker"),
+  identityDetailsMemory: document.getElementById("identity-details-memory"),
   memoryText: document.getElementById("memory-text"),
   storyLayer: document.getElementById("story-layer"),
   storyKicker: document.getElementById("story-kicker"),
@@ -201,6 +204,47 @@ function buildTextBlocks(text) {
   return blocks.length > 0 ? blocks : [value];
 }
 
+function isTruthyFlag(value, defaultValue = true) {
+  if (value === null || value === undefined || value === "") {
+    return defaultValue;
+  }
+
+  if (typeof value === "number") {
+    return value !== 0;
+  }
+
+  if (typeof value === "boolean") {
+    return value;
+  }
+
+  const normalized = getTrimmedString(String(value)).toLowerCase();
+
+  if (!normalized) {
+    return defaultValue;
+  }
+
+  if (normalized === "0" || normalized === "false" || normalized === "off" || normalized === "no") {
+    return false;
+  }
+
+  return true;
+}
+
+function sanitizeIdentityDetailsPosition(value) {
+  const normalized = getTrimmedString(value);
+
+  if (
+    normalized === "hidden"
+    || normalized === "below_name"
+    || normalized === "above_epitaph"
+    || normalized === "memory_section"
+  ) {
+    return normalized;
+  }
+
+  return "below_name";
+}
+
 function buildViewModel(data) {
   const memorialName = getTrimmedString(data.public_display_name)
     || getTrimmedString(data.memorial_name)
@@ -215,14 +259,28 @@ function buildViewModel(data) {
   const galleryItems = parseGalleryJson(data.gallery_json);
   const explicitHero = getTrimmedString(data.hero_image_url) || getTrimmedString(data.image_url);
   const heroImageUrl = explicitHero || (galleryItems[0] ? galleryItems[0].url : "");
+  const showEpitaph = isTruthyFlag(data.show_epitaph, true);
+  const showMemoryText = isTruthyFlag(data.show_memory_text, true);
+  const showLifeStory = isTruthyFlag(data.show_life_story, true);
+  const showIdentityDetails = isTruthyFlag(data.show_identity_details, false);
+  const identityDetailsText = getTrimmedString(data.identity_details_text);
+  const identityDetailsPosition = sanitizeIdentityDetailsPosition(data.identity_details_position);
+  const resolvedIdentityDetailsPosition = showIdentityDetails && identityDetailsText && identityDetailsPosition !== "hidden"
+    ? identityDetailsPosition
+    : "hidden";
+  const memoryBlocks = showMemoryText ? buildTextBlocks(memoryText) : [];
+  const storyBlocks = showLifeStory ? buildTextBlocks(lifeStory) : [];
+  const resolvedShortEpitaph = showEpitaph ? shortEpitaph : "";
 
   return {
     memorialName,
     memorialType,
     dateLine: buildDateLine(birthDate, deathDate),
-    shortEpitaph,
-    memoryBlocks: buildTextBlocks(memoryText),
-    storyBlocks: buildTextBlocks(lifeStory),
+    shortEpitaph: resolvedShortEpitaph,
+    memoryBlocks,
+    storyBlocks,
+    identityDetailsText,
+    identityDetailsPosition: resolvedIdentityDetailsPosition,
     heroImageUrl,
     galleryCount: galleryItems.length
   };
@@ -247,7 +305,43 @@ function syncSceneState(viewModel) {
   els.sceneRoot.dataset.hasEpitaph = viewModel.shortEpitaph ? "true" : "false";
   els.sceneRoot.dataset.hasMemory = viewModel.memoryBlocks.length > 0 ? "true" : "false";
   els.sceneRoot.dataset.hasStory = viewModel.storyBlocks.length > 0 ? "true" : "false";
+  els.sceneRoot.dataset.hasIdentityDetails = viewModel.identityDetailsText ? "true" : "false";
+  els.sceneRoot.dataset.identityDetailsPosition = viewModel.identityDetailsPosition;
   els.sceneRoot.dataset.hasFragments = viewModel.galleryCount > 0 ? "true" : "false";
+}
+
+function clearIdentityDetails() {
+  els.identityDetailsBelowName.textContent = "";
+  els.identityDetailsBelowName.hidden = true;
+  els.identityDetailsAboveEpitaph.textContent = "";
+  els.identityDetailsAboveEpitaph.hidden = true;
+  els.identityDetailsMemory.textContent = "";
+  els.identityDetailsMemory.hidden = true;
+}
+
+function renderIdentityDetails(viewModel) {
+  clearIdentityDetails();
+
+  if (!viewModel.identityDetailsText || viewModel.identityDetailsPosition === "hidden") {
+    return;
+  }
+
+  if (viewModel.identityDetailsPosition === "below_name") {
+    els.identityDetailsBelowName.textContent = viewModel.identityDetailsText;
+    els.identityDetailsBelowName.hidden = false;
+    return;
+  }
+
+  if (viewModel.identityDetailsPosition === "above_epitaph") {
+    els.identityDetailsAboveEpitaph.textContent = viewModel.identityDetailsText;
+    els.identityDetailsAboveEpitaph.hidden = false;
+    return;
+  }
+
+  if (viewModel.identityDetailsPosition === "memory_section") {
+    els.identityDetailsMemory.textContent = viewModel.identityDetailsText;
+    els.identityDetailsMemory.hidden = false;
+  }
 }
 
 function renderState(state) {
@@ -294,12 +388,14 @@ function renderMemorial(viewModel) {
   els.memorialName.textContent = viewModel.memorialName;
   els.memorialDates.textContent = viewModel.dateLine;
   els.memorialDates.hidden = !viewModel.dateLine;
+  renderIdentityDetails(viewModel);
 
   els.memorialEpitaph.textContent = viewModel.shortEpitaph;
   els.memorialEpitaph.hidden = !viewModel.shortEpitaph;
 
   renderTextBlocks(els.memoryText, viewModel.memoryBlocks);
-  els.memoryLayer.hidden = viewModel.memoryBlocks.length === 0;
+  els.memoryLayer.hidden = viewModel.memoryBlocks.length === 0
+    && !(viewModel.identityDetailsText && viewModel.identityDetailsPosition === "memory_section");
 
   renderTextBlocks(els.storyBody, viewModel.storyBlocks);
   els.storyLayer.hidden = viewModel.storyBlocks.length === 0;

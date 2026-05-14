@@ -449,12 +449,31 @@ button {
   color: rgba(205, 210, 218, 0.84);
 }
 
+.monolith-identity-details {
+  margin: 0.1rem 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(190, 196, 204, 0.76);
+}
+
 .scene-layer--quote {
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
   padding: 0 1.5rem 18vh;
   z-index: 7;
+}
+
+.scene-identity-details {
+  margin: 0 0 0.85rem 0;
+  max-width: 18rem;
+  text-align: center;
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(192, 198, 205, 0.78);
 }
 
 .scene-epitaph {
@@ -531,6 +550,14 @@ button {
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--text-faint);
+}
+
+.overlay-identity-details {
+  margin: 0 0 1rem 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: rgba(194, 200, 208, 0.76);
 }
 
 .overlay-body p {
@@ -661,6 +688,10 @@ button {
     padding-bottom: 20vh;
   }
 
+  .scene-identity-details {
+    max-width: 24rem;
+  }
+
   .scene-epitaph {
     max-width: 28rem;
     font-size: 1.08rem;
@@ -736,6 +767,10 @@ button {
     padding-bottom: 22vh;
   }
 
+  .scene-identity-details {
+    max-width: 22rem;
+  }
+
   .scene-epitaph {
     max-width: 24rem;
   }
@@ -796,8 +831,19 @@ button {
     margin-bottom: 4rem;
   }
 
+  .monolith-identity-details {
+    font-size: 0.68rem;
+    line-height: 1.45;
+  }
+
   .scene-layer--quote {
     padding: 0 1.25rem 3.5rem;
+  }
+
+  .scene-identity-details {
+    max-width: 15rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
   }
 
   .scene-epitaph {
