@@ -9,8 +9,40 @@ const i18n = {
     timeline_intro: "Muistosivun viimeisimmät muutokset ja järjestelmätapahtumat.",
     open_public_page: "Avaa muistosivu",
 
+    identity_section_title: "Nimi ja identiteetti",
+    identity_kind_label: "Kenestä muistosivu kertoo?",
+    identity_kind_human: "Ihminen",
+    identity_kind_animal: "Eläin",
+    identity_kind_other: "Muu",
+    display_name_override_label: "Julkinen nimi käsin",
+    display_name_override_hint: "Käytä tätä vain, jos haluat määrittää monoliitissa näkyvän nimen itse.",
+    public_display_name_preview_label: "Monoliitissa näkyvä nimi",
+    save_identity: "Tallenna nimi",
+    human_identity_title: "Ihmisen tiedot",
+    person_first_name_label: "Etunimi",
+    person_middle_names_label: "Muut etunimet",
+    person_last_name_label: "Sukunimi",
+    person_nickname_label: "Kutsumanimi",
+    person_honorific_label: "Arvonimi tai puhuttelu",
+    person_descriptor_label: "Lisämääre",
+    prefer_person_nickname_label: "Käytä kutsumanimeä etunimen sijasta",
+    show_person_middle_names_label: "Näytä muut etunimet",
+    show_person_last_name_label: "Näytä sukunimi",
+    show_person_honorific_label: "Näytä arvonimi",
+    show_person_descriptor_label: "Näytä lisämääre",
+    animal_identity_title: "Eläimen tiedot",
+    animal_name_label: "Nimi",
+    animal_registered_name_label: "Rekisterinimi",
+    animal_nickname_label: "Kutsumanimi",
+    animal_species_label: "Laji",
+    animal_breed_label: "Rotu",
+    prefer_animal_nickname_label: "Käytä kutsumanimeä nimen sijasta",
+    show_animal_registered_name_label: "Näytä rekisterinimi",
+    animal_use_registered_as_main_label: "Käytä rekisterinimeä päänimenä",
+    show_animal_species_label: "Näytä laji",
+    show_animal_breed_label: "Näytä rotu",
+
     overview_section_title: "Muiston tiedot",
-    memorial_name_label: "Muiston nimi",
     birth_date_label: "Syntymäaika",
     death_date_label: "Kuolinaika",
     visibility_mode_label: "Julkaisutila",
@@ -113,8 +145,40 @@ const i18n = {
     timeline_intro: "Recent owner and system events for this memorial.",
     open_public_page: "Open memorial",
 
+    identity_section_title: "Name and identity",
+    identity_kind_label: "Who is this memorial for?",
+    identity_kind_human: "Human",
+    identity_kind_animal: "Animal",
+    identity_kind_other: "Other",
+    display_name_override_label: "Set public name manually",
+    display_name_override_hint: "Use this only if you want to define the name shown on the monolith yourself.",
+    public_display_name_preview_label: "Name shown on the monolith",
+    save_identity: "Save name",
+    human_identity_title: "Human details",
+    person_first_name_label: "First name",
+    person_middle_names_label: "Middle names",
+    person_last_name_label: "Last name",
+    person_nickname_label: "Nickname",
+    person_honorific_label: "Honorific or title",
+    person_descriptor_label: "Descriptor",
+    prefer_person_nickname_label: "Use nickname instead of first name",
+    show_person_middle_names_label: "Show middle names",
+    show_person_last_name_label: "Show last name",
+    show_person_honorific_label: "Show honorific",
+    show_person_descriptor_label: "Show descriptor",
+    animal_identity_title: "Animal details",
+    animal_name_label: "Name",
+    animal_registered_name_label: "Registered name",
+    animal_nickname_label: "Nickname",
+    animal_species_label: "Species",
+    animal_breed_label: "Breed",
+    prefer_animal_nickname_label: "Use nickname instead of name",
+    show_animal_registered_name_label: "Show registered name",
+    animal_use_registered_as_main_label: "Use registered name as the main name",
+    show_animal_species_label: "Show species",
+    show_animal_breed_label: "Show breed",
+
     overview_section_title: "Memorial details",
-    memorial_name_label: "Memorial name",
     birth_date_label: "Birth date",
     death_date_label: "Death date",
     visibility_mode_label: "Publication status",
@@ -422,8 +486,37 @@ function renderStaticTexts() {
   document.getElementById("timelineIntro").textContent = t("timeline_intro");
   document.getElementById("openPublicPageButton").textContent = t("open_public_page");
 
+  document.getElementById("identitySectionTitle").textContent = t("identity_section_title");
+  document.getElementById("identityKindLabel").textContent = t("identity_kind_label");
+  document.getElementById("displayNameOverrideLabel").textContent = t("display_name_override_label");
+  document.getElementById("displayNameOverrideHint").textContent = t("display_name_override_hint");
+  document.getElementById("publicDisplayNamePreviewLabel").textContent = t("public_display_name_preview_label");
+  document.getElementById("saveIdentityButton").textContent = t("save_identity");
+  document.getElementById("humanIdentityTitle").textContent = t("human_identity_title");
+  document.getElementById("personFirstNameLabel").textContent = t("person_first_name_label");
+  document.getElementById("personMiddleNamesLabel").textContent = t("person_middle_names_label");
+  document.getElementById("personLastNameLabel").textContent = t("person_last_name_label");
+  document.getElementById("personNicknameLabel").textContent = t("person_nickname_label");
+  document.getElementById("personHonorificLabel").textContent = t("person_honorific_label");
+  document.getElementById("personDescriptorLabel").textContent = t("person_descriptor_label");
+  document.getElementById("preferPersonNicknameLabel").textContent = t("prefer_person_nickname_label");
+  document.getElementById("showPersonMiddleNamesLabel").textContent = t("show_person_middle_names_label");
+  document.getElementById("showPersonLastNameLabel").textContent = t("show_person_last_name_label");
+  document.getElementById("showPersonHonorificLabel").textContent = t("show_person_honorific_label");
+  document.getElementById("showPersonDescriptorLabel").textContent = t("show_person_descriptor_label");
+  document.getElementById("animalIdentityTitle").textContent = t("animal_identity_title");
+  document.getElementById("animalNameLabel").textContent = t("animal_name_label");
+  document.getElementById("animalRegisteredNameLabel").textContent = t("animal_registered_name_label");
+  document.getElementById("animalNicknameLabel").textContent = t("animal_nickname_label");
+  document.getElementById("animalSpeciesLabel").textContent = t("animal_species_label");
+  document.getElementById("animalBreedLabel").textContent = t("animal_breed_label");
+  document.getElementById("preferAnimalNicknameLabel").textContent = t("prefer_animal_nickname_label");
+  document.getElementById("showAnimalRegisteredNameLabel").textContent = t("show_animal_registered_name_label");
+  document.getElementById("animalUseRegisteredAsMainLabel").textContent = t("animal_use_registered_as_main_label");
+  document.getElementById("showAnimalSpeciesLabel").textContent = t("show_animal_species_label");
+  document.getElementById("showAnimalBreedLabel").textContent = t("show_animal_breed_label");
+
   document.getElementById("overviewSectionTitle").textContent = t("overview_section_title");
-  document.getElementById("memorialNameLabel").textContent = t("memorial_name_label");
   document.getElementById("birthDateLabel").textContent = t("birth_date_label");
   document.getElementById("deathDateLabel").textContent = t("death_date_label");
   document.getElementById("visibilityModeLabel").textContent = t("visibility_mode_label");
@@ -453,6 +546,11 @@ function renderStaticTexts() {
   document.getElementById("confirmPinLabel").textContent = t("confirm_pin_label");
   document.getElementById("changePinButton").textContent = t("change_pin_button");
 
+  const identityKind = document.getElementById("identityKind");
+  identityKind.options[0].text = t("identity_kind_human");
+  identityKind.options[1].text = t("identity_kind_animal");
+  identityKind.options[2].text = t("identity_kind_other");
+
   const visibilityMode = document.getElementById("visibilityMode");
   visibilityMode.options[0].text = t("visibility_mode_draft");
   visibilityMode.options[1].text = t("visibility_mode_private");
@@ -461,12 +559,99 @@ function renderStaticTexts() {
   updatePublicPageButton();
 }
 
+function getCurrentIdentityKind() {
+  return getTrimmedString(document.getElementById("identityKind").value || "other") || "other";
+}
+
+function toggleIdentityGroups() {
+  const identityKind = getCurrentIdentityKind();
+  document.getElementById("humanIdentityFields").hidden = identityKind !== "human";
+  document.getElementById("animalIdentityFields").hidden = identityKind !== "animal";
+
+  const animalUseRegisteredAsMain = document.getElementById("animalUseRegisteredAsMain");
+  const showAnimalRegisteredName = document.getElementById("showAnimalRegisteredName");
+
+  if (!showAnimalRegisteredName.checked) {
+    animalUseRegisteredAsMain.checked = false;
+  }
+
+  animalUseRegisteredAsMain.disabled = identityKind !== "animal" || !showAnimalRegisteredName.checked;
+}
+
+function derivePublicDisplayNameFromForm() {
+  const override = getTrimmedString(document.getElementById("displayNameOverride").value);
+
+  if (override) {
+    return override;
+  }
+
+  const identityKind = getCurrentIdentityKind();
+
+  if (identityKind === "human") {
+    const firstName = getTrimmedString(document.getElementById("personFirstName").value);
+    const middleNames = document.getElementById("showPersonMiddleNames").checked
+      ? getTrimmedString(document.getElementById("personMiddleNames").value)
+      : "";
+    const lastName = document.getElementById("showPersonLastName").checked
+      ? getTrimmedString(document.getElementById("personLastName").value)
+      : "";
+    const nickname = getTrimmedString(document.getElementById("personNickname").value);
+    const honorific = document.getElementById("showPersonHonorific").checked
+      ? getTrimmedString(document.getElementById("personHonorific").value)
+      : "";
+    const useNickname = document.getElementById("preferPersonNickname").checked && nickname;
+    const baseName = useNickname ? nickname : (firstName || nickname);
+    const parts = [honorific, baseName, middleNames, lastName].filter(Boolean);
+
+    return parts.join(" ").trim();
+  }
+
+  if (identityKind === "animal") {
+    const nickname = getTrimmedString(document.getElementById("animalNickname").value);
+    const animalName = getTrimmedString(document.getElementById("animalName").value);
+    const registeredName = getTrimmedString(document.getElementById("animalRegisteredName").value);
+    const useRegistered = document.getElementById("animalUseRegisteredAsMain").checked
+      && document.getElementById("showAnimalRegisteredName").checked
+      && registeredName;
+
+    if (useRegistered) {
+      return registeredName;
+    }
+
+    const useNickname = document.getElementById("preferAnimalNickname").checked && nickname;
+    return (useNickname ? nickname : (animalName || nickname || registeredName)).trim();
+  }
+
+  return getTrimmedString(document.getElementById("memorialName").value);
+}
+
+function syncCompatibilityFields() {
+  const identityKind = getCurrentIdentityKind();
+  const preview = derivePublicDisplayNameFromForm();
+  const currentLegacyName = getTrimmedString(document.getElementById("memorialName").value);
+  const resolvedLegacyName = preview || currentLegacyName || getTrimmedString(currentNode?.memorial_name || "");
+  const publicNameMode = identityKind === "animal" && document.getElementById("animalUseRegisteredAsMain").checked
+    ? "registered"
+    : "default";
+
+  document.getElementById("publicDisplayNamePreview").value = preview || "";
+  document.getElementById("memorialName").value = resolvedLegacyName;
+  document.getElementById("publicNameMode").value = publicNameMode;
+}
+
+function updateIdentityUi() {
+  toggleIdentityGroups();
+  syncCompatibilityFields();
+}
+
 function renderHeroSummary() {
   if (!currentNode) {
     return;
   }
 
-  const memorialName = getTrimmedString(currentNode.memorial_name) || t("memorial_name_fallback");
+  const memorialName = getTrimmedString(currentNode.public_display_name)
+    || getTrimmedString(currentNode.memorial_name)
+    || t("memorial_name_fallback");
   const heroSummary = document.getElementById("heroSummary");
 
   heroSummary.innerHTML = `
@@ -497,8 +682,35 @@ function renderNode() {
   renderHeroSummary();
   updatePublicPageButton();
 
+  document.getElementById("identityKind").value = getTrimmedString(currentNode.identity_kind || "other") || "other";
+  document.getElementById("displayNameOverride").value = currentNode.display_name_override ?? "";
   document.getElementById("memorialName").value = currentNode.memorial_name ?? "";
   document.getElementById("memorialType").value = currentNode.memorial_type ?? "";
+  document.getElementById("publicNameMode").value = currentNode.public_name_mode ?? "default";
+
+  document.getElementById("personFirstName").value = currentNode.person_first_name ?? "";
+  document.getElementById("personMiddleNames").value = currentNode.person_middle_names ?? "";
+  document.getElementById("personLastName").value = currentNode.person_last_name ?? "";
+  document.getElementById("personNickname").value = currentNode.person_nickname ?? "";
+  document.getElementById("personHonorific").value = currentNode.person_honorific ?? "";
+  document.getElementById("personDescriptor").value = currentNode.person_descriptor ?? "";
+  document.getElementById("preferPersonNickname").checked = Boolean(currentNode.prefer_person_nickname);
+  document.getElementById("showPersonMiddleNames").checked = Boolean(currentNode.show_person_middle_names);
+  document.getElementById("showPersonLastName").checked = Boolean(currentNode.show_person_last_name);
+  document.getElementById("showPersonHonorific").checked = Boolean(currentNode.show_person_honorific);
+  document.getElementById("showPersonDescriptor").checked = Boolean(currentNode.show_person_descriptor);
+
+  document.getElementById("animalName").value = currentNode.animal_name ?? "";
+  document.getElementById("animalRegisteredName").value = currentNode.animal_registered_name ?? "";
+  document.getElementById("animalNickname").value = currentNode.animal_nickname ?? "";
+  document.getElementById("animalSpecies").value = currentNode.animal_species ?? "";
+  document.getElementById("animalBreed").value = currentNode.animal_breed ?? "";
+  document.getElementById("preferAnimalNickname").checked = Boolean(currentNode.prefer_animal_nickname);
+  document.getElementById("showAnimalRegisteredName").checked = Boolean(currentNode.show_animal_registered_name);
+  document.getElementById("animalUseRegisteredAsMain").checked = getTrimmedString(currentNode.public_name_mode) === "registered";
+  document.getElementById("showAnimalSpecies").checked = Boolean(currentNode.show_animal_species);
+  document.getElementById("showAnimalBreed").checked = Boolean(currentNode.show_animal_breed);
+
   document.getElementById("birthDate").value = currentNode.birth_date ?? "";
   document.getElementById("deathDate").value = currentNode.death_date ?? "";
   document.getElementById("visibilityMode").value = getTrimmedString(currentNode.visibility_mode || "draft") || "draft";
@@ -508,6 +720,15 @@ function renderNode() {
   document.getElementById("lifeStory").value = currentNode.life_story ?? "";
   document.getElementById("heroImageUrl").value = currentNode.hero_image_url ?? "";
   document.getElementById("galleryJson").value = currentNode.gallery_json ?? "";
+
+  updateIdentityUi();
+
+  if (getTrimmedString(currentNode.public_display_name)) {
+    document.getElementById("publicDisplayNamePreview").value = currentNode.public_display_name;
+    if (!getTrimmedString(document.getElementById("displayNameOverride").value)) {
+      document.getElementById("memorialName").value = currentNode.public_display_name;
+    }
+  }
 }
 
 function renderTimeline() {
@@ -673,13 +894,48 @@ async function postOwnerUpdate(payload) {
   setActionStatus(t("save_success"), "success");
 }
 
-async function handleSaveOverview() {
+async function handleSaveIdentity() {
   clearActionStatus();
+  syncCompatibilityFields();
 
   try {
     await postOwnerUpdate({
       memorial_name: document.getElementById("memorialName").value,
       memorial_type: document.getElementById("memorialType").value,
+      identity_kind: document.getElementById("identityKind").value,
+      display_name_override: document.getElementById("displayNameOverride").value,
+      public_name_mode: document.getElementById("publicNameMode").value,
+      person_first_name: document.getElementById("personFirstName").value,
+      person_middle_names: document.getElementById("personMiddleNames").value,
+      person_last_name: document.getElementById("personLastName").value,
+      person_nickname: document.getElementById("personNickname").value,
+      person_honorific: document.getElementById("personHonorific").value,
+      person_descriptor: document.getElementById("personDescriptor").value,
+      show_person_middle_names: document.getElementById("showPersonMiddleNames").checked ? 1 : 0,
+      show_person_last_name: document.getElementById("showPersonLastName").checked ? 1 : 0,
+      show_person_honorific: document.getElementById("showPersonHonorific").checked ? 1 : 0,
+      show_person_descriptor: document.getElementById("showPersonDescriptor").checked ? 1 : 0,
+      prefer_person_nickname: document.getElementById("preferPersonNickname").checked ? 1 : 0,
+      animal_name: document.getElementById("animalName").value,
+      animal_registered_name: document.getElementById("animalRegisteredName").value,
+      animal_nickname: document.getElementById("animalNickname").value,
+      animal_species: document.getElementById("animalSpecies").value,
+      animal_breed: document.getElementById("animalBreed").value,
+      show_animal_registered_name: document.getElementById("showAnimalRegisteredName").checked ? 1 : 0,
+      show_animal_species: document.getElementById("showAnimalSpecies").checked ? 1 : 0,
+      show_animal_breed: document.getElementById("showAnimalBreed").checked ? 1 : 0,
+      prefer_animal_nickname: document.getElementById("preferAnimalNickname").checked ? 1 : 0
+    });
+  } catch (error) {
+    setActionStatus(error.message || t("update_failed"), "error");
+  }
+}
+
+async function handleSaveOverview() {
+  clearActionStatus();
+
+  try {
+    await postOwnerUpdate({
       birth_date: document.getElementById("birthDate").value,
       death_date: document.getElementById("deathDate").value,
       visibility_mode: document.getElementById("visibilityMode").value,
@@ -775,15 +1031,59 @@ async function handleChangePin() {
   }
 }
 
+function bindIdentityEvents() {
+  const identityInputIds = [
+    "identityKind",
+    "displayNameOverride",
+    "personFirstName",
+    "personMiddleNames",
+    "personLastName",
+    "personNickname",
+    "personHonorific",
+    "personDescriptor",
+    "preferPersonNickname",
+    "showPersonMiddleNames",
+    "showPersonLastName",
+    "showPersonHonorific",
+    "showPersonDescriptor",
+    "animalName",
+    "animalRegisteredName",
+    "animalNickname",
+    "animalSpecies",
+    "animalBreed",
+    "preferAnimalNickname",
+    "showAnimalRegisteredName",
+    "animalUseRegisteredAsMain",
+    "showAnimalSpecies",
+    "showAnimalBreed"
+  ];
+
+  for (const id of identityInputIds) {
+    const element = document.getElementById(id);
+    const eventName = element.type === "checkbox" || element.tagName === "SELECT" ? "change" : "input";
+    element.addEventListener(eventName, updateIdentityUi);
+  }
+
+  document.getElementById("showAnimalRegisteredName").addEventListener("change", () => {
+    if (!document.getElementById("showAnimalRegisteredName").checked) {
+      document.getElementById("animalUseRegisteredAsMain").checked = false;
+    }
+    updateIdentityUi();
+  });
+}
+
 function bindEvents() {
   document.getElementById("langFi").addEventListener("click", () => setLanguage("fi"));
   document.getElementById("langEn").addEventListener("click", () => setLanguage("en"));
 
+  document.getElementById("saveIdentityButton").addEventListener("click", handleSaveIdentity);
   document.getElementById("saveOverviewButton").addEventListener("click", handleSaveOverview);
   document.getElementById("saveInscriptionButton").addEventListener("click", handleSaveInscription);
   document.getElementById("saveMemoryButton").addEventListener("click", handleSaveMemory);
   document.getElementById("saveStoryButton").addEventListener("click", handleSaveStory);
   document.getElementById("changePinButton").addEventListener("click", handleChangePin);
+
+  bindIdentityEvents();
 }
 
 async function fetchOwnerAuthState() {

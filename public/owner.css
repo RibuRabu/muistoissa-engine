@@ -8,11 +8,7 @@
 
 :root {
   --bg: #161a20;
-  --bg-deep: #101319;
-  --bg-soft: #20262e;
   --panel: rgba(228, 225, 218, 0.88);
-  --panel-strong: rgba(236, 233, 227, 0.94);
-  --panel-soft: rgba(249, 247, 243, 0.7);
   --panel-border: rgba(28, 32, 40, 0.08);
   --surface: rgba(255, 255, 255, 0.56);
   --surface-alt: rgba(249, 247, 243, 0.78);
@@ -95,6 +91,7 @@ body::after {
 h1,
 h2,
 h3,
+h4,
 p {
   margin-top: 0;
 }
@@ -279,7 +276,7 @@ p {
 
 .hero-summary-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -321,6 +318,10 @@ p {
 
 .card {
   padding: 22px;
+}
+
+.card--secondary {
+  opacity: 0.94;
 }
 
 .card-header {
@@ -372,6 +373,49 @@ p {
   font-size: 1.08rem;
   letter-spacing: -0.02em;
   color: var(--text);
+}
+
+.identity-group {
+  display: grid;
+  gap: 14px;
+  padding-top: 0.25rem;
+  border-top: 1px solid rgba(24, 28, 35, 0.08);
+}
+
+.identity-group-head {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.identity-group h4 {
+  margin: 0;
+  font-size: 0.96rem;
+  letter-spacing: -0.01em;
+  color: var(--text-soft);
+}
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.check-field {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-height: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(24, 28, 35, 0.08);
+  color: var(--text-soft);
+  cursor: pointer;
+}
+
+.check-field input {
+  margin-top: 2px;
+  flex: 0 0 auto;
 }
 
 .button-row {
@@ -443,6 +487,11 @@ select:focus {
   border-color: var(--input-focus) !important;
 }
 
+.preview-input[readonly] {
+  background: rgba(247, 245, 241, 0.86) !important;
+  font-weight: 700;
+}
+
 textarea {
   min-height: 140px;
   resize: vertical;
@@ -450,12 +499,6 @@ textarea {
 
 .textarea-long {
   min-height: 220px;
-}
-
-.textarea-code {
-  min-height: 180px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.92rem;
 }
 
 .field {
@@ -488,10 +531,6 @@ textarea {
   line-height: 1.45;
 }
 
-.is-hidden {
-  display: none !important;
-}
-
 .timeline {
   display: grid;
   gap: 12px;
@@ -522,6 +561,10 @@ textarea {
   white-space: pre-wrap;
   word-break: break-word;
   line-height: 1.45;
+}
+
+.is-hidden {
+  display: none !important;
 }
 
 .error {
@@ -557,7 +600,8 @@ textarea {
     padding: 16px;
   }
 
-  .field-grid--three {
+  .field-grid--three,
+  .checkbox-grid {
     grid-template-columns: 1fr;
   }
 }

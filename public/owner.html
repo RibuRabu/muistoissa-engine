@@ -46,10 +46,160 @@
           <section class="card">
             <div class="card-header">
               <h2 id="editorCardTitle">Muiston tiedot</h2>
-              <p id="editorCardIntro" class="muted small">Täällä hallitset muistomerkin tekstejä, mediaa ja julkaisutilaa.</p>
+              <p id="editorCardIntro" class="muted small">Näitä tietoja käytetään julkisessa muistosivussa ja mausoleuminäkymässä.</p>
             </div>
 
             <div class="section-stack">
+              <section class="section-block">
+                <div class="section-head">
+                  <h3 id="identitySectionTitle">Nimi ja identiteetti</h3>
+                  <button id="saveIdentityButton" class="primary-button" type="button">Tallenna nimi</button>
+                </div>
+
+                <div class="field-grid field-grid--two">
+                  <div class="field">
+                    <label id="identityKindLabel" class="field-label" for="identityKind"></label>
+                    <select id="identityKind">
+                      <option value="human"></option>
+                      <option value="animal"></option>
+                      <option value="other"></option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label id="displayNameOverrideLabel" class="field-label" for="displayNameOverride"></label>
+                    <input id="displayNameOverride" type="text" maxlength="255" />
+                    <div id="displayNameOverrideHint" class="field-hint"></div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label id="publicDisplayNamePreviewLabel" class="field-label" for="publicDisplayNamePreview"></label>
+                  <input id="publicDisplayNamePreview" class="preview-input" type="text" readonly />
+                </div>
+
+                <section id="humanIdentityFields" class="identity-group" hidden>
+                  <div class="identity-group-head">
+                    <h4 id="humanIdentityTitle">Ihmisen tiedot</h4>
+                  </div>
+
+                  <div class="field-grid field-grid--two">
+                    <div class="field">
+                      <label id="personFirstNameLabel" class="field-label" for="personFirstName"></label>
+                      <input id="personFirstName" type="text" maxlength="120" />
+                    </div>
+
+                    <div class="field">
+                      <label id="personNicknameLabel" class="field-label" for="personNickname"></label>
+                      <input id="personNickname" type="text" maxlength="120" />
+                    </div>
+
+                    <div class="field">
+                      <label id="personMiddleNamesLabel" class="field-label" for="personMiddleNames"></label>
+                      <input id="personMiddleNames" type="text" maxlength="255" />
+                    </div>
+
+                    <div class="field">
+                      <label id="personLastNameLabel" class="field-label" for="personLastName"></label>
+                      <input id="personLastName" type="text" maxlength="120" />
+                    </div>
+
+                    <div class="field">
+                      <label id="personHonorificLabel" class="field-label" for="personHonorific"></label>
+                      <input id="personHonorific" type="text" maxlength="120" />
+                    </div>
+
+                    <div class="field">
+                      <label id="personDescriptorLabel" class="field-label" for="personDescriptor"></label>
+                      <input id="personDescriptor" type="text" maxlength="255" />
+                    </div>
+                  </div>
+
+                  <div class="checkbox-grid">
+                    <label class="check-field">
+                      <input id="preferPersonNickname" type="checkbox" />
+                      <span id="preferPersonNicknameLabel"></span>
+                    </label>
+                    <label class="check-field">
+                      <input id="showPersonMiddleNames" type="checkbox" />
+                      <span id="showPersonMiddleNamesLabel"></span>
+                    </label>
+                    <label class="check-field">
+                      <input id="showPersonLastName" type="checkbox" />
+                      <span id="showPersonLastNameLabel"></span>
+                    </label>
+                    <label class="check-field">
+                      <input id="showPersonHonorific" type="checkbox" />
+                      <span id="showPersonHonorificLabel"></span>
+                    </label>
+                    <label class="check-field">
+                      <input id="showPersonDescriptor" type="checkbox" />
+                      <span id="showPersonDescriptorLabel"></span>
+                    </label>
+                  </div>
+                </section>
+
+                <section id="animalIdentityFields" class="identity-group" hidden>
+                  <div class="identity-group-head">
+                    <h4 id="animalIdentityTitle">Eläimen tiedot</h4>
+                  </div>
+
+                  <div class="field-grid field-grid--two">
+                    <div class="field">
+                      <label id="animalNameLabel" class="field-label" for="animalName"></label>
+                      <input id="animalName" type="text" maxlength="120" />
+                    </div>
+
+                    <div class="field">
+                      <label id="animalNicknameLabel" class="field-label" for="animalNickname"></label>
+                      <input id="animalNickname" type="text" maxlength="120" />
+                    </div>
+
+                    <div class="field">
+                      <label id="animalRegisteredNameLabel" class="field-label" for="animalRegisteredName"></label>
+                      <input id="animalRegisteredName" type="text" maxlength="255" />
+                    </div>
+
+                    <div class="field">
+                      <label id="animalSpeciesLabel" class="field-label" for="animalSpecies"></label>
+                      <input id="animalSpecies" type="text" maxlength="120" />
+                    </div>
+
+                    <div class="field">
+                      <label id="animalBreedLabel" class="field-label" for="animalBreed"></label>
+                      <input id="animalBreed" type="text" maxlength="120" />
+                    </div>
+                  </div>
+
+                  <div class="checkbox-grid">
+                    <label class="check-field">
+                      <input id="preferAnimalNickname" type="checkbox" />
+                      <span id="preferAnimalNicknameLabel"></span>
+                    </label>
+                    <label class="check-field">
+                      <input id="showAnimalRegisteredName" type="checkbox" />
+                      <span id="showAnimalRegisteredNameLabel"></span>
+                    </label>
+                    <label class="check-field">
+                      <input id="animalUseRegisteredAsMain" type="checkbox" />
+                      <span id="animalUseRegisteredAsMainLabel"></span>
+                    </label>
+                    <label class="check-field">
+                      <input id="showAnimalSpecies" type="checkbox" />
+                      <span id="showAnimalSpeciesLabel"></span>
+                    </label>
+                    <label class="check-field">
+                      <input id="showAnimalBreed" type="checkbox" />
+                      <span id="showAnimalBreedLabel"></span>
+                    </label>
+                  </div>
+                </section>
+
+                <input id="memorialName" type="hidden" />
+                <input id="memorialType" type="hidden" />
+                <input id="publicNameMode" type="hidden" />
+              </section>
+
               <section class="section-block">
                 <div class="section-head">
                   <h3 id="overviewSectionTitle">Muiston tiedot</h3>
@@ -57,11 +207,6 @@
                 </div>
 
                 <div class="field-grid field-grid--two">
-                  <div class="field">
-                    <label id="memorialNameLabel" class="field-label" for="memorialName"></label>
-                    <input id="memorialName" type="text" maxlength="255" />
-                  </div>
-
                   <div class="field">
                     <label id="birthDateLabel" class="field-label" for="birthDate"></label>
                     <input id="birthDate" type="text" maxlength="64" />
@@ -87,8 +232,6 @@
                     <div id="publishedAtHint" class="field-hint"></div>
                   </div>
                 </div>
-
-                <input id="memorialType" type="hidden" />
               </section>
 
               <section class="section-block">
@@ -137,7 +280,7 @@
                 </div>
 
                 <div class="button-row">
-                  <button id="sceneMediaPlaceholderButton" class="secondary-button" type="button" disabled>Lataa kuva myöhemmin</button>
+                  <button id="sceneMediaPlaceholderButton" class="secondary-button" type="button" disabled>Kuvan lataus tulossa</button>
                 </div>
 
                 <input id="heroImageUrl" type="hidden" />
@@ -179,7 +322,7 @@
         </div>
 
         <div class="stack">
-          <section class="card">
+          <section class="card card--secondary">
             <div class="card-header">
               <h2 id="timelineTitle">Historia</h2>
               <p id="timelineIntro" class="muted small">Muistosivun viimeisimmät muutokset ja järjestelmätapahtumat.</p>
