@@ -202,7 +202,10 @@ function buildTextBlocks(text) {
 }
 
 function buildViewModel(data) {
-  const memorialName = getTrimmedString(data.memorial_name) || getTrimmedString(data.name) || t("untitledMemorial");
+  const memorialName = getTrimmedString(data.public_display_name)
+    || getTrimmedString(data.memorial_name)
+    || getTrimmedString(data.name)
+    || t("untitledMemorial");
   const memorialType = getTrimmedString(data.memorial_type) || t("memorialTypeDefault");
   const birthDate = getTrimmedString(data.birth_date);
   const deathDate = getTrimmedString(data.death_date);
