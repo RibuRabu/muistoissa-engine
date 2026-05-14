@@ -53,18 +53,18 @@
               <section class="section-block section-block--identity">
                 <div class="section-head">
                   <div class="section-head-copy">
-                    <h3 id="identitySectionTitle">Nimi ja identiteetti</h3>
-                    <p id="identitySectionIntro" class="muted small">Valitse kenestä muistosivu kertoo ja tarkista, miltä nimi näyttää monoliitissa.</p>
+                    <h3 id="identitySectionTitle">Monoliitin tekstit</h3>
+                    <p id="identitySectionIntro" class="muted small">Kirjoita tekstit, jotka näkyvät muistosivun monoliitissa.</p>
                   </div>
-                  <button id="saveIdentityButton" class="primary-button" type="button">Tallenna nimi</button>
+                  <button id="saveIdentityButton" class="primary-button" type="button">Tallenna tekstit</button>
                 </div>
 
                 <div class="field-grid field-grid--identity-top">
                   <div class="field">
                     <label id="identityKindLabel" class="field-label" for="identityKind"></label>
                     <select id="identityKind">
-                      <option value="human"></option>
                       <option value="animal"></option>
+                      <option value="human"></option>
                       <option value="other"></option>
                     </select>
                   </div>
@@ -74,137 +74,92 @@
                     <input id="memorialTypeInput" type="text" maxlength="100" />
                     <div id="memorialTypeHint" class="field-hint"></div>
                   </div>
+
+                  <div class="field">
+                    <label id="mainNameLabel" class="field-label" for="mainNameInput"></label>
+                    <input id="mainNameInput" type="text" maxlength="255" />
+                    <div id="mainNameHint" class="field-hint"></div>
+                  </div>
                 </div>
 
-                <div class="field">
-                  <label id="publicDisplayNamePreviewLabel" class="field-label" for="publicDisplayNamePreview"></label>
-                  <input id="publicDisplayNamePreview" class="preview-input" type="text" readonly />
-                </div>
-
-                <details id="manualNameDetails" class="details-panel">
-                  <summary id="manualNameSummary">Määritä julkinen nimi itse</summary>
+                <details id="nameDetailsPanel" class="details-panel">
+                  <summary id="nameDetailsSummary">Lisätiedot nimestä</summary>
                   <div class="details-body">
-                    <div class="field">
-                      <label id="displayNameOverrideLabel" class="field-label" for="displayNameOverride"></label>
-                      <input id="displayNameOverride" type="text" maxlength="255" />
-                      <div id="displayNameOverrideHint" class="field-hint"></div>
-                    </div>
+                    <section id="humanIdentityFields" class="identity-group" hidden>
+                      <div class="identity-group-head">
+                        <h4 id="humanIdentityTitle">Ihmisen tiedot</h4>
+                      </div>
+
+                      <div class="field-grid field-grid--identity-fields">
+                        <div class="field">
+                          <label id="personFirstNameLabel" class="field-label" for="personFirstName"></label>
+                          <input id="personFirstName" type="text" maxlength="120" />
+                        </div>
+
+                        <div class="field">
+                          <label id="personMiddleNamesLabel" class="field-label" for="personMiddleNames"></label>
+                          <input id="personMiddleNames" type="text" maxlength="255" />
+                        </div>
+
+                        <div class="field">
+                          <label id="personLastNameLabel" class="field-label" for="personLastName"></label>
+                          <input id="personLastName" type="text" maxlength="120" />
+                        </div>
+
+                        <div class="field">
+                          <label id="personNicknameLabel" class="field-label" for="personNickname"></label>
+                          <input id="personNickname" type="text" maxlength="120" />
+                        </div>
+                      </div>
+                    </section>
+
+                    <section id="animalIdentityFields" class="identity-group" hidden>
+                      <div class="identity-group-head">
+                        <h4 id="animalIdentityTitle">Eläimen tiedot</h4>
+                      </div>
+
+                      <div class="field-grid field-grid--identity-fields">
+                        <div class="field">
+                          <label id="animalRegisteredNameLabel" class="field-label" for="animalRegisteredName"></label>
+                          <input id="animalRegisteredName" type="text" maxlength="255" />
+                        </div>
+
+                        <div class="field">
+                          <label id="animalNicknameLabel" class="field-label" for="animalNickname"></label>
+                          <input id="animalNickname" type="text" maxlength="120" />
+                        </div>
+
+                        <div class="field">
+                          <label id="animalSpeciesLabel" class="field-label" for="animalSpecies"></label>
+                          <input id="animalSpecies" type="text" maxlength="120" />
+                        </div>
+
+                        <div class="field">
+                          <label id="animalBreedLabel" class="field-label" for="animalBreed"></label>
+                          <input id="animalBreed" type="text" maxlength="120" />
+                        </div>
+                      </div>
+                    </section>
                   </div>
                 </details>
 
-                <section id="humanIdentityFields" class="identity-group" hidden>
-                  <div class="identity-group-head">
-                    <h4 id="humanIdentityTitle">Ihmisen tiedot</h4>
-                  </div>
-
-                  <div class="field-grid field-grid--identity-fields">
-                    <div class="field">
-                      <label id="personFirstNameLabel" class="field-label" for="personFirstName"></label>
-                      <input id="personFirstName" type="text" maxlength="120" />
-                    </div>
-
-                    <div class="field">
-                      <label id="personMiddleNamesLabel" class="field-label" for="personMiddleNames"></label>
-                      <input id="personMiddleNames" type="text" maxlength="255" />
-                    </div>
-
-                    <div class="field">
-                      <label id="personLastNameLabel" class="field-label" for="personLastName"></label>
-                      <input id="personLastName" type="text" maxlength="120" />
-                    </div>
-
-                    <div class="field">
-                      <label id="personNicknameLabel" class="field-label" for="personNickname"></label>
-                      <input id="personNickname" type="text" maxlength="120" />
-                    </div>
-
-                    <div class="field">
-                      <label id="personHonorificLabel" class="field-label" for="personHonorific"></label>
-                      <input id="personHonorific" type="text" maxlength="120" />
-                    </div>
-                  </div>
-
-                  <div class="checkbox-stack">
-                    <label class="check-row">
-                      <input id="preferPersonNickname" type="checkbox" />
-                      <span id="preferPersonNicknameLabel"></span>
-                    </label>
-                    <label class="check-row">
-                      <input id="showPersonMiddleNames" type="checkbox" />
-                      <span id="showPersonMiddleNamesLabel"></span>
-                    </label>
-                    <label class="check-row">
-                      <input id="showPersonLastName" type="checkbox" />
-                      <span id="showPersonLastNameLabel"></span>
-                    </label>
-                    <label class="check-row">
-                      <input id="showPersonHonorific" type="checkbox" />
-                      <span id="showPersonHonorificLabel"></span>
-                    </label>
-                  </div>
-                </section>
-
-                <section id="animalIdentityFields" class="identity-group" hidden>
-                  <div class="identity-group-head">
-                    <h4 id="animalIdentityTitle">Eläimen tiedot</h4>
-                  </div>
-
-                  <div class="field-grid field-grid--identity-fields">
-                    <div class="field">
-                      <label id="animalNameLabel" class="field-label" for="animalName"></label>
-                      <input id="animalName" type="text" maxlength="120" />
-                    </div>
-
-                    <div class="field">
-                      <label id="animalRegisteredNameLabel" class="field-label" for="animalRegisteredName"></label>
-                      <input id="animalRegisteredName" type="text" maxlength="255" />
-                    </div>
-
-                    <div class="field">
-                      <label id="animalNicknameLabel" class="field-label" for="animalNickname"></label>
-                      <input id="animalNickname" type="text" maxlength="120" />
-                    </div>
-
-                    <div class="field">
-                      <label id="animalSpeciesLabel" class="field-label" for="animalSpecies"></label>
-                      <input id="animalSpecies" type="text" maxlength="120" />
-                    </div>
-
-                    <div class="field">
-                      <label id="animalBreedLabel" class="field-label" for="animalBreed"></label>
-                      <input id="animalBreed" type="text" maxlength="120" />
-                    </div>
-                  </div>
-
-                  <div class="checkbox-stack">
-                    <label class="check-row">
-                      <input id="preferAnimalNickname" type="checkbox" />
-                      <span id="preferAnimalNicknameLabel"></span>
-                    </label>
-                    <label class="check-row">
-                      <input id="showAnimalRegisteredName" type="checkbox" />
-                      <span id="showAnimalRegisteredNameLabel"></span>
-                    </label>
-                    <label class="check-row">
-                      <input id="animalUseRegisteredAsMain" type="checkbox" />
-                      <span id="animalUseRegisteredAsMainLabel"></span>
-                    </label>
-                    <label class="check-row">
-                      <input id="showAnimalSpecies" type="checkbox" />
-                      <span id="showAnimalSpeciesLabel"></span>
-                    </label>
-                    <label class="check-row">
-                      <input id="showAnimalBreed" type="checkbox" />
-                      <span id="showAnimalBreedLabel"></span>
-                    </label>
-                  </div>
-                </section>
-
+                <input id="displayNameOverride" type="hidden" />
+                <input id="animalName" type="hidden" />
+                <input id="personHonorific" type="hidden" />
                 <input id="memorialName" type="hidden" />
                 <input id="memorialType" type="hidden" />
                 <input id="publicNameMode" type="hidden" />
                 <input id="personDescriptor" type="hidden" />
                 <input id="showPersonDescriptor" type="hidden" value="0" />
+                <input id="preferPersonNickname" type="hidden" value="0" />
+                <input id="showPersonMiddleNames" type="hidden" value="0" />
+                <input id="showPersonLastName" type="hidden" value="0" />
+                <input id="showPersonHonorific" type="hidden" value="0" />
+                <input id="preferAnimalNickname" type="hidden" value="0" />
+                <input id="showAnimalRegisteredName" type="hidden" value="0" />
+                <input id="showAnimalSpecies" type="hidden" value="0" />
+                <input id="showAnimalBreed" type="hidden" value="0" />
+                <input id="animalUseRegisteredAsMain" type="hidden" value="0" />
               </section>
 
               <section class="section-block">

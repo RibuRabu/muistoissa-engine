@@ -405,9 +405,12 @@ select {
 }
 
 .field-grid--two,
-.field-grid--identity-top,
 .field-grid--identity-fields {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.field-grid--identity-top {
+  grid-template-columns: 1fr;
 }
 
 .field-grid--three {
@@ -472,13 +475,13 @@ textarea {
 .details-panel {
   border: 1px solid rgba(27, 31, 38, 0.08);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.3);
   overflow: hidden;
 }
 
 .details-panel summary {
-  padding: 14px 16px;
-  font-weight: 700;
+  padding: 13px 15px;
+  font-weight: 600;
   color: var(--text-soft);
   cursor: pointer;
   list-style: none;
@@ -489,7 +492,7 @@ textarea {
 }
 
 .details-body {
-  padding: 0 16px 16px;
+  padding: 0 15px 15px;
 }
 
 .identity-group {
@@ -504,30 +507,6 @@ textarea {
   gap: 0.35rem;
 }
 
-.checkbox-stack {
-  display: grid;
-  gap: 10px;
-}
-
-.check-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  width: 100%;
-  padding: 13px 14px;
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(27, 31, 38, 0.08);
-  background: rgba(255, 255, 255, 0.42);
-  color: var(--text-soft);
-  cursor: pointer;
-  line-height: 1.45;
-}
-
-.check-row input {
-  flex: 0 0 auto;
-  margin-top: 2px;
-}
-
 .button-row {
   display: flex;
   flex-wrap: wrap;
@@ -535,23 +514,30 @@ textarea {
 }
 
 button {
-  padding: 12px 16px;
+  padding: 11px 15px;
   border-radius: 14px;
-  font-weight: 800;
+  font-weight: 700;
   cursor: pointer;
   transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
 }
 
 .primary-button {
-  border: 1px solid rgba(27, 31, 38, 0.12);
-  background: var(--primary);
-  color: var(--primary-text);
+  border: 1px solid rgba(27, 31, 38, 0.14);
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--text);
 }
 
 .secondary-button {
   border: 1px solid var(--secondary-border);
   background: var(--secondary);
   color: var(--text);
+}
+
+.primary-button:hover,
+.secondary-button:hover,
+.lang-button:hover,
+.link-button:hover {
+  background: rgba(255, 255, 255, 0.82);
 }
 
 button:disabled,

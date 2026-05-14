@@ -9,42 +9,30 @@ const i18n = {
     timeline_intro: "Muistosivun viimeisimmät muutokset ja järjestelmätapahtumat.",
     open_public_page: "Avaa muistosivu",
 
-    identity_section_title: "Nimi ja identiteetti",
-    identity_section_intro: "Valitse kenestä muistosivu kertoo ja tarkista, miltä nimi näyttää monoliitissa.",
-    identity_kind_label: "Kenestä muistosivu kertoo?",
+    identity_section_title: "Monoliitin tekstit",
+    identity_section_intro: "Kirjoita tekstit, jotka näkyvät muistosivun monoliitissa.",
+    identity_kind_label: "Kenelle muistosivu on?",
     identity_kind_human: "Ihminen",
     identity_kind_animal: "Eläin",
     identity_kind_other: "Muu",
-    memorial_type_label: "Monoliitin yläteksti",
-    memorial_type_hint: "Tämä näkyy pienellä tekstillä nimen yläpuolella. Esimerkkejä: Muisto, Hautakivi, Koira, Kuningas, In memoriam.",
+    memorial_type_label: "Yläteksti",
+    memorial_type_hint: "Pieni teksti nimen yläpuolella.",
     memorial_type_placeholder: "Muisto",
-    display_name_override_summary: "Määritä julkinen nimi itse",
-    display_name_override_label: "Julkinen nimi käsin",
-    display_name_override_hint: "Käytä tätä vain, jos haluat määrittää monoliitissa näkyvän nimen itse.",
-    display_name_override_placeholder: "Esimerkiksi Aino Virtanen",
-    public_display_name_preview_label: "Monoliitissa näkyvä nimi",
-    save_identity: "Tallenna nimi",
+    main_name_label: "Nimi",
+    main_name_hint: "Tämä näkyy monoliitin päätekstinä.",
+    main_name_placeholder: "Kirjoita nimi",
+    name_details_summary: "Lisätiedot nimestä",
+    save_identity: "Tallenna tekstit",
     human_identity_title: "Ihmisen tiedot",
     person_first_name_label: "Etunimi",
     person_middle_names_label: "Muut etunimet",
     person_last_name_label: "Sukunimi",
     person_nickname_label: "Kutsumanimi",
-    person_honorific_label: "Arvonimi tai puhuttelu",
-    prefer_person_nickname_label: "Käytä kutsumanimeä etunimen sijasta",
-    show_person_middle_names_label: "Näytä muut etunimet",
-    show_person_last_name_label: "Näytä sukunimi",
-    show_person_honorific_label: "Näytä arvonimi tai puhuttelu",
     animal_identity_title: "Eläimen tiedot",
-    animal_name_label: "Nimi",
     animal_registered_name_label: "Rekisterinimi",
     animal_nickname_label: "Kutsumanimi",
     animal_species_label: "Laji",
     animal_breed_label: "Rotu",
-    prefer_animal_nickname_label: "Käytä kutsumanimeä nimen sijasta",
-    show_animal_registered_name_label: "Näytä rekisterinimi",
-    animal_use_registered_as_main_label: "Käytä rekisterinimeä päänimenä",
-    show_animal_species_label: "Näytä laji",
-    show_animal_breed_label: "Näytä rotu",
 
     overview_section_title: "Muiston tiedot",
     birth_date_label: "Syntymäaika",
@@ -149,42 +137,30 @@ const i18n = {
     timeline_intro: "Recent owner and system events for this memorial.",
     open_public_page: "Open memorial",
 
-    identity_section_title: "Name and identity",
-    identity_section_intro: "Choose who the memorial is for and check how the name appears on the monolith.",
-    identity_kind_label: "Who is this memorial for?",
+    identity_section_title: "Monolith text",
+    identity_section_intro: "Write the texts that appear on the memorial monolith.",
+    identity_kind_label: "Who is the memorial for?",
     identity_kind_human: "Human",
     identity_kind_animal: "Animal",
     identity_kind_other: "Other",
-    memorial_type_label: "Monolith top label",
-    memorial_type_hint: "This appears in small text above the name. Examples: Memory, Grave marker, Dog, King, In memoriam.",
+    memorial_type_label: "Top label",
+    memorial_type_hint: "Small text above the name.",
     memorial_type_placeholder: "Memory",
-    display_name_override_summary: "Set the public name manually",
-    display_name_override_label: "Set public name manually",
-    display_name_override_hint: "Use this only if you want to define the name shown on the monolith yourself.",
-    display_name_override_placeholder: "For example Aino Virtanen",
-    public_display_name_preview_label: "Name shown on the monolith",
-    save_identity: "Save name",
+    main_name_label: "Name",
+    main_name_hint: "This is shown as the main monolith text.",
+    main_name_placeholder: "Enter the name",
+    name_details_summary: "Extra name details",
+    save_identity: "Save texts",
     human_identity_title: "Human details",
     person_first_name_label: "First name",
     person_middle_names_label: "Middle names",
     person_last_name_label: "Last name",
     person_nickname_label: "Nickname",
-    person_honorific_label: "Honorific or title",
-    prefer_person_nickname_label: "Use nickname instead of first name",
-    show_person_middle_names_label: "Show middle names",
-    show_person_last_name_label: "Show last name",
-    show_person_honorific_label: "Show honorific or title",
     animal_identity_title: "Animal details",
-    animal_name_label: "Name",
     animal_registered_name_label: "Registered name",
     animal_nickname_label: "Nickname",
     animal_species_label: "Species",
     animal_breed_label: "Breed",
-    prefer_animal_nickname_label: "Use nickname instead of name",
-    show_animal_registered_name_label: "Show registered name",
-    animal_use_registered_as_main_label: "Use registered name as the main name",
-    show_animal_species_label: "Show species",
-    show_animal_breed_label: "Show breed",
 
     overview_section_title: "Memorial details",
     birth_date_label: "Birth date",
@@ -500,33 +476,21 @@ function renderStaticTexts() {
   document.getElementById("memorialTypeLabel").textContent = t("memorial_type_label");
   document.getElementById("memorialTypeHint").textContent = t("memorial_type_hint");
   document.getElementById("memorialTypeInput").placeholder = t("memorial_type_placeholder");
-  document.getElementById("manualNameSummary").textContent = t("display_name_override_summary");
-  document.getElementById("displayNameOverrideLabel").textContent = t("display_name_override_label");
-  document.getElementById("displayNameOverrideHint").textContent = t("display_name_override_hint");
-  document.getElementById("displayNameOverride").placeholder = t("display_name_override_placeholder");
-  document.getElementById("publicDisplayNamePreviewLabel").textContent = t("public_display_name_preview_label");
+  document.getElementById("mainNameLabel").textContent = t("main_name_label");
+  document.getElementById("mainNameHint").textContent = t("main_name_hint");
+  document.getElementById("mainNameInput").placeholder = t("main_name_placeholder");
+  document.getElementById("nameDetailsSummary").textContent = t("name_details_summary");
   document.getElementById("saveIdentityButton").textContent = t("save_identity");
   document.getElementById("humanIdentityTitle").textContent = t("human_identity_title");
   document.getElementById("personFirstNameLabel").textContent = t("person_first_name_label");
   document.getElementById("personMiddleNamesLabel").textContent = t("person_middle_names_label");
   document.getElementById("personLastNameLabel").textContent = t("person_last_name_label");
   document.getElementById("personNicknameLabel").textContent = t("person_nickname_label");
-  document.getElementById("personHonorificLabel").textContent = t("person_honorific_label");
-  document.getElementById("preferPersonNicknameLabel").textContent = t("prefer_person_nickname_label");
-  document.getElementById("showPersonMiddleNamesLabel").textContent = t("show_person_middle_names_label");
-  document.getElementById("showPersonLastNameLabel").textContent = t("show_person_last_name_label");
-  document.getElementById("showPersonHonorificLabel").textContent = t("show_person_honorific_label");
   document.getElementById("animalIdentityTitle").textContent = t("animal_identity_title");
-  document.getElementById("animalNameLabel").textContent = t("animal_name_label");
   document.getElementById("animalRegisteredNameLabel").textContent = t("animal_registered_name_label");
   document.getElementById("animalNicknameLabel").textContent = t("animal_nickname_label");
   document.getElementById("animalSpeciesLabel").textContent = t("animal_species_label");
   document.getElementById("animalBreedLabel").textContent = t("animal_breed_label");
-  document.getElementById("preferAnimalNicknameLabel").textContent = t("prefer_animal_nickname_label");
-  document.getElementById("showAnimalRegisteredNameLabel").textContent = t("show_animal_registered_name_label");
-  document.getElementById("animalUseRegisteredAsMainLabel").textContent = t("animal_use_registered_as_main_label");
-  document.getElementById("showAnimalSpeciesLabel").textContent = t("show_animal_species_label");
-  document.getElementById("showAnimalBreedLabel").textContent = t("show_animal_breed_label");
 
   document.getElementById("overviewSectionTitle").textContent = t("overview_section_title");
   document.getElementById("birthDateLabel").textContent = t("birth_date_label");
@@ -559,8 +523,8 @@ function renderStaticTexts() {
   document.getElementById("changePinButton").textContent = t("change_pin_button");
 
   const identityKind = document.getElementById("identityKind");
-  identityKind.options[0].text = t("identity_kind_human");
-  identityKind.options[1].text = t("identity_kind_animal");
+  identityKind.options[0].text = t("identity_kind_animal");
+  identityKind.options[1].text = t("identity_kind_human");
   identityKind.options[2].text = t("identity_kind_other");
 
   const visibilityMode = document.getElementById("visibilityMode");
@@ -575,88 +539,83 @@ function getCurrentIdentityKind() {
   return getTrimmedString(document.getElementById("identityKind").value || "other") || "other";
 }
 
-function toggleIdentityGroups() {
-  const identityKind = getCurrentIdentityKind();
-  document.getElementById("humanIdentityFields").hidden = identityKind !== "human";
-  document.getElementById("animalIdentityFields").hidden = identityKind !== "animal";
-
-  const animalUseRegisteredAsMain = document.getElementById("animalUseRegisteredAsMain");
-  const showAnimalRegisteredName = document.getElementById("showAnimalRegisteredName");
-
-  if (!showAnimalRegisteredName.checked) {
-    animalUseRegisteredAsMain.checked = false;
-  }
-
-  animalUseRegisteredAsMain.disabled = identityKind !== "animal" || !showAnimalRegisteredName.checked;
-}
-
-function derivePublicDisplayNameFromForm() {
-  const override = getTrimmedString(document.getElementById("displayNameOverride").value);
-
-  if (override) {
-    return override;
-  }
-
-  const identityKind = getCurrentIdentityKind();
-
+function deriveSimpleNameFromDetails(identityKind) {
   if (identityKind === "human") {
     const firstName = getTrimmedString(document.getElementById("personFirstName").value);
-    const middleNames = document.getElementById("showPersonMiddleNames").checked
-      ? getTrimmedString(document.getElementById("personMiddleNames").value)
-      : "";
-    const lastName = document.getElementById("showPersonLastName").checked
-      ? getTrimmedString(document.getElementById("personLastName").value)
-      : "";
+    const middleNames = getTrimmedString(document.getElementById("personMiddleNames").value);
+    const lastName = getTrimmedString(document.getElementById("personLastName").value);
     const nickname = getTrimmedString(document.getElementById("personNickname").value);
-    const honorific = document.getElementById("showPersonHonorific").checked
-      ? getTrimmedString(document.getElementById("personHonorific").value)
-      : "";
-    const useNickname = document.getElementById("preferPersonNickname").checked && nickname;
-    const baseName = useNickname ? nickname : (firstName || nickname);
-    const parts = [honorific, baseName, middleNames, lastName].filter(Boolean);
+    const fullName = [firstName, middleNames, lastName].filter(Boolean).join(" ").trim();
 
-    return parts.join(" ").trim();
+    return fullName || nickname;
   }
 
   if (identityKind === "animal") {
-    const nickname = getTrimmedString(document.getElementById("animalNickname").value);
     const animalName = getTrimmedString(document.getElementById("animalName").value);
     const registeredName = getTrimmedString(document.getElementById("animalRegisteredName").value);
-    const useRegistered = document.getElementById("animalUseRegisteredAsMain").checked
-      && document.getElementById("showAnimalRegisteredName").checked
-      && registeredName;
+    const nickname = getTrimmedString(document.getElementById("animalNickname").value);
 
-    if (useRegistered) {
-      return registeredName;
-    }
-
-    const useNickname = document.getElementById("preferAnimalNickname").checked && nickname;
-    return (useNickname ? nickname : (animalName || nickname || registeredName)).trim();
+    return animalName || nickname || registeredName;
   }
 
-  return getTrimmedString(document.getElementById("memorialName").value);
+  return getTrimmedString(document.getElementById("displayNameOverride").value)
+    || getTrimmedString(document.getElementById("memorialName").value);
+}
+
+function getResolvedMainNameFromForm() {
+  const mainName = getTrimmedString(document.getElementById("mainNameInput").value);
+  return mainName || deriveSimpleNameFromDetails(getCurrentIdentityKind());
+}
+
+function toggleIdentityGroups() {
+  const identityKind = getCurrentIdentityKind();
+  const detailsPanel = document.getElementById("nameDetailsPanel");
+
+  document.getElementById("humanIdentityFields").hidden = identityKind !== "human";
+  document.getElementById("animalIdentityFields").hidden = identityKind !== "animal";
+
+  detailsPanel.hidden = identityKind === "other";
+  if (detailsPanel.hidden) {
+    detailsPanel.open = false;
+  }
 }
 
 function syncCompatibilityFields() {
   const identityKind = getCurrentIdentityKind();
-  const preview = derivePublicDisplayNameFromForm();
+  const resolvedMainName = getResolvedMainNameFromForm();
   const currentLegacyName = getTrimmedString(document.getElementById("memorialName").value);
-  const resolvedLegacyName = preview || currentLegacyName || getTrimmedString(currentNode?.memorial_name || "");
-  const publicNameMode = identityKind === "animal" && document.getElementById("animalUseRegisteredAsMain").checked
-    ? "registered"
-    : "default";
+  const fallbackLegacyName = resolvedMainName
+    || currentLegacyName
+    || getTrimmedString(currentNode?.public_display_name || "")
+    || getTrimmedString(currentNode?.memorial_name || "");
 
-  document.getElementById("publicDisplayNamePreview").value = preview || "";
-  document.getElementById("memorialName").value = resolvedLegacyName;
-  document.getElementById("publicNameMode").value = publicNameMode;
   document.getElementById("memorialType").value = document.getElementById("memorialTypeInput").value;
+  document.getElementById("memorialName").value = fallbackLegacyName;
+  document.getElementById("publicNameMode").value = "default";
+
+  document.getElementById("preferPersonNickname").value = "0";
+  document.getElementById("showPersonMiddleNames").value = "0";
+  document.getElementById("showPersonLastName").value = "0";
+  document.getElementById("showPersonHonorific").value = "0";
+  document.getElementById("preferAnimalNickname").value = "0";
+  document.getElementById("showAnimalRegisteredName").value = "0";
+  document.getElementById("showAnimalSpecies").value = "0";
+  document.getElementById("showAnimalBreed").value = "0";
+  document.getElementById("animalUseRegisteredAsMain").value = "0";
+
+  if (identityKind === "animal") {
+    document.getElementById("animalName").value = resolvedMainName;
+    document.getElementById("displayNameOverride").value = "";
+    return;
+  }
+
+  document.getElementById("displayNameOverride").value = resolvedMainName;
 }
 
 function updateIdentityUi() {
   toggleIdentityGroups();
   syncCompatibilityFields();
 }
-
 function renderHeroSummary() {
   if (!currentNode) {
     return;
@@ -697,33 +656,24 @@ function renderNode() {
 
   document.getElementById("identityKind").value = getTrimmedString(currentNode.identity_kind || "other") || "other";
   document.getElementById("displayNameOverride").value = currentNode.display_name_override ?? "";
+  document.getElementById("animalName").value = currentNode.animal_name ?? "";
   document.getElementById("memorialName").value = currentNode.memorial_name ?? "";
   document.getElementById("memorialTypeInput").value = currentNode.memorial_type ?? "";
   document.getElementById("memorialType").value = currentNode.memorial_type ?? "";
   document.getElementById("publicNameMode").value = currentNode.public_name_mode ?? "default";
   document.getElementById("personDescriptor").value = currentNode.person_descriptor ?? "";
   document.getElementById("showPersonDescriptor").value = currentNode.show_person_descriptor ? "1" : "0";
+  document.getElementById("personHonorific").value = currentNode.person_honorific ?? "";
 
   document.getElementById("personFirstName").value = currentNode.person_first_name ?? "";
   document.getElementById("personMiddleNames").value = currentNode.person_middle_names ?? "";
   document.getElementById("personLastName").value = currentNode.person_last_name ?? "";
   document.getElementById("personNickname").value = currentNode.person_nickname ?? "";
-  document.getElementById("personHonorific").value = currentNode.person_honorific ?? "";
-  document.getElementById("preferPersonNickname").checked = Boolean(currentNode.prefer_person_nickname);
-  document.getElementById("showPersonMiddleNames").checked = Boolean(currentNode.show_person_middle_names);
-  document.getElementById("showPersonLastName").checked = Boolean(currentNode.show_person_last_name);
-  document.getElementById("showPersonHonorific").checked = Boolean(currentNode.show_person_honorific);
 
-  document.getElementById("animalName").value = currentNode.animal_name ?? "";
   document.getElementById("animalRegisteredName").value = currentNode.animal_registered_name ?? "";
   document.getElementById("animalNickname").value = currentNode.animal_nickname ?? "";
   document.getElementById("animalSpecies").value = currentNode.animal_species ?? "";
   document.getElementById("animalBreed").value = currentNode.animal_breed ?? "";
-  document.getElementById("preferAnimalNickname").checked = Boolean(currentNode.prefer_animal_nickname);
-  document.getElementById("showAnimalRegisteredName").checked = Boolean(currentNode.show_animal_registered_name);
-  document.getElementById("animalUseRegisteredAsMain").checked = getTrimmedString(currentNode.public_name_mode) === "registered";
-  document.getElementById("showAnimalSpecies").checked = Boolean(currentNode.show_animal_species);
-  document.getElementById("showAnimalBreed").checked = Boolean(currentNode.show_animal_breed);
 
   document.getElementById("birthDate").value = currentNode.birth_date ?? "";
   document.getElementById("deathDate").value = currentNode.death_date ?? "";
@@ -735,17 +685,35 @@ function renderNode() {
   document.getElementById("heroImageUrl").value = currentNode.hero_image_url ?? "";
   document.getElementById("galleryJson").value = currentNode.gallery_json ?? "";
 
-  const hasOverride = getTrimmedString(currentNode.display_name_override);
-  document.getElementById("manualNameDetails").open = Boolean(hasOverride);
+  const identityKind = getTrimmedString(currentNode.identity_kind || "other") || "other";
+  let mainName = getTrimmedString(currentNode.public_display_name);
 
-  updateIdentityUi();
-
-  if (getTrimmedString(currentNode.public_display_name)) {
-    document.getElementById("publicDisplayNamePreview").value = currentNode.public_display_name;
-    if (!hasOverride) {
-      document.getElementById("memorialName").value = currentNode.public_display_name;
+  if (!mainName) {
+    if (identityKind === "animal") {
+      mainName = getTrimmedString(currentNode.animal_name)
+        || getTrimmedString(currentNode.memorial_name);
+    } else {
+      mainName = getTrimmedString(currentNode.display_name_override)
+        || getTrimmedString(currentNode.memorial_name);
     }
   }
+
+  document.getElementById("mainNameInput").value = mainName;
+
+  const hasDetailValues = Boolean(
+    getTrimmedString(currentNode.person_first_name)
+    || getTrimmedString(currentNode.person_middle_names)
+    || getTrimmedString(currentNode.person_last_name)
+    || getTrimmedString(currentNode.person_nickname)
+    || getTrimmedString(currentNode.animal_registered_name)
+    || getTrimmedString(currentNode.animal_nickname)
+    || getTrimmedString(currentNode.animal_species)
+    || getTrimmedString(currentNode.animal_breed)
+  );
+
+  document.getElementById("nameDetailsPanel").open = hasDetailValues;
+
+  updateIdentityUi();
 }
 
 function renderTimeline() {
@@ -928,20 +896,20 @@ async function handleSaveIdentity() {
       person_nickname: document.getElementById("personNickname").value,
       person_honorific: document.getElementById("personHonorific").value,
       person_descriptor: document.getElementById("personDescriptor").value,
-      show_person_middle_names: document.getElementById("showPersonMiddleNames").checked ? 1 : 0,
-      show_person_last_name: document.getElementById("showPersonLastName").checked ? 1 : 0,
-      show_person_honorific: document.getElementById("showPersonHonorific").checked ? 1 : 0,
-      show_person_descriptor: document.getElementById("showPersonDescriptor").value === "1" ? 1 : 0,
-      prefer_person_nickname: document.getElementById("preferPersonNickname").checked ? 1 : 0,
+      show_person_middle_names: Number(document.getElementById("showPersonMiddleNames").value || "0"),
+      show_person_last_name: Number(document.getElementById("showPersonLastName").value || "0"),
+      show_person_honorific: Number(document.getElementById("showPersonHonorific").value || "0"),
+      show_person_descriptor: Number(document.getElementById("showPersonDescriptor").value || "0"),
+      prefer_person_nickname: Number(document.getElementById("preferPersonNickname").value || "0"),
       animal_name: document.getElementById("animalName").value,
       animal_registered_name: document.getElementById("animalRegisteredName").value,
       animal_nickname: document.getElementById("animalNickname").value,
       animal_species: document.getElementById("animalSpecies").value,
       animal_breed: document.getElementById("animalBreed").value,
-      show_animal_registered_name: document.getElementById("showAnimalRegisteredName").checked ? 1 : 0,
-      show_animal_species: document.getElementById("showAnimalSpecies").checked ? 1 : 0,
-      show_animal_breed: document.getElementById("showAnimalBreed").checked ? 1 : 0,
-      prefer_animal_nickname: document.getElementById("preferAnimalNickname").checked ? 1 : 0
+      show_animal_registered_name: Number(document.getElementById("showAnimalRegisteredName").value || "0"),
+      show_animal_species: Number(document.getElementById("showAnimalSpecies").value || "0"),
+      show_animal_breed: Number(document.getElementById("showAnimalBreed").value || "0"),
+      prefer_animal_nickname: Number(document.getElementById("preferAnimalNickname").value || "0")
     });
   } catch (error) {
     setActionStatus(error.message || t("update_failed"), "error");
@@ -1052,47 +1020,22 @@ function bindIdentityEvents() {
   const identityInputIds = [
     "identityKind",
     "memorialTypeInput",
-    "displayNameOverride",
+    "mainNameInput",
     "personFirstName",
     "personMiddleNames",
     "personLastName",
     "personNickname",
-    "personHonorific",
-    "preferPersonNickname",
-    "showPersonMiddleNames",
-    "showPersonLastName",
-    "showPersonHonorific",
-    "animalName",
     "animalRegisteredName",
     "animalNickname",
     "animalSpecies",
-    "animalBreed",
-    "preferAnimalNickname",
-    "showAnimalRegisteredName",
-    "animalUseRegisteredAsMain",
-    "showAnimalSpecies",
-    "showAnimalBreed"
+    "animalBreed"
   ];
 
   for (const id of identityInputIds) {
     const element = document.getElementById(id);
-    const eventName = element.type === "checkbox" || element.tagName === "SELECT" ? "change" : "input";
+    const eventName = element.tagName === "SELECT" ? "change" : "input";
     element.addEventListener(eventName, updateIdentityUi);
   }
-
-  document.getElementById("showAnimalRegisteredName").addEventListener("change", () => {
-    if (!document.getElementById("showAnimalRegisteredName").checked) {
-      document.getElementById("animalUseRegisteredAsMain").checked = false;
-    }
-    updateIdentityUi();
-  });
-
-  document.getElementById("displayNameOverride").addEventListener("input", () => {
-    const hasValue = getTrimmedString(document.getElementById("displayNameOverride").value);
-    if (hasValue) {
-      document.getElementById("manualNameDetails").open = true;
-    }
-  });
 }
 
 function bindEvents() {
@@ -1231,4 +1174,7 @@ async function init() {
 }
 
 init();
+
+
+
 
