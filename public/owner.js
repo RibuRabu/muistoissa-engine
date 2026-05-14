@@ -54,6 +54,22 @@ const i18n = {
     life_story_label: "Elämäntarina",
     save_story: "Tallenna elämäntarina",
 
+    text_visibility_section_title: "Näkyvät tekstit",
+    save_text_visibility: "Tallenna näkyvyys",
+    show_epitaph_label: "Näytä kaiverrus",
+    show_epitaph_hint: "Lyhyt kaiverrusmainen lause lähellä monoliittia.",
+    show_memory_text_label: "Näytä muistoteksti",
+    show_memory_text_hint: "Pidempi muisto tai kuvaus alempana muistosivulla.",
+    show_life_story_label: "Näytä elämäntarina",
+    show_life_story_hint: "Laajempi elämäntarina tai taustateksti.",
+    show_identity_details_label: "Näytä nimen lisätiedot",
+    show_identity_details_hint: "Esimerkiksi rekisterinimi, laji tai rotu.",
+    identity_details_position_label: "Lisätietojen paikka",
+    identity_details_position_hidden: "Ei näytetä",
+    identity_details_position_below_name: "Nimen alla",
+    identity_details_position_above_epitaph: "Kaiverruksen yläpuolella",
+    identity_details_position_memory_section: "Muistotekstin yhteydessä",
+
     scene_media_section_title: "Muistotilan kuva",
     scene_media_intro: "Muistotilan kuva tuo sivulle tunnelmaa. Kuvan lataus tulee seuraavassa vaiheessa.",
     scene_media_placeholder_button: "Kuvan lataus tulossa",
@@ -181,6 +197,22 @@ const i18n = {
     story_section_title: "Life story",
     life_story_label: "Life story",
     save_story: "Save life story",
+
+    text_visibility_section_title: "Visible text layers",
+    save_text_visibility: "Save visibility",
+    show_epitaph_label: "Show inscription",
+    show_epitaph_hint: "A short engraved phrase near the monolith.",
+    show_memory_text_label: "Show memory text",
+    show_memory_text_hint: "A longer memory or description lower on the memorial page.",
+    show_life_story_label: "Show life story",
+    show_life_story_hint: "A broader life story or background text.",
+    show_identity_details_label: "Show extra name details",
+    show_identity_details_hint: "For example a registered name, species, or breed.",
+    identity_details_position_label: "Details position",
+    identity_details_position_hidden: "Do not show",
+    identity_details_position_below_name: "Below the name",
+    identity_details_position_above_epitaph: "Above the inscription",
+    identity_details_position_memory_section: "With the memory text",
 
     scene_media_section_title: "Memorial image",
     scene_media_intro: "The memorial image will shape the atmosphere of the space. Image upload will arrive in the next step.",
@@ -512,6 +544,18 @@ function renderStaticTexts() {
   document.getElementById("lifeStoryLabel").textContent = t("life_story_label");
   document.getElementById("saveStoryButton").textContent = t("save_story");
 
+  document.getElementById("textVisibilitySectionTitle").textContent = t("text_visibility_section_title");
+  document.getElementById("saveTextVisibilityButton").textContent = t("save_text_visibility");
+  document.getElementById("showEpitaphLabel").textContent = t("show_epitaph_label");
+  document.getElementById("showEpitaphHint").textContent = t("show_epitaph_hint");
+  document.getElementById("showMemoryTextLabel").textContent = t("show_memory_text_label");
+  document.getElementById("showMemoryTextHint").textContent = t("show_memory_text_hint");
+  document.getElementById("showLifeStoryLabel").textContent = t("show_life_story_label");
+  document.getElementById("showLifeStoryHint").textContent = t("show_life_story_hint");
+  document.getElementById("showIdentityDetailsLabel").textContent = t("show_identity_details_label");
+  document.getElementById("showIdentityDetailsHint").textContent = t("show_identity_details_hint");
+  document.getElementById("identityDetailsPositionLabel").textContent = t("identity_details_position_label");
+
   document.getElementById("sceneMediaSectionTitle").textContent = t("scene_media_section_title");
   document.getElementById("sceneMediaIntro").textContent = t("scene_media_intro");
   document.getElementById("sceneMediaPlaceholderButton").textContent = t("scene_media_placeholder_button");
@@ -531,6 +575,12 @@ function renderStaticTexts() {
   visibilityMode.options[0].text = t("visibility_mode_draft");
   visibilityMode.options[1].text = t("visibility_mode_private");
   visibilityMode.options[2].text = t("visibility_mode_public");
+
+  const identityDetailsPosition = document.getElementById("identityDetailsPosition");
+  identityDetailsPosition.options[0].text = t("identity_details_position_hidden");
+  identityDetailsPosition.options[1].text = t("identity_details_position_below_name");
+  identityDetailsPosition.options[2].text = t("identity_details_position_above_epitaph");
+  identityDetailsPosition.options[3].text = t("identity_details_position_memory_section");
 
   updatePublicPageButton();
 }
@@ -616,6 +666,16 @@ function updateIdentityUi() {
   toggleIdentityGroups();
   syncCompatibilityFields();
 }
+
+function updateTextVisibilityUi() {
+  const showIdentityDetails = document.getElementById("showIdentityDetails").checked;
+  const positionField = document.getElementById("identityDetailsPositionField");
+  const positionSelect = document.getElementById("identityDetailsPosition");
+
+  positionSelect.disabled = !showIdentityDetails;
+  positionField.classList.toggle("is-disabled", !showIdentityDetails);
+}
+
 function renderHeroSummary() {
   if (!currentNode) {
     return;
@@ -682,6 +742,11 @@ function renderNode() {
   document.getElementById("shortEpitaph").value = currentNode.short_epitaph ?? "";
   document.getElementById("memoryText").value = currentNode.memory_text ?? "";
   document.getElementById("lifeStory").value = currentNode.life_story ?? "";
+  document.getElementById("showEpitaph").checked = currentNode.show_epitaph !== 0;
+  document.getElementById("showMemoryText").checked = currentNode.show_memory_text !== 0;
+  document.getElementById("showLifeStory").checked = currentNode.show_life_story !== 0;
+  document.getElementById("showIdentityDetails").checked = Boolean(currentNode.show_identity_details);
+  document.getElementById("identityDetailsPosition").value = getTrimmedString(currentNode.identity_details_position || "below_name") || "below_name";
   document.getElementById("heroImageUrl").value = currentNode.hero_image_url ?? "";
   document.getElementById("galleryJson").value = currentNode.gallery_json ?? "";
 
@@ -714,6 +779,7 @@ function renderNode() {
   document.getElementById("nameDetailsPanel").open = hasDetailValues;
 
   updateIdentityUi();
+  updateTextVisibilityUi();
 }
 
 function renderTimeline() {
@@ -967,6 +1033,27 @@ async function handleSaveStory() {
   }
 }
 
+async function handleSaveTextVisibility() {
+  clearActionStatus();
+
+  const showIdentityDetails = document.getElementById("showIdentityDetails").checked;
+  const identityDetailsPosition = showIdentityDetails
+    ? (document.getElementById("identityDetailsPosition").value || "below_name")
+    : "hidden";
+
+  try {
+    await postOwnerUpdate({
+      show_epitaph: document.getElementById("showEpitaph").checked ? 1 : 0,
+      show_memory_text: document.getElementById("showMemoryText").checked ? 1 : 0,
+      show_life_story: document.getElementById("showLifeStory").checked ? 1 : 0,
+      show_identity_details: showIdentityDetails ? 1 : 0,
+      identity_details_position: identityDetailsPosition
+    });
+  } catch (error) {
+    setActionStatus(error.message || t("update_failed"), "error");
+  }
+}
+
 async function handleChangePin() {
   clearPinStatus();
 
@@ -1038,6 +1125,10 @@ function bindIdentityEvents() {
   }
 }
 
+function bindTextVisibilityEvents() {
+  document.getElementById("showIdentityDetails").addEventListener("change", updateTextVisibilityUi);
+}
+
 function bindEvents() {
   document.getElementById("langFi").addEventListener("click", () => setLanguage("fi"));
   document.getElementById("langEn").addEventListener("click", () => setLanguage("en"));
@@ -1047,9 +1138,11 @@ function bindEvents() {
   document.getElementById("saveInscriptionButton").addEventListener("click", handleSaveInscription);
   document.getElementById("saveMemoryButton").addEventListener("click", handleSaveMemory);
   document.getElementById("saveStoryButton").addEventListener("click", handleSaveStory);
+  document.getElementById("saveTextVisibilityButton").addEventListener("click", handleSaveTextVisibility);
   document.getElementById("changePinButton").addEventListener("click", handleChangePin);
 
   bindIdentityEvents();
+  bindTextVisibilityEvents();
 }
 
 async function fetchOwnerAuthState() {
@@ -1174,6 +1267,8 @@ async function init() {
 }
 
 init();
+
+
 
 
 

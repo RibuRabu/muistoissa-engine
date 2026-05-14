@@ -240,6 +240,59 @@
                 </div>
               </section>
 
+              <section class="section-block">
+                <div class="section-head">
+                  <div class="section-head-copy">
+                    <h3 id="textVisibilitySectionTitle">Näkyvät tekstit</h3>
+                  </div>
+                  <button id="saveTextVisibilityButton" class="primary-button" type="button">Tallenna näkyvyys</button>
+                </div>
+
+                <div class="toggle-list">
+                  <label class="toggle-row" for="showEpitaph">
+                    <div class="toggle-copy">
+                      <div id="showEpitaphLabel" class="field-label">Näytä kaiverrus</div>
+                      <div id="showEpitaphHint" class="field-hint">Lyhyt kaiverrusmainen lause lähellä monoliittia.</div>
+                    </div>
+                    <input id="showEpitaph" type="checkbox" />
+                  </label>
+
+                  <label class="toggle-row" for="showMemoryText">
+                    <div class="toggle-copy">
+                      <div id="showMemoryTextLabel" class="field-label">Näytä muistoteksti</div>
+                      <div id="showMemoryTextHint" class="field-hint">Pidempi muisto tai kuvaus alempana muistosivulla.</div>
+                    </div>
+                    <input id="showMemoryText" type="checkbox" />
+                  </label>
+
+                  <label class="toggle-row" for="showLifeStory">
+                    <div class="toggle-copy">
+                      <div id="showLifeStoryLabel" class="field-label">Näytä elämäntarina</div>
+                      <div id="showLifeStoryHint" class="field-hint">Laajempi elämäntarina tai taustateksti.</div>
+                    </div>
+                    <input id="showLifeStory" type="checkbox" />
+                  </label>
+
+                  <label class="toggle-row" for="showIdentityDetails">
+                    <div class="toggle-copy">
+                      <div id="showIdentityDetailsLabel" class="field-label">Näytä nimen lisätiedot</div>
+                      <div id="showIdentityDetailsHint" class="field-hint">Esimerkiksi rekisterinimi, laji tai rotu.</div>
+                    </div>
+                    <input id="showIdentityDetails" type="checkbox" />
+                  </label>
+                </div>
+
+                <div id="identityDetailsPositionField" class="field">
+                  <label id="identityDetailsPositionLabel" class="field-label" for="identityDetailsPosition"></label>
+                  <select id="identityDetailsPosition">
+                    <option value="hidden"></option>
+                    <option value="below_name"></option>
+                    <option value="above_epitaph"></option>
+                    <option value="memory_section"></option>
+                  </select>
+                </div>
+              </section>
+
               <section class="section-block section-block--secondary">
                 <div class="section-head">
                   <div class="section-head-copy">
@@ -311,3 +364,5 @@
   <script src="/owner.js"></script>
 </body>
 </html>
+
+

@@ -507,6 +507,40 @@ textarea {
   gap: 0.35rem;
 }
 
+.toggle-list {
+  display: grid;
+  gap: 10px;
+}
+
+.toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px 15px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(27, 31, 38, 0.08);
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+}
+
+.toggle-copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.toggle-row input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+}
+
+.field.is-disabled {
+  opacity: 0.56;
+}
+
 .button-row {
   display: flex;
   flex-wrap: wrap;
@@ -654,6 +688,10 @@ button:disabled,
   .field-grid--identity-top,
   .field-grid--identity-fields {
     grid-template-columns: 1fr;
+  }
+
+  .toggle-row {
+    align-items: center;
   }
 
   .section-head {
