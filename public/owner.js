@@ -56,8 +56,8 @@ const i18n = {
 
     text_visibility_section_title: "Näkyvät tekstit",
     save_text_visibility: "Tallenna näkyvyys",
-    show_epitaph_label: "Näytä kaiverrus",
-    show_epitaph_hint: "Lyhyt kaiverrusmainen lause lähellä monoliittia.",
+    show_epitaph_label: "Näytä epitafi",
+    show_epitaph_hint: "Lyhyt muistolauselma lähellä monoliittia.",
     show_memory_text_label: "Näytä muistoteksti",
     show_memory_text_hint: "Pidempi muisto tai kuvaus alempana muistosivulla.",
     show_life_story_label: "Näytä elämäntarina",
@@ -67,7 +67,7 @@ const i18n = {
     identity_details_position_label: "Lisätietojen paikka",
     identity_details_position_hidden: "Ei näytetä",
     identity_details_position_below_name: "Nimen alla",
-    identity_details_position_above_epitaph: "Kaiverruksen yläpuolella",
+    identity_details_position_above_epitaph: "Epitafin yläpuolella",
     identity_details_position_memory_section: "Muistotekstin yhteydessä",
 
     scene_media_section_title: "Muistotilan kuva",
@@ -200,8 +200,8 @@ const i18n = {
 
     text_visibility_section_title: "Visible text layers",
     save_text_visibility: "Save visibility",
-    show_epitaph_label: "Show inscription",
-    show_epitaph_hint: "A short engraved phrase near the monolith.",
+    show_epitaph_label: "Show epitaph",
+    show_epitaph_hint: "A short memorial phrase near the monolith.",
     show_memory_text_label: "Show memory text",
     show_memory_text_hint: "A longer memory or description lower on the memorial page.",
     show_life_story_label: "Show life story",
@@ -355,6 +355,32 @@ function escapeHtml(value) {
 
 function getTrimmedString(value) {
   return typeof value === "string" ? value.trim() : "";
+}
+
+function isTruthyFlag(value, defaultValue = false) {
+  if (value === null || value === undefined || value === "") {
+    return defaultValue;
+  }
+
+  if (typeof value === "boolean") {
+    return value;
+  }
+
+  if (typeof value === "number") {
+    return value !== 0;
+  }
+
+  const normalized = getTrimmedString(String(value)).toLowerCase();
+
+  if (!normalized) {
+    return defaultValue;
+  }
+
+  if (normalized === "0" || normalized === "false" || normalized === "off" || normalized === "no") {
+    return false;
+  }
+
+  return true;
 }
 
 function formatVisibilityMode(value) {
@@ -742,10 +768,10 @@ function renderNode() {
   document.getElementById("shortEpitaph").value = currentNode.short_epitaph ?? "";
   document.getElementById("memoryText").value = currentNode.memory_text ?? "";
   document.getElementById("lifeStory").value = currentNode.life_story ?? "";
-  document.getElementById("showEpitaph").checked = currentNode.show_epitaph !== 0;
-  document.getElementById("showMemoryText").checked = currentNode.show_memory_text !== 0;
-  document.getElementById("showLifeStory").checked = currentNode.show_life_story !== 0;
-  document.getElementById("showIdentityDetails").checked = Boolean(currentNode.show_identity_details);
+  document.getElementById("showEpitaph").checked = isTruthyFlag(currentNode.show_epitaph, true);
+  document.getElementById("showMemoryText").checked = isTruthyFlag(currentNode.show_memory_text, true);
+  document.getElementById("showLifeStory").checked = isTruthyFlag(currentNode.show_life_story, true);
+  document.getElementById("showIdentityDetails").checked = isTruthyFlag(currentNode.show_identity_details, false);
   document.getElementById("identityDetailsPosition").value = getTrimmedString(currentNode.identity_details_position || "below_name") || "below_name";
   document.getElementById("heroImageUrl").value = currentNode.hero_image_url ?? "";
   document.getElementById("galleryJson").value = currentNode.gallery_json ?? "";
