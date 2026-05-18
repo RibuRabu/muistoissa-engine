@@ -345,12 +345,12 @@ button {
   padding-bottom: 17vh;
   z-index: 6;
   will-change: transform;
-  animation: monolith-presence 20s ease-in-out infinite;
+  animation: monolith-presence 18s ease-in-out infinite;
 }
 
 .monolith-frame {
   position: relative;
-  width: min(24.5rem, 104vw);
+  width: min(24rem, 98vw);
   min-height: min(39rem, 84vh);
   max-width: none;
   padding: 2.9rem 1.9rem 6rem;
@@ -365,12 +365,16 @@ button {
 .monolith-frame::before {
   content: "";
   position: absolute;
-  inset: -1% -4% -1% -4%;
+  left: 50%;
+  top: -1%;
+  bottom: -1%;
+  width: 110%;
+  transform: translateX(-50%);
   background-image:
     linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0)),
     url("/assets/monolith.png");
   background-position: center center, center center;
-  background-size: 100% 100%, auto 108%;
+  background-size: 100% 100%, auto 114%;
   background-repeat: no-repeat, no-repeat;
   filter: drop-shadow(0 32px 48px rgba(0, 0, 0, 0.42));
   opacity: 0.98;
@@ -415,7 +419,7 @@ button {
   display: grid;
   gap: 0.62rem;
   width: min(15.8rem, 68vw);
-  margin-bottom: 2.7rem;
+  margin-bottom: clamp(2.8rem, 6vh, 4.25rem);
   text-align: center;
 }
 
@@ -622,7 +626,7 @@ button {
   }
 
   50% {
-    transform: translateY(-1vh) scale(1.07);
+    transform: translateY(-1.35vh) scale(1.085);
   }
 }
 
@@ -666,7 +670,7 @@ button {
   }
 
   .scene-layer--monolith {
-    animation-duration: 19s;
+    animation-duration: 18s;
   }
 
   .monolith-frame {
@@ -676,12 +680,13 @@ button {
   }
 
   .monolith-frame::before {
-    background-size: 100% 100%, auto 106%;
+    width: 109%;
+    background-size: 100% 100%, auto 112%;
   }
 
   .monolith-inscription {
     width: min(15rem, 23vw);
-    margin-bottom: 1.7rem;
+    margin-bottom: clamp(2.3rem, 4.8vh, 3.4rem);
   }
 
   .scene-layer--quote {
@@ -741,7 +746,7 @@ button {
   }
 
   .scene-layer--monolith {
-    animation-duration: 22s;
+    animation-duration: 19s;
   }
 
   .monolith-frame {
@@ -751,12 +756,13 @@ button {
   }
 
   .monolith-frame::before {
-    background-size: 100% 100%, auto 116%;
+    width: 111%;
+    background-size: 100% 100%, auto 124%;
   }
 
   .monolith-inscription {
     width: 16.25rem;
-    margin-bottom: 4.8rem;
+    margin-bottom: clamp(3.6rem, 8vh, 5rem);
   }
 
   .monolith-name {
@@ -800,12 +806,10 @@ button {
   }
 
   .scene-layer--monolith {
-    justify-items: center;
     padding-top: 2.5rem;
     padding-bottom: 8.5rem;
     will-change: auto;
     animation: none;
-    transform: none;
   }
 
   .monolith-frame {
@@ -815,20 +819,14 @@ button {
   }
 
   .monolith-frame::before {
-    left: 50%;
-    right: auto;
-    top: -1%;
-    bottom: -1%;
-    width: 112%;
-    transform: translateX(-50%);
-    background-position: center center, center center;
-    background-size: 100% 100%, auto 108%;
+    width: 110%;
+    background-size: 100% 100%, auto 116%;
   }
 
   .monolith-inscription {
     margin-inline: auto;
     width: min(14.5rem, 62vw);
-    margin-bottom: 4rem;
+    margin-bottom: clamp(3rem, 5.8vh, 4.2rem);
   }
 
   .monolith-identity-details {
