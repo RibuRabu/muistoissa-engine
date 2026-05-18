@@ -310,32 +310,33 @@ button {
 .scene-layer--floor {
   top: auto;
   bottom: 0;
-  height: 46%;
+  height: 42%;
   z-index: 3;
 }
 
 .floor-plane {
   position: absolute;
-  inset: 34% 0 0;
+  inset: 42% 0 0;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.01) 24%, rgba(0, 0, 0, 0.06) 52%, rgba(0, 0, 0, 0.24) 100%),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.008), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.008));
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.006) 36%, rgba(0, 0, 0, 0.035) 68%, rgba(0, 0, 0, 0.18) 100%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.005), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.005));
   transform: perspective(900px) rotateX(78deg);
   transform-origin: top center;
+  opacity: 0.8;
 }
 
 .floor-reflection {
   position: absolute;
   left: 50%;
-  top: 10%;
+  top: 14%;
   width: 36%;
-  height: 66%;
+  height: 58%;
   transform: translateX(-50%);
   background:
-    linear-gradient(180deg, rgba(246, 241, 231, 0) 0%, rgba(246, 241, 231, 0.09) 28%, rgba(246, 241, 231, 0.02) 58%, rgba(246, 241, 231, 0) 100%),
+    linear-gradient(180deg, rgba(246, 241, 231, 0) 0%, rgba(246, 241, 231, 0.05) 34%, rgba(246, 241, 231, 0.018) 62%, rgba(246, 241, 231, 0) 100%),
     radial-gradient(circle at 50% 22%, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0));
   filter: blur(24px);
-  opacity: 0.18;
+  opacity: 0.12;
 }
 
 .scene-layer--monolith {
