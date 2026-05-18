@@ -185,7 +185,8 @@ button {
 .scene-chamber::after {
   background:
     radial-gradient(circle at 50% 12%, rgba(255, 255, 255, 0.08), transparent 16%),
-    radial-gradient(circle at 50% 72%, rgba(255, 255, 255, 0.03), transparent 40%);
+    radial-gradient(circle at 50% 70%, rgba(255, 255, 255, 0.02), transparent 48%),
+    linear-gradient(180deg, transparent 42%, rgba(255, 255, 255, 0.018) 60%, transparent 82%);
   opacity: 0.75;
   z-index: 1;
 }
@@ -310,16 +311,16 @@ button {
 .scene-layer--floor {
   top: auto;
   bottom: 0;
-  height: 42%;
+  height: 46%;
   z-index: 3;
 }
 
 .floor-plane {
   position: absolute;
-  inset: 42% 0 0;
+  inset: 34% 0 0;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.28)),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.012), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.012));
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.015) 18%, rgba(0, 0, 0, 0.12) 46%, rgba(0, 0, 0, 0.28) 100%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.008), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.008));
   transform: perspective(900px) rotateX(78deg);
   transform-origin: top center;
 }
@@ -327,15 +328,15 @@ button {
 .floor-reflection {
   position: absolute;
   left: 50%;
-  top: 14%;
+  top: 10%;
   width: 36%;
-  height: 58%;
+  height: 66%;
   transform: translateX(-50%);
   background:
-    linear-gradient(180deg, rgba(246, 241, 231, 0.1), rgba(246, 241, 231, 0)),
-    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0));
+    linear-gradient(180deg, rgba(246, 241, 231, 0) 0%, rgba(246, 241, 231, 0.09) 28%, rgba(246, 241, 231, 0.02) 58%, rgba(246, 241, 231, 0) 100%),
+    radial-gradient(circle at 50% 22%, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0));
   filter: blur(24px);
-  opacity: 0.22;
+  opacity: 0.18;
 }
 
 .scene-layer--monolith {
