@@ -185,8 +185,7 @@ button {
 .scene-chamber::after {
   background:
     radial-gradient(circle at 50% 12%, rgba(255, 255, 255, 0.08), transparent 16%),
-    radial-gradient(circle at 50% 70%, rgba(255, 255, 255, 0.02), transparent 48%),
-    linear-gradient(180deg, transparent 42%, rgba(255, 255, 255, 0.018) 60%, transparent 82%);
+    radial-gradient(circle at 50% 70%, rgba(255, 255, 255, 0.016), transparent 54%);
   opacity: 0.75;
   z-index: 1;
 }
@@ -319,7 +318,7 @@ button {
   position: absolute;
   inset: 34% 0 0;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.015) 18%, rgba(0, 0, 0, 0.12) 46%, rgba(0, 0, 0, 0.28) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.01) 24%, rgba(0, 0, 0, 0.06) 52%, rgba(0, 0, 0, 0.24) 100%),
     linear-gradient(90deg, rgba(255, 255, 255, 0.008), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.008));
   transform: perspective(900px) rotateX(78deg);
   transform-origin: top center;
